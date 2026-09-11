@@ -23,7 +23,14 @@ like something a person would pay for?"*
 | `pnpm db:studio` | Prisma Studio |
 | `pnpm db:seed` | Load `fixtures/demo-scan.json` into the DB for `/demo` |
 
-Package manager is **pnpm**, via corepack. Never `npm install` / `yarn`.
+Package manager is **pnpm**. Never `npm install` / `yarn`. Corepack could not write
+its shims on this machine (EPERM against `C:\Program Files\nodejs`), so pnpm is
+installed globally via npm at `C:\Users\Beka\AppData\Roaming\npm`.
+
+Secrets live in **`.env.local`**. Prisma 7 does not auto-load env files;
+`prisma.config.ts` loads it explicitly with Node 24's `process.loadEnvFile()`.
+`DATABASE_URL` is the **pooled** Neon URL (runtime), `DIRECT_URL` the **unpooled** one
+(migrations only).
 
 ---
 
@@ -75,6 +82,11 @@ OpenAI panel slot exists but is off unless `PANEL_OPENAI_MODEL` is set.
 - **Do not exceed the caps**: 25 pages crawled, 40 questions, concurrency 6.
 - **Do not reintroduce `DRIFTED = 0`.** It is `-0.5`, deliberately amending the original
   spec so that drift scores below the neutral line and absence sits on it. See PLAN §6.
+- **Do not show the Parity Score without its composition bar.** A bare mid-range
+  aggregate hides whether it came from drift or from fabrication. See PLAN §6.
+- **Do not upgrade the web search tool to `webSearch_20260209`.** It requires Claude
+  4.6+ and would 400 on Haiku 4.5. See PLAN §10.
+- **Do not add `--turbopack` to the production build.** It is beta in Next 15.5.
 
 ---
 

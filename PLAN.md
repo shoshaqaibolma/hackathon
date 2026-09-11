@@ -73,6 +73,7 @@ parity/
   components/
     drift-card.tsx                       *** the single most important object ***
     ledger-table.tsx  score-dial.tsx  score-diff.tsx
+    score-composition.tsx                stacked verdict bar — the score never ships alone
     scan-progress.tsx  patch-block.tsx  failure-banner.tsx
     ui/                                  shadcn primitives
   lib/
@@ -234,9 +235,17 @@ facts are being mangled everywhere scores exactly 50 — identical to a site the
 have never heard of. Those are the two failure modes the product exists to
 *distinguish*, and the headline number would have collapsed them. Drift now pushes
 below the neutral line; absence sits on it. The 50-line therefore reads:
-**above 50 = models get you right · exactly 50 = models don't know you ·
+**above 50 = models get you right · around 50 = models don't know you ·
 below 50 = models are confidently wrong about you.** That sentence goes on the
 dashboard next to the score.
+
+**The score never ships alone.** A weighted aggregate is opaque exactly where it
+matters most — mid-range. So `components/score-composition.tsx` renders a small
+stacked bar beside the dial showing verdict composition (CONFIRMED / DRIFTED /
+UNSUPPORTED / FABRICATED), segment-weighted the same way the score is. A 52 made of
+"mostly confirmed, two fabrications" and a 52 made of "nothing but drift" are
+different products of the same number, and the bar makes that visible without a
+click. It is a Phase 5 component but the shape is fixed here.
 
 Tests cover: all-confirmed → 100; all-fabricated → 0; all-drifted → 25 (visibly
 distinct from all-unsupported → 50, which is the point of the change); empty verdict
@@ -326,9 +335,39 @@ Settled at Phase 0:
 | Test runner | **Vitest** (devDependency only) — the one approved dependency addition |
 | Panel under test | **`claude-sonnet-5` + `claude-haiku-4-5`** — Anthropic only; OpenAI slot wired but env-gated off |
 | DRIFTED score | **−0.5**, amending the original spec (§6) |
+| Score display | Never ships alone — stacked verdict-composition bar beside it (§6) |
 | Concurrency limiter | Hand-rolled ~15 lines — no `p-limit` |
 | Sitemap parsing | Regex — no `fast-xml-parser` |
 | Score-diff chart | Inline SVG — no chart library |
+| Prisma connection | **`@prisma/adapter-pg` + `pg`** — forced by Prisma 7 (see below) |
+
+### Phase 1 stack realities
+
+Four things the installed versions do differently from what the spec assumed. All
+verified against the packages on disk, not from memory.
+
+1. **Prisma 7 removed `datasourceUrl` AND `datasource.directUrl`.** Connecting now
+   requires a driver adapter. Approved: `@prisma/adapter-pg` + `pg`. The pooled/direct
+   split survives, relocated: runtime uses pooled `DATABASE_URL` (`lib/db.ts`),
+   the CLI uses unpooled `DIRECT_URL` (`prisma.config.ts`).
+2. **Prisma 7 no longer auto-loads env files.** `prisma.config.ts` loads `.env.local`
+   through Node 24's built-in `process.loadEnvFile()` — so secrets stay in `.env.local`
+   exactly as specced, with no `dotenv` dependency.
+3. **`@ai-sdk/anthropic` v4 exposes `webSearch_20250305` and `webSearch_20260209` only.**
+   We use `_20250305`: `_20260209` runs search from inside code execution, which needs
+   Claude 4.6+, so Haiku 4.5 would 400. Using the basic variant also means every panel
+   member gets the *identical* tool, which is the right experimental design anyway.
+4. **`next build --turbopack` is beta in 15.5.** Dev uses Turbopack; the production
+   build uses webpack. Not worth a beta bundler on the deploy path three days out.
+
+### Amendment 2 — the Haiku web-search question, answered continuously
+
+Anthropic's docs are circular on per-model web-search support (the tool page defers to
+the tool reference, which defers back). Rather than answer it once by hand, `/health`
+probes **every panel member** with a real web search on every request and fails the
+check if a model accepts the tool but never invokes it — which would make its BROWSING
+condition silently identical to MEMORY. The answer therefore arrives the moment an API
+key exists, and keeps being re-answered if a model's behaviour changes.
 
 ### Still blocking Phase 1
 

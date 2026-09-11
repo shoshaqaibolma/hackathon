@@ -1,0 +1,312 @@
+// Parity — see PLAN.md §4 for the four deltas from the original spec:
+//   1. Run           — required for the Phase 4 before/after diff to exist at all
+//   2. Verdict.citedFactId nullable — FABRICATED/UNSUPPORTED cite nothing
+//   3. category fallback for uncited verdicts — resolved in lib/score.ts
+//   4. honest failure state — every failure is a row, never a silent drop
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma 7 moved connection URLs out of the schema and removed `directUrl`.
+// The CLI gets its URL from prisma.config.ts (unpooled DIRECT_URL, for
+// migrations); the runtime client gets the pooled DATABASE_URL in lib/db.ts.
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------- enums
+
+enum ScanStatus {
+  QUEUED
+  CRAWLING
+  EXTRACTING
+  QUESTIONING
+  INTERROGATING
+  ADJUDICATING
+  SCORING
+  REMEDIATING
+  COMPLETE
+  FAILED
+}
+
+enum PageStatus {
+  OK
+  HTTP_ERROR
+  BLOCKED_BY_ROBOTS
+  EXTRACT_EMPTY
+  TIMEOUT
+  FETCH_FAILED
+}
+
+enum FactCategory {
+  PRICING
+  ELIGIBILITY
+  LIMITS
+  COMPATIBILITY
+  API
+  GENERAL
+}
+
+enum Condition {
+  MEMORY
+  BROWSING
+}
+
+enum Ruling {
+  CONFIRMED
+  DRIFTED
+  FABRICATED
+  UNSUPPORTED
+}
+
+enum RemediationKind {
+  LLMS_TXT
+  JSON_LD
+  PAGE_COPY
+}
+
+// ---------------------------------------------------------------- core
+
+model Scan {
+  id          String     @id @default(cuid())
+  domain      String
+  status      ScanStatus @default(QUEUED)
+  parityScore Float?
+  /// Non-fatal problems surfaced in the UI. Never swallowed.
+  warnings    String[]   @default([])
+  /// Set only when status = FAILED.
+  error       String?
+  isDemo      Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  finishedAt  DateTime?
+
+  pages        Page[]
+  facts        Fact[]
+  questions    Question[]
+  runs         Run[]
+  remediations Remediation[]
+
+  @@index([createdAt])
+  @@index([isDemo])
+}
+
+model Page {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  url           String
+  title         String?
+  extractedText String?
+
+  status     PageStatus @default(OK)
+  httpStatus Int?
+  error      String?
+
+  /// Deterministic score from lib/crawl/prioritise.ts — persisted so the
+  /// crawl order is auditable after the fact.
+  priority Float @default(0)
+  /// Facts the model proposed whose evidence span could not be located
+  /// verbatim in extractedText. Surfaced on the ledger page.
+  factsDropped Int @default(0)
+
+  /// Null until the fact-extraction work unit has run for this page.
+  factsExtractedAt DateTime?
+  fetchedAt        DateTime?
+  createdAt        DateTime  @default(now())
+
+  facts Fact[]
+
+  @@unique([scanId, url])
+  @@index([scanId, status])
+}
+
+/// An atomic, checkable claim made by the site itself.
+/// INVARIANT: never written without an evidenceSpan located verbatim in
+/// the source page. Enforced in lib/pipeline/facts.ts, not by prompt.
+model Fact {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  pageId String
+  page   Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  statement String
+  category  FactCategory @default(GENERAL)
+
+  /// The literal quoted text from the page. Rendered verbatim in the
+  /// drift card's left pane — never paraphrased.
+  evidenceSpan String
+  sourceUrl    String
+
+  /// Always true for persisted rows; the column exists so a failed
+  /// verification is explicit rather than implied by absence.
+  evidenceVerified Boolean @default(true)
+  /// Character offset of evidenceSpan within Page.extractedText.
+  evidenceOffset   Int?
+
+  createdAt DateTime @default(now())
+
+  verdicts Verdict[]
+
+  @@index([scanId, category])
+  @@index([pageId])
+}
+
+model Question {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  text String
+  /// Fact ids this question was synthesised from. Drives both the
+  /// adjudicator's ledger slice and the severity-weight fallback (PLAN §4.3).
+  targetFactIds String[] @default([])
+  category      FactCategory @default(GENERAL)
+
+  createdAt DateTime @default(now())
+
+  answers Answer[]
+
+  @@index([scanId])
+}
+
+/// DELTA 1 — one execution of the full question set.
+/// index 0 = baseline, index 1+ = after remediations were applied.
+model Run {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  index       Int
+  label       String
+  parityScore Float?
+
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+
+  answers Answer[]
+
+  @@unique([scanId, index])
+}
+
+model Answer {
+  id String @id @default(cuid())
+
+  runId String
+  run   Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  model     String
+  condition Condition
+  rawText   String?
+  latencyMs Int?
+
+  /// Populated when the call failed. The UI renders this as a real state.
+  error String?
+  /// Web-search sources returned in the BROWSING condition.
+  sources Json?
+
+  /// Null until the claim-decomposition work unit has run.
+  claimsExtractedAt DateTime?
+  createdAt         DateTime  @default(now())
+
+  claims Claim[]
+
+  @@unique([runId, questionId, model, condition])
+  @@index([runId])
+}
+
+model Claim {
+  id String @id @default(cuid())
+
+  answerId String
+  answer   Answer @relation(fields: [answerId], references: [id], onDelete: Cascade)
+
+  text     String
+  position Int    @default(0)
+
+  createdAt DateTime @default(now())
+
+  verdict Verdict?
+
+  @@index([answerId])
+}
+
+model Verdict {
+  id String @id @default(cuid())
+
+  claimId String @unique
+  claim   Claim  @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  ruling     Ruling
+  confidence Float
+
+  /// DELTA 2 — nullable. FABRICATED and UNSUPPORTED cite nothing.
+  /// Required for CONFIRMED and DRIFTED; enforced in lib/pipeline/adjudicate.ts.
+  citedFactId String?
+  citedFact   Fact?   @relation(fields: [citedFactId], references: [id], onDelete: SetNull)
+
+  /// The span of the cited fact the adjudicator actually leaned on.
+  evidenceQuote String?
+  reasoning     String
+
+  /// True when post-hoc validation downgraded the ruling because the
+  /// adjudicator cited a fact it was never shown.
+  downgraded Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  remediations Remediation[]
+
+  @@index([ruling])
+}
+
+model Remediation {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  verdictId String
+  verdict   Verdict @relation(fields: [verdictId], references: [id], onDelete: Cascade)
+
+  kind      RemediationKind
+  content   String
+  targetUrl String?
+  rationale String?
+
+  createdAt DateTime @default(now())
+
+  @@index([scanId])
+}
+
+/// Every model call goes through this. Re-running a scan in development
+/// must cost $0. See PLAN §7 for the re-run bypass rule.
+model LlmCache {
+  id String @id @default(cuid())
+
+  /// sha256(namespace | model | schemaName | system | prompt | toolset)
+  key        String @unique
+  namespace  String @default("v1")
+  model      String
+  schemaName String
+
+  response String
+  /// Recorded so the dashboard can show what a scan actually cost.
+  inputTokens  Int?
+  outputTokens Int?
+
+  createdAt DateTime @default(now())
+
+  @@index([namespace])
+  @@index([createdAt])
+}
