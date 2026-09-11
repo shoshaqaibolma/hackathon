@@ -53,7 +53,7 @@ date. The formula is one pure function in [`lib/score.ts`](lib/score.ts) with un
 | 1 | `robots.txt` + sitemap discovery, deterministic URL prioritisation, fetch, Readability extraction | — |
 | 2 | Fact extraction with mandatory evidence spans | Claude Haiku 4.5 |
 | 3 | Question synthesis from the ledger | Claude Haiku 4.5 |
-| 4–5 | Panel answers the questions in both conditions | Panel |
+| 4–5 | Panel answers the questions in both conditions. BROWSING injects snippets we retrieved ourselves, so every source the model saw is stored and shown | Panel |
 | 6 | Claim decomposition | Claude Haiku 4.5 |
 | 7 | Evidence-forced adjudication against a retrieved ledger slice | Claude Opus 5 |
 | 8 | Remediation: `llms.txt` patch, JSON-LD block, or rewritten page copy | Claude Sonnet 5 |
@@ -68,6 +68,19 @@ Two invariants are enforced in code rather than asked for in a prompt:
   `UNSUPPORTED` and flagged.
 
 ---
+
+## Three ways to run it
+
+| Mode | What you need | What you get |
+|---|---|---|
+| **Demo** | nothing | `/demo` — real scans, recorded and frozen. Served from disk with no database, network, or quota. |
+| **Free** | nothing | A live scan on free-tier models. 5 pages, 8 questions, one model, both conditions. Remaining quota is shown honestly. |
+| **BYOK** | your API key | Full crawl, full panel, frontier models. The key is used for that one scan and never stored. |
+
+Your key is accepted over POST, held in memory for the request, never written to the
+database, never logged, never included in an error message, and never part of a cache
+key. If a scan is served partly from cache, every such call is marked `cached` in the
+cost breakdown so you can see what you did not pay for.
 
 ## Stack
 
@@ -107,14 +120,17 @@ Visit `/health` to confirm the database, the models, and web-search access are a
 Stated plainly, because a tool that audits other systems for accuracy should be honest
 about its own.
 
-- **A same-provider panel has correlated failure modes.** The default panel is Claude
-  Sonnet 5 and Claude Haiku 4.5 — two models from one family, sharing training data,
-  tokenizer, and post-training lineage. When they agree, that agreement is **weaker
-  evidence than it appears**: they can be wrong in the same direction for the same
-  reason, and a shared blind spot will read as consensus. Cross-provider disagreement
-  would be a far stronger signal. Setting `PANEL_OPENAI_MODEL` adds a third,
-  independent member. The MEMORY vs BROWSING axis does not have this problem and
-  carries most of the diagnostic weight.
+- **The public panel runs free-tier models; BYOK users get frontier models.** The
+  hosted FREE mode answers with Gemini Flash and Llama 3.3 70B on free tiers — two
+  providers and two model families, so their agreement is real evidence rather than a
+  shared lineage talking to itself. They are not, however, the models most of your
+  customers actually use. A frontier model has different knowledge and different
+  failure modes, so a FREE-mode score is a strong indicator, not a substitute for
+  auditing the assistant your buyers really ask. Bring your own key to run the same
+  question set against Claude or GPT.
+- **Free-tier rate limits shape the results.** Groq's ~6,000 TPM ceiling means
+  token-heavy work is routed to Gemini and Groq answers are kept short. Throttling is
+  surfaced in the scan UI as a real state rather than hidden behind a spinner.
 - **The adjudicator is a language model judging language models.** Verdicts are forced
   to cite a ledger entry and validated against it, which bounds the failure mode but
   does not eliminate it. Confidence scores are the model's own and are not calibrated.

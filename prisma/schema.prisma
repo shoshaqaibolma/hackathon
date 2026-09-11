@@ -66,6 +66,36 @@ enum RemediationKind {
   PAGE_COPY
 }
 
+/// DEMO — precomputed fixtures, no key, no network, no limits. The judge path.
+/// FREE — server-side free-tier keys, hard caps, per-IP rate limited.
+/// BYOK — the user's own key, full crawl and full panel. Key is never persisted.
+enum ScanMode {
+  DEMO
+  FREE
+  BYOK
+}
+
+enum Provider {
+  GOOGLE
+  GROQ
+  ANTHROPIC
+  OPENAI
+}
+
+/// Which pipeline step a model call belongs to. Drives the cost breakdown.
+enum PipelineStage {
+  TRIAGE
+  FACTS
+  QUESTIONS
+  ANSWER_MEMORY
+  ANSWER_BROWSING
+  CLAIMS
+  ADJUDICATE
+  REMEDIATE
+  SEARCH
+  VALIDATE_KEY
+}
+
 // ---------------------------------------------------------------- core
 
 model Scan {
@@ -77,18 +107,24 @@ model Scan {
   warnings    String[]   @default([])
   /// Set only when status = FAILED.
   error       String?
-  isDemo      Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  finishedAt  DateTime?
+
+  mode ScanMode @default(FREE)
+  /// Hashed client identifier for FREE-mode quota accounting. Never a raw IP.
+  clientHash String?
+
+  createdAt  DateTime  @default(now())
+  finishedAt DateTime?
 
   pages        Page[]
   facts        Fact[]
   questions    Question[]
   runs         Run[]
   remediations Remediation[]
+  llmCalls     LlmCall[]
 
   @@index([createdAt])
-  @@index([isDemo])
+  @@index([mode])
+  @@index([clientHash])
 }
 
 model Page {
@@ -212,8 +248,16 @@ model Answer {
 
   /// Populated when the call failed. The UI renders this as a real state.
   error String?
-  /// Web-search sources returned in the BROWSING condition.
-  sources Json?
+
+  /// BROWSING condition only. The exact snippets we retrieved and injected
+  /// into the prompt, as RetrievedSnippet[] (see lib/search/types.ts).
+  ///
+  /// We do our own retrieval rather than using provider-native grounding, so
+  /// this is fully inspectable: the UI shows precisely what the model was
+  /// shown. A black-box search tool cannot offer that.
+  retrieval Json?
+  /// The query we actually issued to the search provider.
+  searchQuery String?
 
   /// Null until the claim-decomposition work unit has run.
   claimsExtractedAt DateTime?
@@ -289,8 +333,60 @@ model Remediation {
   @@index([scanId])
 }
 
+/// One row per model call attempted, cached or not.
+///
+/// `cached` is the honesty column: a BYOK user must be able to see which
+/// calls were served from a previous scan's cache, so nobody believes they
+/// paid for work that was already done.
+model LlmCall {
+  id String @id @default(cuid())
+
+  scanId String
+  scan   Scan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  /// Null for scan-level stages that precede any run.
+  runId String?
+
+  stage    PipelineStage
+  provider Provider
+  model    String
+
+  /// True when served from LlmCache without hitting the provider.
+  cached Boolean @default(false)
+
+  inputTokens  Int?
+  outputTokens Int?
+  /// Null when the provider is free-tier and no price applies.
+  costUsd   Float?
+  latencyMs Int?
+
+  /// Set when the call failed. Scrubbed of any credential material.
+  error String?
+
+  createdAt DateTime @default(now())
+
+  @@index([scanId, stage])
+  @@index([scanId, cached])
+}
+
+/// Per-client quota accounting for FREE mode. Fixed-window counter.
+/// `key` is a salted hash of the client IP — never a raw address.
+model RateLimitBucket {
+  id String @id @default(cuid())
+
+  key         String
+  windowStart DateTime
+  count       Int      @default(0)
+
+  @@unique([key, windowStart])
+  @@index([windowStart])
+}
+
 /// Every model call goes through this. Re-running a scan in development
 /// must cost $0. See PLAN §7 for the re-run bypass rule.
+///
+/// SECURITY: the cache key is derived from model + prompt + schema ONLY.
+/// A BYOK user's API key must never contribute to it — see CLAUDE.md.
 model LlmCache {
   id String @id @default(cuid())
 

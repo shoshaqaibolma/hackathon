@@ -55,6 +55,39 @@ OpenAI panel slot exists but is off unless `PANEL_OPENAI_MODEL` is set.
 
 ---
 
+## Three modes
+
+| Mode | Keys | Caps | Path |
+|---|---|---|---|
+| **DEMO** | none | none | `/demo` — precomputed fixtures read from disk. No database, no network, no quota. **The judge path. It must never break.** |
+| **FREE** | server-side free-tier | 5 pages, 8 questions, 1 model, memory+browsing, per-IP limited | default for public visitors |
+| **BYOK** | user's own, per request | full crawl, full panel | frontier models |
+
+DEMO deliberately has **zero runtime dependencies**. `lib/demo/fixtures.ts` reads
+`fixtures/*.json` from the filesystem and validates with zod. It keeps working if Neon
+is down, a quota is exhausted, or `DATABASE_URL` was never set. Do not introduce a
+database call, a network call, or an env-var requirement into that path.
+
+Fixtures are **never hand-authored**. `pnpm demo:record <scanId> <slug> "<headline>"`
+freezes a real completed scan. A fixture with zero verdicts is rejected by the recorder.
+
+## BYOK key handling — non-negotiable
+
+A user's API key is radioactive. Every one of these has a test in
+`lib/llm/byok.test.ts`; if you touch key handling, the tests come with it.
+
+- **Accepted over POST only.** Never a query string, never a URL, never a cookie.
+- **Held in memory for the duration of the request.** Never written to the database.
+  There is no column for it and there must never be one.
+- **Never logged.** Not at any level, not in development.
+- **Never in an error message, a stack trace, or an SSE error event.** All outbound
+  error text goes through the scrubber in `lib/llm/scrub.ts`.
+- **Never part of the `LlmCache` key.** The key is `model + prompt + schema` only.
+  Including a credential would both leak it and fragment the cache per user.
+- **Validated with one cheap call before the scan starts**, so a bad key fails
+  immediately and clearly rather than midway through a crawl.
+- **The UI says so plainly:** "Your key is used for this scan and never stored."
+
 ## Do not
 
 - **Do not use Playwright or any headless browser.** Too slow, will not run on Vercel.
@@ -87,6 +120,17 @@ OpenAI panel slot exists but is off unless `PANEL_OPENAI_MODEL` is set.
 - **Do not upgrade the web search tool to `webSearch_20260209`.** It requires Claude
   4.6+ and would 400 on Haiku 4.5. See PLAN §10.
 - **Do not add `--turbopack` to the production build.** It is beta in Next 15.5.
+- **Do not persist, log, or cache-key a BYOK API key.** See the section above.
+- **Do not put a database or network call on the `/demo` path.**
+- **Do not hand-author a fixture.** Record one.
+- **Do not use provider-native search grounding for the BROWSING condition.**
+  Retrieval is ours (`lib/search/`), so every snippet the model saw is stored on
+  `Answer.retrieval` and shown in the UI. Free-tier grounding quotas are unreliable,
+  and an inspectable browsing condition is the better technical story regardless.
+- **Do not show a free-tier scan's cost as `$0.00`.** It is `null` — "free tier" —
+  because $0.00 implies it was metered.
+- **Do not route token-heavy work to Groq.** ~6,000 TPM will throttle a scan.
+  Adjudication goes to Gemini; Groq takes short panel answers only.
 
 ---
 
