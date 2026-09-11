@@ -35,9 +35,16 @@ Prisma (Neon) · Vercel AI SDK (`ai`, `@ai-sdk/anthropic`, `@ai-sdk/openai`) wit
 `jsdom` for crawling · SSE route handlers read client-side with a `ReadableStream`
 reader · deployed on Vercel.
 
+Plus **Vitest** (devDependency, approved at Phase 0) as the test runner.
+
 **Ask before adding any dependency not on that list.** shadcn/ui's own transitive
 packages (radix, `clsx`, `tailwind-merge`, `class-variance-authority`, `lucide-react`)
 are part of shadcn and do not need a separate ask.
+
+**Model roles** (`lib/llm/models.ts`): `FAST` = `claude-haiku-4-5`,
+`WRITER` = `claude-sonnet-5`, `JUDGE` = `claude-opus-5`.
+**Panel under test** = `claude-sonnet-5` + `claude-haiku-4-5` (Anthropic only). A third
+OpenAI panel slot exists but is off unless `PANEL_OPENAI_MODEL` is set.
 
 ---
 
@@ -66,6 +73,8 @@ are part of shadcn and do not need a separate ask.
   adjudication only. Everything else is `claude-haiku-4-5`, except remediation copy
   (`claude-sonnet-5`).
 - **Do not exceed the caps**: 25 pages crawled, 40 questions, concurrency 6.
+- **Do not reintroduce `DRIFTED = 0`.** It is `-0.5`, deliberately amending the original
+  spec so that drift scores below the neutral line and absence sits on it. See PLAN §6.
 
 ---
 

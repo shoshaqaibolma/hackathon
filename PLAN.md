@@ -164,9 +164,16 @@ Registry (`lib/llm/models.ts`) — IDs verified against the current model table,
 | `FAST` — extraction, questions, claim decomposition | `claude-haiku-4-5` | 1.00 | 5.00 |
 | `WRITER` — remediation copy | `claude-sonnet-5` | 2.00 | 10.00 |
 | `JUDGE` — adjudication only | `claude-opus-5` | 5.00 | 25.00 |
-| Panel A (under test) | `claude-sonnet-5` | — | — |
-| Panel B (under test) | OpenAI flagship — exact ID confirmed at Phase 3 | — | — |
-| Panel C (optional, env-gated) | `claude-haiku-4-5` | — | — |
+| Panel A (under test) | `claude-sonnet-5` | 2.00 | 10.00 |
+| Panel B (under test) | `claude-haiku-4-5` | 1.00 | 5.00 |
+| Panel C (optional, env-gated) | OpenAI flagship, off by default — `PANEL_OPENAI_MODEL` | — | — |
+
+**Panel is Anthropic-only (decided).** One API key, one provider to debug, and the
+panel models are deliberately different tiers — a strong model and a fast one — which
+still gives the dashboard a real spread to show. `@ai-sdk/openai` stays installed and
+`lib/llm/models.ts` keeps a third panel slot wired but disabled; setting
+`PANEL_OPENAI_MODEL` + `OPENAI_API_KEY` turns it on without a code change, if there is
+time before the deadline.
 
 | # | Step | Model | AI SDK call | Calls / scan | Schema |
 |---|---|---|---|---|---|
@@ -218,21 +225,23 @@ prevents "I found a different fact that vaguely supports this".
 
 ```
 weight:  PRICING 3, ELIGIBILITY 3, LIMITS 2, COMPATIBILITY 2, API 2, GENERAL 1
-score:   CONFIRMED +1, DRIFTED 0*, UNSUPPORTED 0, FABRICATED -1
+score:   CONFIRMED +1, DRIFTED -0.5, UNSUPPORTED 0, FABRICATED -1
 Parity = clamp(0, 100, 50 + 50 * Σ(weight × score) / Σ(weight))
 ```
 
-Tests cover: all-confirmed → 100; all-fabricated → 0; empty verdict set → `null`
-(not 50 — "no data" is not "neutral", and the UI must say so); weight resolution
-through all three fallback tiers; clamping; a hand-computed mixed fixture.
+**DRIFTED = −0.5 (decided, amends the original spec).** At the spec's 0 a site whose
+facts are being mangled everywhere scores exactly 50 — identical to a site the models
+have never heard of. Those are the two failure modes the product exists to
+*distinguish*, and the headline number would have collapsed them. Drift now pushes
+below the neutral line; absence sits on it. The 50-line therefore reads:
+**above 50 = models get you right · exactly 50 = models don't know you ·
+below 50 = models are confidently wrong about you.** That sentence goes on the
+dashboard next to the score.
 
-**\* One recommendation, flagged rather than silently applied.** DRIFTED scoring 0 means
-a site whose facts are being mangled everywhere returns a Parity Score of exactly 50 —
-the same as a site the models have never heard of. Those are the two failure modes the
-product exists to *distinguish*, and the headline number would collapse them. I
-recommend **DRIFTED = −0.5**: drift pushes below the neutral line, absence sits on it.
-Shipping the spec value (0) as the default; it is one constant in `score.ts`, so say
-the word either way.
+Tests cover: all-confirmed → 100; all-fabricated → 0; all-drifted → 25 (visibly
+distinct from all-unsupported → 50, which is the point of the change); empty verdict
+set → `null`, not 50 — "no data" is not "neutral", and the UI must say so; weight
+resolution through all three fallback tiers; clamping; a hand-computed mixed fixture.
 
 ---
 
@@ -255,13 +264,13 @@ forward with one env bump when the web changes.
 |---|---|---|
 | Fact extraction (Haiku) | 25 | $0.34 |
 | Questions (Haiku) | 3 | $0.02 |
-| Panel answers incl. web-search tool fees | 96 | ~$1.50 |
+| Panel answers incl. web-search tool fees | 96 | ~$1.20 |
 | Claim decomposition (Haiku) | 96 | $0.32 |
 | Adjudication (Opus 5) | 96 | ~$7.20 |
 | Remediation (Sonnet 5) | 12 | $0.25 |
-| **Total** | **~328** | **~$9.60** |
+| **Total** | **~328** | **~$9.30** |
 
-Warm re-run (cache hit on everything but the panel): **~$1.50**.
+Warm re-run (cache hit on everything but the panel): **~$1.20**.
 `ADJUDICATOR_MODEL=claude-sonnet-5` drops a cold scan to **~$3.30** if the bill bites.
 
 **Latency.** Concurrency 6 across the panel fan-out; browsing calls dominate at
@@ -308,19 +317,29 @@ scan with warnings still scores, and the score panel states its denominator.
 
 ---
 
-## 10. Open questions for you
+## 10. Decisions log
 
-1. **Test runner.** `score.ts` needs unit tests and nothing on the approved stack can
-   run them. Requesting **Vitest** (devDependency only). Alternative: Node's built-in
-   `node:test` + `tsx` — zero framework, slightly clunkier. Your call.
-2. **Panel composition.** Default is Claude Sonnet 5 + one OpenAI flagship (cross-provider
-   is a better story and a better signal). Confirm you want OpenAI in, and that an
-   `OPENAI_API_KEY` will exist — otherwise the panel degrades to two Anthropic models.
-3. **DRIFTED weight** — spec's 0, or my recommended −0.5? (§6)
-4. **Neon.** I need a `DATABASE_URL` (pooled) and `DIRECT_URL` (unpooled, for migrations)
-   before Phase 1 can finish. Plus `ANTHROPIC_API_KEY`, and a Vercel account/project.
+Settled at Phase 0:
 
-Small things I am deciding myself unless you object: concurrency limiter hand-rolled
-rather than adding `p-limit`; sitemap parsed with a regex rather than adding
-`fast-xml-parser`; score-diff chart drawn as inline SVG rather than adding a chart
-library. All three avoid a dependency request for ~40 lines of code.
+| Question | Decision |
+|---|---|
+| Test runner | **Vitest** (devDependency only) — the one approved dependency addition |
+| Panel under test | **`claude-sonnet-5` + `claude-haiku-4-5`** — Anthropic only; OpenAI slot wired but env-gated off |
+| DRIFTED score | **−0.5**, amending the original spec (§6) |
+| Concurrency limiter | Hand-rolled ~15 lines — no `p-limit` |
+| Sitemap parsing | Regex — no `fast-xml-parser` |
+| Score-diff chart | Inline SVG — no chart library |
+
+### Still blocking Phase 1
+
+Environment credentials, which I cannot create:
+
+- `DATABASE_URL` — Neon **pooled** connection string (`...-pooler...`)
+- `DIRECT_URL` — Neon **unpooled** string, used by `prisma migrate` only
+- `ANTHROPIC_API_KEY`
+- A Vercel account with the CLI authenticated (`pnpm dlx vercel login`), or a linked
+  GitHub repo for Vercel to deploy from
+
+Put them in `.env.local` (which I will gitignore and mirror into `.env.example` with
+empty values). Everything else in Phase 1 can be scaffolded without them; only the
+migration, the `/health` live checks, and the deploy need them.
