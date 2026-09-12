@@ -1,84 +1,75 @@
 /**
  * Every tunable in Parity lives here. No magic numbers in the pipeline.
  * See PLAN.md §5 (model roles), §6 (scoring), §7 (caps and budgets).
+ *
+ * Model selection moved to lib/llm/models.ts when the panel became
+ * mode-aware; search configuration lives in lib/search/.
  */
 
-import type { FactCategory, Ruling } from "@prisma/client";
+import type { FactCategory, Ruling, ScanMode } from "@prisma/client";
 
-// ---------------------------------------------------------------- models
+// ---------------------------------------------------------------- modes
 
-/**
- * Model roles. Cost discipline: the strong model is used for adjudication
- * and nothing else.
- */
-export const MODELS = {
-  /** Extraction, question synthesis, claim decomposition. */
-  FAST: "claude-haiku-4-5",
-  /** Remediation copy — user-facing text, so a step up from FAST. */
-  WRITER: "claude-sonnet-5",
-  /** Adjudication only. Override with ADJUDICATOR_MODEL to cut cost. */
-  JUDGE: process.env.ADJUDICATOR_MODEL ?? "claude-opus-5",
-} as const;
-
-export type PanelMember = {
-  id: string;
-  label: string;
-  provider: "anthropic" | "openai";
+export type ModeCaps = {
+  maxPages: number;
+  maxQuestions: number;
+  maxPanelModels: number;
+  /** Remediations generated, severity-ranked. */
+  maxRemediations: number;
+  /** Whether the BROWSING condition runs at all. */
+  browsing: boolean;
 };
 
 /**
- * The models under test. Anthropic-only by default (decided at Phase 0).
- *
- * NOTE: a same-provider panel has correlated failure modes — see the
- * limitations section of README.md. The MEMORY vs BROWSING axis is
- * unaffected and carries the core signal.
- *
- * Setting PANEL_OPENAI_MODEL (plus OPENAI_API_KEY) adds a third,
- * cross-provider member without a code change.
+ * FREE is capped hard because it runs on the operator's free-tier keys and
+ * is open to the public. BYOK is uncapped in spirit — the user is spending
+ * their own quota — but still bounded by the crawl ceiling.
  */
-export function getPanel(): PanelMember[] {
-  const panel: PanelMember[] = [
-    { id: "claude-sonnet-5", label: "Claude Sonnet 5", provider: "anthropic" },
-    { id: "claude-haiku-4-5", label: "Claude Haiku 4.5", provider: "anthropic" },
-  ];
+export const MODE_CAPS: Record<ScanMode, ModeCaps> = {
+  DEMO: {
+    maxPages: 25,
+    maxQuestions: 40,
+    maxPanelModels: 2,
+    maxRemediations: 12,
+    browsing: true,
+  },
+  FREE: {
+    maxPages: 5,
+    maxQuestions: 8,
+    maxPanelModels: 1,
+    maxRemediations: 3,
+    browsing: true,
+  },
+  BYOK: {
+    maxPages: 25,
+    maxQuestions: 40,
+    maxPanelModels: 2,
+    maxRemediations: 12,
+    browsing: true,
+  },
+};
 
-  const openai = process.env.PANEL_OPENAI_MODEL;
-  if (openai && process.env.OPENAI_API_KEY) {
-    panel.push({ id: openai, label: openai, provider: "openai" });
-  }
-
-  return panel;
-}
-
-/**
- * Web search tool version.
- *
- * `web_search_20260209` adds dynamic filtering but requires Claude 4.6+,
- * because it runs the search from inside code execution. Haiku 4.5 predates
- * that and would 400. `web_search_20250305` defaults to direct calling and
- * works across the whole panel — and giving every panel member the identical
- * tool is the correct experimental design regardless.
- */
-export const WEB_SEARCH_TOOL_VERSION = "web_search_20250305" as const;
-export const WEB_SEARCH_MAX_USES = 5;
+/** Public quota: scans per client per rolling window, for FREE mode only. */
+export const FREE_QUOTA = {
+  scansPerWindow: 3,
+  windowMs: 60 * 60 * 1000,
+} as const;
 
 // ---------------------------------------------------------------- caps
 
 export const CAPS = {
-  /** Hard ceiling on pages fetched per scan. */
+  /** Hard ceiling on pages fetched, regardless of mode. */
   MAX_PAGES: 25,
-  /** Hard ceiling on questions per scan. */
+  /** Hard ceiling on questions, regardless of mode. */
   MAX_QUESTIONS: 40,
-  /** Default question count — tuned for cost, raise toward MAX for a real audit. */
-  DEFAULT_QUESTIONS: 24,
   /** Concurrent model calls during panel fan-out. */
-  CONCURRENCY: 6,
+  CONCURRENCY: 4,
   /** Facts handed to the adjudicator for a single answer. */
   LEDGER_SLICE: 25,
-  /** Remediations generated per scan, severity-ranked. */
-  MAX_REMEDIATIONS: 12,
   /** Per-page fetch timeout. */
   FETCH_TIMEOUT_MS: 15_000,
+  /** Search results retrieved per browsing question. */
+  SEARCH_RESULTS: 4,
 } as const;
 
 /**

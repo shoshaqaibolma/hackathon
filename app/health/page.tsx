@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { HEALTH_CONFIG_SUMMARY, runHealthChecks, type CheckStatus } from "@/lib/health";
+import { healthConfigSummary, runHealthChecks, type CheckStatus } from "@/lib/health";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -24,7 +24,7 @@ const STATUS_LABEL: Record<CheckStatus, string> = {
 
 export default async function HealthPage() {
   const report = await runHealthChecks();
-  const config = HEALTH_CONFIG_SUMMARY;
+  const config = healthConfigSummary();
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-3xl px-6 py-16">
@@ -89,14 +89,17 @@ export default async function HealthPage() {
           Active configuration
         </h2>
         <dl className="border-border grid grid-cols-1 gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2">
-          <ConfigRow label="Extraction model" value={config.fastModel} />
-          <ConfigRow label="Adjudication model" value={config.judgeModel} />
-          <ConfigRow label="Remediation model" value={config.writerModel} />
-          <ConfigRow label="Panel under test" value={config.panel.join(", ")} />
-          <ConfigRow label="Page cap" value={String(config.maxPages)} />
+          <ConfigRow label="Public panel" value={config.panel.join(", ")} />
+          <ConfigRow label="Adjudicator" value={config.adjudicator} />
+          <ConfigRow label="Free mode" value={config.freeCaps} />
+          <ConfigRow label="BYOK mode" value={config.byokCaps} />
           <ConfigRow
-            label="Questions per scan"
-            value={String(config.defaultQuestions)}
+            label="BYOK providers"
+            value={config.byokProviders.join(", ")}
+          />
+          <ConfigRow
+            label="Concurrency · search results"
+            value={`${config.concurrency} · ${config.searchResults}`}
           />
         </dl>
       </section>
