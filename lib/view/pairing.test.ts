@@ -182,3 +182,47 @@ describe("heroCards", () => {
     expect(heroCards(pairByCondition(cards), 2)).toHaveLength(2);
   });
 });
+
+describe("heroCards — variety over rank", () => {
+  function pairOf(question: string, memory: DriftCard["ruling"], browsing: DriftCard["ruling"], weight = 1) {
+    return [
+      card({ question, condition: "MEMORY", ruling: memory, weight }),
+      card({ question, condition: "BROWSING", ruling: browsing, weight }),
+    ];
+  }
+
+  it("prefers one card per diagnosis over three of the best-ranked", () => {
+    // The real heroku.com recording returned three STALE_TRAINING heroes,
+    // two of them the same question. That teaches the reader one of the four
+    // things the comparison can show.
+    const pairs = pairByCondition([
+      ...pairOf("A", "DRIFTED", "CONFIRMED", 3),
+      ...pairOf("B", "DRIFTED", "CONFIRMED", 3),
+      ...pairOf("C", "DRIFTED", "DRIFTED", 1),
+    ]);
+
+    const heroes = heroCards(pairs, 2);
+    expect(new Set(heroes.map((h) => h.diagnosis)).size).toBe(2);
+  });
+
+  it("never shows the same question twice", () => {
+    const pairs = pairByCondition([
+      ...pairOf("same", "DRIFTED", "CONFIRMED", 3),
+      // Same question, different model — distinct pairs, identical reading.
+      card({ question: "same", model: "other", condition: "MEMORY", ruling: "DRIFTED", weight: 3 }),
+      card({ question: "same", model: "other", condition: "BROWSING", ruling: "CONFIRMED", weight: 3 }),
+      ...pairOf("different", "CONFIRMED", "DRIFTED", 1),
+    ]);
+
+    const heroes = heroCards(pairs, 3);
+    expect(new Set(heroes.map((h) => h.question)).size).toBe(heroes.length);
+  });
+
+  it("still fills remaining slots when diagnoses run out", () => {
+    const pairs = pairByCondition([
+      ...pairOf("A", "DRIFTED", "CONFIRMED"),
+      ...pairOf("B", "DRIFTED", "CONFIRMED"),
+    ]);
+    expect(heroCards(pairs, 2)).toHaveLength(2);
+  });
+});

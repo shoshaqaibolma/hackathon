@@ -188,11 +188,54 @@ async function main() {
           continue;
         }
 
-        // A wholly hedging answer is the invisible regime, not drift.
+        // A wholly hedging answer is the invisible regime, not drift. It is
+        // recorded as UNSUPPORTED directly and never adjudicated: handing a
+        // refusal to the judge produced "I am not aware of any discounts"
+        // ruled DRIFTED, which turns "the model does not know you" into "the
+        // model is wrong about you" — the exact conflation this product
+        // exists to prevent.
         let claimTexts: string[] = [];
-        if (isRefusal(answer.text)) {
-          claimTexts = [answer.text.trim().slice(0, 200)];
-        } else {
+        const refused = isRefusal(answer.text);
+        if (refused) {
+          integrityAnswers.push({
+            questionId: `q${qi}`,
+            model: model.modelId,
+            condition,
+            claimCount: 1,
+            retrievalCount: answer.retrieval.length,
+            error: null,
+            rawText: answer.text,
+          });
+          cards.push({
+            id: `v${cards.length}`,
+            question,
+            questionCategory: "GENERAL",
+            model: model.modelId,
+            modelLabel: model.label,
+            provider: model.provider,
+            condition,
+            latencyMs: answer.latencyMs,
+            claimText: answer.text.trim().slice(0, 240),
+            answerExcerpt: answer.text.slice(0, 400),
+            ruling: "UNSUPPORTED",
+            confidence: 1,
+            reasoning:
+              "The model declined to answer. It does not know this company well enough to make a checkable claim — which is a visibility finding, not an accuracy one.",
+            downgraded: false,
+            groundTruth: null,
+            evidenceQuote: null,
+            searchQuery: answer.searchQuery,
+            retrieval: answer.retrieval,
+            remediation: null,
+            weight: 1,
+            askedAt: new Date().toISOString(),
+            sourceCapturedAt: null,
+          });
+          log(`   [${done}/${total}] ${condition.padEnd(8)} ${model.label.padEnd(20)} refusal -> UNSUPPORTED`);
+          continue;
+        }
+
+        {
           const decomposed = await callObject(
             GEMINI_FLASH,
             ClaimBatchSchema,
@@ -271,9 +314,19 @@ async function main() {
   }
 
   // --- remediation ------------------------------------------------------
+  // One patch per cited fact. The first recording produced four near-identical
+  // llms.txt blocks for one question because four findings cited the same
+  // fact; a wall of duplicate patches reads as padding rather than as a fix.
+  const seenFact = new Set<string>();
   const fixable = cards
     .filter((c) => (c.ruling === "DRIFTED" || c.ruling === "FABRICATED") && c.groundTruth)
     .sort((a, b) => b.weight - a.weight)
+    .filter((c) => {
+      const key = c.groundTruth!.id;
+      if (seenFact.has(key)) return false;
+      seenFact.add(key);
+      return true;
+    })
     .slice(0, CAPS_USED.maxRemediations);
 
   log(`generating ${fixable.length} remediation patches`);

@@ -41,11 +41,22 @@ export default async function DemoScanPage({
   // The two-condition pairs lead; everything they already cover is not
   // repeated below as a standard card.
   const pairs = pairByCondition(latestRun?.driftCards ?? []);
-  const heroes = heroCards(pairs);
+  // Three, so all three contrasting diagnoses can appear.
+  const heroes = heroCards(pairs, 3);
   const heroIds = new Set(
     heroes.flatMap((h) => [h.memory?.id, h.browsing?.id].filter(Boolean)),
   );
   const rest = (latestRun?.driftCards ?? []).filter((c) => !heroIds.has(c.id));
+
+  // A real scan produces well over a hundred findings. Rendering all of them
+  // makes a 1.3 MB page nobody scrolls and buries the severe ones among the
+  // unsupported. Show the ones that matter and state honestly how many are
+  // not shown — never silently truncate.
+  const SHOWN = 12;
+  const actionable = rest.filter((c) => c.ruling !== "UNSUPPORTED");
+  const visible = actionable.slice(0, SHOWN);
+  const hiddenActionable = Math.max(0, actionable.length - visible.length);
+  const unsupportedCount = rest.length - actionable.length;
   const improved =
     fixture.runs.length > 1 &&
     baselineRun?.parityScore != null &&
@@ -163,14 +174,30 @@ export default async function DemoScanPage({
       )}
 
       <section className="mb-10">
-        <h2 className="mb-4 text-lg font-medium">
+        <h2 className="text-lg font-medium">
           Findings
           <span className="text-muted-foreground ml-2 text-sm font-normal">
-            {rest.length} verdicts, most severe first
+            {visible.length} of {actionable.length} errors, most severe first
           </span>
         </h2>
+        <p className="text-muted-foreground mt-1 mb-5 text-sm text-pretty">
+          {unsupportedCount > 0 && (
+            <>
+              A further {unsupportedCount} claim
+              {unsupportedCount === 1 ? " was" : "s were"} unsupported — the models
+              said things this site never addresses, which is a visibility finding
+              rather than an error.{" "}
+            </>
+          )}
+          {hiddenActionable > 0 && (
+            <>
+              {hiddenActionable} further error
+              {hiddenActionable === 1 ? " is" : "s are"} not shown here.
+            </>
+          )}
+        </p>
         <div className="space-y-4">
-          {rest.map((card) => (
+          {visible.map((card) => (
             <DriftCard key={card.id} card={card} />
           ))}
         </div>
