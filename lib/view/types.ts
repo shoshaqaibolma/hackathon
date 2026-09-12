@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { IntegrityViolationSchema } from "@/lib/pipeline/integrity";
 import { RetrievedSnippetSchema } from "@/lib/search/types";
 
 /**
@@ -196,6 +197,13 @@ export const ScanViewSchema = z.object({
 
   warnings: z.array(z.string()).default([]),
   error: z.string().nullable().default(null),
+
+  /**
+   * Non-empty means the scan is structurally incomplete. When this has
+   * entries, `parityScore` is forced to null by the builders — a score
+   * computed from incomplete data must never reach a renderer.
+   */
+  integrity: z.array(IntegrityViolationSchema).default([]),
 
   createdAt: z.string(),
   finishedAt: z.string().nullable().default(null),

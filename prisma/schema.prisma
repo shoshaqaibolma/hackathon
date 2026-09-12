@@ -27,6 +27,10 @@ enum ScanStatus {
   SCORING
   REMEDIATING
   COMPLETE
+  /// Structurally incomplete: the pipeline ran without crashing but produced
+  /// a result that must not be presented as a normal scan. See
+  /// lib/pipeline/integrity.ts. Distinct from FAILED, which is a crash.
+  INCOMPLETE
   FAILED
 }
 
@@ -107,6 +111,11 @@ model Scan {
   warnings    String[]   @default([])
   /// Set only when status = FAILED.
   error       String?
+
+  /// IntegrityViolation[] from lib/pipeline/integrity.ts. Non-empty means
+  /// the scan is INCOMPLETE and its score must never be rendered as a
+  /// normal result.
+  integrity Json?
 
   mode ScanMode @default(FREE)
   /// Hashed client identifier for FREE-mode quota accounting. Never a raw IP.

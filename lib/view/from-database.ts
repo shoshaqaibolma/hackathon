@@ -2,6 +2,11 @@ import type { Ruling } from "@prisma/client";
 
 import { RULING_SCORE } from "@/lib/config";
 import { prisma } from "@/lib/db";
+import {
+  IntegrityViolationSchema,
+  summariseIntegrity,
+  type IntegrityViolation,
+} from "@/lib/pipeline/integrity";
 import { composition, interpret, parityScore, weightFor } from "@/lib/score";
 import { RetrievedSnippetSchema } from "@/lib/search/types";
 import type {
@@ -151,7 +156,14 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
   });
 
   const latest = runs.at(-1);
-  const score = scan.parityScore ?? latest?.parityScore ?? null;
+
+  const integrity = parseIntegrity(scan.integrity);
+  const intact = integrity.length === 0;
+
+  // A score built from structurally incomplete data must never reach a
+  // renderer. Forcing null here means no component can accidentally show
+  // one — the guarantee lives in the builder, not in each consumer.
+  const score = intact ? (scan.parityScore ?? latest?.parityScore ?? null) : null;
 
   return {
     id: scan.id,
@@ -159,7 +171,8 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
     mode: scan.mode,
     status: scan.status,
     parityScore: score,
-    interpretation: interpret(score),
+    interpretation: intact ? interpret(score) : summariseIntegrity(integrity),
+    integrity,
     composition: latest?.composition ?? composition([]),
     warnings: scan.warnings,
     error: scan.error,
@@ -200,6 +213,12 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
     })),
     cost: buildCost(scan.llmCalls),
   };
+}
+
+function parseIntegrity(value: unknown): IntegrityViolation[] {
+  if (!Array.isArray(value)) return [];
+  const parsed = IntegrityViolationSchema.array().safeParse(value);
+  return parsed.success ? parsed.data : [];
 }
 
 function providerForModel(model: string): DriftCard["provider"] {

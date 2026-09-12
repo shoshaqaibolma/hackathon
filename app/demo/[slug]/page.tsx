@@ -68,6 +68,31 @@ export default async function DemoScanPage({
         </div>
       </header>
 
+      {fixture.integrity.length > 0 && (
+        <section className="mb-10 rounded-xl bg-red-500/10 p-5 ring-1 ring-red-500/20 ring-inset">
+          <h2 className="text-sm font-semibold text-red-700 dark:text-red-400">
+            This scan is structurally incomplete — no Parity Score is shown
+          </h2>
+          <p className="text-muted-foreground mt-2 text-sm">
+            A score computed from this data would look exactly like a real one
+            and be wrong. The findings below are still shown, but they are not a
+            complete picture.
+          </p>
+          <ul className="mt-3 space-y-1.5">
+            {fixture.integrity.map((violation, i) => (
+              <li key={i} className="text-xs">
+                <span className="font-mono text-red-700 dark:text-red-400">
+                  {violation.code}
+                </span>{" "}
+                <span className="text-muted-foreground">
+                  {violation.subject} — {violation.message}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="border-border mb-10 rounded-xl border p-5">
         <p className="mb-4 text-sm font-medium">{fixture.interpretation}</p>
         <ScoreComposition composition={fixture.composition} />
