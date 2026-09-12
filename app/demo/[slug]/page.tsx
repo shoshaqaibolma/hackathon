@@ -89,9 +89,13 @@ export default async function DemoScanPage({
             <p className="text-5xl font-semibold tabular-nums">
               {fixture.claimsCheckable === 0
                 ? "—"
-                : `${Math.round((fixture.claimsWrong / fixture.claimsCheckable) * 100)}%`}
+                : `${fixture.claimsWrong} of ${fixture.claimsCheckable}`}
             </p>
-            <p className="text-muted-foreground text-xs">of checkable claims wrong</p>
+            <p className="text-muted-foreground text-xs">
+              checkable claims wrong
+              {fixture.claimsCheckable > 0 &&
+                ` · ${Math.round((fixture.claimsWrong / fixture.claimsCheckable) * 100)}%`}
+            </p>
             <p className="text-muted-foreground mt-2 font-mono text-xs">
               Parity Score{" "}
               {fixture.parityScore === null ? "—" : Math.round(fixture.parityScore)}
@@ -124,6 +128,18 @@ export default async function DemoScanPage({
           </ul>
         </section>
       )}
+
+      {/* Depth and date, matching the screening reports, so two runs of the
+          same company are visibly two measurements. */}
+      <div className="border-border text-muted-foreground mb-10 rounded-lg border border-dashed px-4 py-3 text-sm text-pretty">
+        <span className="text-foreground font-medium">
+          Full scan · {fixture.recordedAt.slice(0, 10)} · both conditions.
+        </span>{" "}
+        Read {fixture.pages.length} pages, asked {fixture.questions.length} questions,
+        and put each one to {fixture.panel.length} model
+        {fixture.panel.length === 1 ? "" : "s"} twice — once from memory, once with
+        live search.
+      </div>
 
       <section className="border-border mb-10 rounded-xl border p-5">
         <p className="text-base font-medium">{fixture.wrongHeadline}</p>

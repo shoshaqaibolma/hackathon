@@ -85,3 +85,20 @@ export function listFixtures(): Fixture[] {
 export function getFixture(slug: string): Fixture | null {
   return listFixtures().find((f) => f.slug === slug) ?? null;
 }
+
+/**
+ * The fuller scan of a domain, when one exists.
+ *
+ * A screening report and a full two-condition scan of the same company will
+ * legitimately disagree — different depth, different date, different
+ * conditions. Linking them is how that reads as two measurements rather than
+ * as a contradiction.
+ */
+export function getFixtureForDomain(domain: string): Fixture | null {
+  const target = domain.toLowerCase().replace(/^www\./, "");
+  return (
+    listFixtures().find(
+      (f) => f.domain.toLowerCase().replace(/^www\./, "") === target,
+    ) ?? null
+  );
+}

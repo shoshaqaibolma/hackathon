@@ -1,6 +1,6 @@
 {
   "domain": "replit.com",
-  "scannedAt": "2026-09-12T11:55:44.719Z",
+  "scannedAt": "2026-09-12T20:58:59.722Z",
   "pages": [
     {
       "url": "https://replit.com/pricing",
@@ -199,13 +199,15 @@
   "score": 57.14285714285714,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.2857142857142857,
+  "claimsWrong": 2,
+  "claimsCheckable": 4,
+  "wrongShare": 0.5,
   "integrityViolations": 0,
   "warnings": [
     "3 question(s) rewritten to name the company",
     "2 claim(s) dropped: hedge, not an assertion: \"I cannot verify the specific number of collaborators permitted on the \""
   ],
-  "elapsedMs": 5895,
+  "elapsedMs": 5682,
   "calls": 12,
   "throttledMs": 0
 }

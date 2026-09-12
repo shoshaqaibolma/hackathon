@@ -1,6 +1,6 @@
 {
   "domain": "vercel.com",
-  "scannedAt": "2026-09-12T11:55:51.646Z",
+  "scannedAt": "2026-09-12T20:59:07.001Z",
   "pages": [
     {
       "url": "https://vercel.com/pricing",
@@ -284,12 +284,14 @@
   "score": 52.27272727272727,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.45454545454545453,
+  "claimsWrong": 5,
+  "claimsCheckable": 8,
+  "wrongShare": 0.625,
   "integrityViolations": 0,
   "warnings": [
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 6927,
+  "elapsedMs": 7278,
   "calls": 12,
   "throttledMs": 0
 }

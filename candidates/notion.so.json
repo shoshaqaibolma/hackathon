@@ -1,6 +1,6 @@
 {
   "domain": "notion.so",
-  "scannedAt": "2026-09-12T11:56:34.267Z",
+  "scannedAt": "2026-09-12T20:59:36.147Z",
   "pages": [
     {
       "url": "https://notion.so/pricing",
@@ -249,6 +249,8 @@
   "score": 68.18181818181819,
   "unreliable": false,
   "failedAnswers": 0,
+  "claimsWrong": 0,
+  "claimsCheckable": 4,
   "wrongShare": 0,
   "integrityViolations": 0,
   "warnings": [
@@ -256,7 +258,7 @@
     "1 claim(s) dropped: hedge, not an assertion: \"I do not have specific knowledge of a standardized \"refund window\" pol\"",
     "2 claim(s) dropped: claim not found in the answer — possibly rewritten: \"Notion integrates with Jira to view bug updates or convert projects in\""
   ],
-  "elapsedMs": 12859,
+  "elapsedMs": 11667,
   "calls": 12,
   "throttledMs": 0
 }

@@ -1,6 +1,6 @@
 {
   "domain": "dropbox.com",
-  "scannedAt": "2026-09-12T11:56:47.481Z",
+  "scannedAt": "2026-09-12T20:59:49.499Z",
   "pages": [
     {
       "url": "https://www.dropbox.com/business/pricing",
@@ -220,7 +220,9 @@
   "score": 21.42857142857143,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.7142857142857143,
+  "claimsWrong": 5,
+  "claimsCheckable": 5,
+  "wrongShare": 1,
   "integrityViolations": 0,
   "warnings": [
     "1 URL(s) skipped because robots.txt disallows them.",
@@ -229,7 +231,7 @@
     "1 claim(s) dropped: hedge, not an assertion: \"I can't verify the exact current retention period for file recovery on\"",
     "1 claim(s) dropped: hedge, not an assertion: \"I am not aware of a specific 'Data Transport Partner' program with dis\""
   ],
-  "elapsedMs": 13214,
+  "elapsedMs": 13351,
   "calls": 12,
   "throttledMs": 0
 }

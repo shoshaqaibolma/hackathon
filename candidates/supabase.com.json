@@ -1,6 +1,6 @@
 {
   "domain": "supabase.com",
-  "scannedAt": "2026-09-12T11:56:15.818Z",
+  "scannedAt": "2026-09-12T20:59:19.303Z",
   "pages": [
     {
       "url": "https://supabase.com/docs/guides/functions/pricing",
@@ -244,12 +244,14 @@
   "score": 43.75,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.5,
+  "claimsWrong": 6,
+  "claimsCheckable": 8,
+  "wrongShare": 0.75,
   "integrityViolations": 0,
   "warnings": [
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 5152,
+  "elapsedMs": 5038,
   "calls": 12,
   "throttledMs": 0
 }

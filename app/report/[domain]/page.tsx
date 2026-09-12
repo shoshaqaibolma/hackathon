@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { DriftCard } from "@/components/drift-card";
 import { ScoreComposition } from "@/components/score-composition";
 import { TwoConditionCard } from "@/components/two-condition-card";
+import { getFixtureForDomain } from "@/lib/demo/fixtures";
 import { getReportView, listReportDomains } from "@/lib/reports/candidates";
 import { heroCards, pairByCondition } from "@/lib/view/pairing";
 import { PUBLICATION_NOTICE } from "@/lib/view/types";
@@ -48,6 +49,9 @@ export default async function ReportPage({
       ? Math.round((view.claimsWrong / view.claimsCheckable) * 100)
       : null;
 
+  // A deeper scan of the same company, if we have one.
+  const fuller = getFixtureForDomain(view.domain);
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-4xl px-6 py-14">
       <Link
@@ -67,10 +71,17 @@ export default async function ReportPage({
           </p>
         </div>
         <div className="text-right">
+          {/* The fraction leads: on a small sample a bare percentage
+              overstates how much was measured. */}
           <p className="text-5xl font-semibold tabular-nums">
-            {wrongPercent === null ? "—" : `${wrongPercent}%`}
+            {view.claimsCheckable === 0
+              ? "—"
+              : `${view.claimsWrong} of ${view.claimsCheckable}`}
           </p>
-          <p className="text-muted-foreground text-xs">of checkable claims wrong</p>
+          <p className="text-muted-foreground text-xs">
+            checkable claims wrong
+            {wrongPercent !== null && ` · ${wrongPercent}%`}
+          </p>
           <p className="text-muted-foreground mt-1.5 font-mono text-xs">
             Parity Score{" "}
             {view.parityScore === null ? "—" : Math.round(view.parityScore)}
@@ -78,13 +89,30 @@ export default async function ReportPage({
         </div>
       </header>
 
-      {/* Screening depth is stated up front, not buried in a footnote. */}
+      {/* Depth and date up front, so two runs of the same company read as two
+          measurements rather than as a contradiction. */}
       <div className="border-border text-muted-foreground mt-8 rounded-lg border border-dashed px-4 py-3 text-sm text-pretty">
-        <span className="text-foreground font-medium">Screening depth.</span> This
-        audit read {view.pages.length} pages and asked {view.questions.length}{" "}
-        questions from model memory only, on{" "}
-        {view.createdAt.slice(0, 10)}. A full scan reads up to 25 pages, asks 40
-        questions and runs both the memory and search conditions.
+        <span className="text-foreground font-medium">
+          Screening run · {view.createdAt.slice(0, 10)} · memory condition only.
+        </span>{" "}
+        Read {view.pages.length} pages, asked {view.questions.length} questions, and
+        put them to {view.panel[0]?.label ?? "one model"} with no web search. Small
+        samples move a percentage a long way, which is why the count is shown
+        alongside it.
+        {fuller && (
+          <>
+            {" "}
+            <Link
+              href={`/demo/${fuller.slug}`}
+              className="text-foreground font-medium underline underline-offset-4"
+            >
+              A deeper scan of {view.domain} exists
+            </Link>{" "}
+            — {fuller.questions.length} questions across both conditions, recorded{" "}
+            {fuller.recordedAt.slice(0, 10)}. It is the better measurement, and its
+            numbers differ because it asked more.
+          </>
+        )}
       </div>
 
       <section className="border-border mt-8 rounded-xl border p-5">

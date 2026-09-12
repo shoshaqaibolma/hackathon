@@ -1,6 +1,6 @@
 {
   "domain": "fly.io",
-  "scannedAt": "2026-09-12T11:56:21.407Z",
+  "scannedAt": "2026-09-12T20:59:24.479Z",
   "pages": [
     {
       "url": "https://fly.io/pricing",
@@ -208,12 +208,14 @@
   "score": 50,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.25,
+  "claimsWrong": 2,
+  "claimsCheckable": 3,
+  "wrongShare": 0.6666666666666666,
   "integrityViolations": 0,
   "warnings": [
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 5588,
+  "elapsedMs": 5175,
   "calls": 12,
   "throttledMs": 0
 }

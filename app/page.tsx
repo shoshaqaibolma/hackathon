@@ -67,18 +67,20 @@ export default function Home() {
       <section className="border-border/60 border-y bg-muted/30">
         <div className="mx-auto w-full max-w-5xl px-6 py-14">
           <div className="grid gap-10 sm:grid-cols-3">
+            {/* Fractions lead. A bare "100%" on a five-claim sample reads as a
+                claim; "5 of 5" reads as the small measurement it is. */}
             <div>
               <p className="text-4xl font-semibold tabular-nums">
-                {stats.wrongPercent}%
+                {stats.wrong} of {stats.checkable}
               </p>
               <p className="text-muted-foreground mt-2 text-sm text-pretty">
-                of checkable claims about {stats.companies} developer tools were
-                wrong — {stats.wrong} of {stats.findings}.
+                checkable claims about {stats.companies} developer tools were wrong
+                — {stats.wrongPercent}% of everything their own sites could settle.
               </p>
             </div>
             <div>
               <p className="text-4xl font-semibold tabular-nums">
-                {stats.worst.wrongPercent}%
+                {stats.worst.wrong} of {stats.worst.checkable}
               </p>
               <p className="text-muted-foreground mt-2 text-sm text-pretty">
                 wrong for the worst-affected company, on prices published plainly
@@ -87,17 +89,18 @@ export default function Home() {
             </div>
             <div>
               <p className="text-4xl font-semibold tabular-nums">
-                {stats.best.wrongPercent}%
+                {stats.unsupported}
               </p>
               <p className="text-muted-foreground mt-2 text-sm text-pretty">
-                wrong for the best. This is measurable and it is fixable — the
-                spread is the point.
+                further claims we could not check at all, because the company&rsquo;s
+                site never addresses them. Being unanswerable is its own problem.
               </p>
             </div>
           </div>
 
-          <p className="text-muted-foreground mt-8 text-sm">
-            From our own study, run {stats.scannedAt}.{" "}
+          <p className="text-muted-foreground mt-8 text-sm text-pretty">
+            From our own study, run {stats.scannedAt}, asking each model from memory
+            with no web search.{" "}
             <Link href="/study" className="text-foreground underline underline-offset-4">
               Read it
             </Link>{" "}

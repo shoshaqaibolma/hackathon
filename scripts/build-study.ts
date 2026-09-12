@@ -19,6 +19,8 @@ type Report = {
   findings: { ruling: string }[];
   score: number | null;
   unreliable: boolean;
+  claimsWrong: number;
+  claimsCheckable: number;
   wrongShare: number;
 };
 
@@ -72,19 +74,24 @@ function main(): void {
     }
   }
 
+  // "Checkable" excludes UNSUPPORTED — a claim the site never addresses
+  // cannot be wrong. This is the same definition lib/score.ts uses for the
+  // product UI; publishing a different one here is what made /study and
+  // /report disagree about heroku.com.
+  const totalCheckable = totalFindings - totalUnsupported;
   const wrongShares = usable.map((r) => r.wrongShare * 100);
   const medianWrong = median(wrongShares);
-  const overallWrong = totalFindings > 0 ? (totalWrong / totalFindings) * 100 : 0;
+  const overallWrong = totalCheckable > 0 ? (totalWrong / totalCheckable) * 100 : 0;
 
   const sorted = [...usable].sort((a, b) => b.wrongShare - a.wrongShare);
 
   const rows = sorted
     .map((r) => {
-      const wrong = (r.wrongShare * 100).toFixed(0);
-      const pct = r.findings.length
-        ? `${Math.round(r.wrongShare * r.findings.length)}/${r.findings.length}`
-        : "—";
-      return `| ${r.domain} | **${wrong}%** | ${pct} | ${r.score?.toFixed(1)} | ${r.facts.length} | ${r.pages.length} |`;
+      // The fraction leads. On a four-claim sample "100%" reads as a claim;
+      // "4 of 4" reads as the small measurement it is.
+      const frac = `**${r.claimsWrong} of ${r.claimsCheckable}**`;
+      const pct = r.claimsCheckable > 0 ? `${Math.round(r.wrongShare * 100)}%` : "—";
+      return `| ${r.domain} | ${frac} | ${pct} | ${r.score?.toFixed(1)} | ${r.facts.length} | ${r.pages.length} |`;
     })
     .join("\n");
 
@@ -98,8 +105,13 @@ We asked a language model questions a prospective customer would ask about each
 company, then checked every factual claim in its answers against the company's
 own website — quoting the exact span the check was made against.
 
-**Across ${usable.length} companies, ${totalWrong} of ${totalFindings} checkable claims were wrong: ${overallWrong.toFixed(0)}%.**
-The median company had **${medianWrong.toFixed(0)}%** of claims about it stated incorrectly.
+**Across ${usable.length} companies we examined ${totalFindings} claims. ${totalUnsupported} of them
+concerned things the company's own site never addresses, so they cannot be right or
+wrong. Of the ${totalCheckable} that could be checked, ${totalWrong} were wrong —
+${overallWrong.toFixed(0)}%.**
+
+Per-company samples are small — as few as ${Math.min(...usable.map((r) => r.claimsCheckable))} checkable claims — so
+individual figures are indicative and the aggregate is the number to quote.
 
 > **Scope qualifier, stated up front because it materially bounds the result:
 > every scan here was run in the MEMORY CONDITION ONLY** — the model answered
@@ -119,7 +131,7 @@ Scanned ${scanned}. Every number here is reproducible from this repository.
 Ranked by the share of checkable claims that were wrong — the headline number,
 because it is the one that does not move when ledger coverage changes.
 
-| Company | Claims wrong | | Parity Score | Facts checked | Pages |
+| Company | Checkable claims wrong | | Parity Score | Facts checked | Pages |
 |---|---|---|---|---|---|
 ${rows}
 
@@ -248,11 +260,17 @@ what a page said on a stated date. They are never characterisations of a company
         findings: totalFindings,
         wrong: totalWrong,
         wrongPercent: Number(overallWrong.toFixed(0)),
+        checkable: totalCheckable,
         medianWrongPercent: Number(medianWrong.toFixed(0)),
         confirmed: totalConfirmed,
         unsupported: totalUnsupported,
         scannedAt: scanned,
-        worst: { domain: sorted[0].domain, wrongPercent: Number((sorted[0].wrongShare * 100).toFixed(0)) },
+        worst: {
+          domain: sorted[0].domain,
+          wrongPercent: Number((sorted[0].wrongShare * 100).toFixed(0)),
+          wrong: sorted[0].claimsWrong,
+          checkable: sorted[0].claimsCheckable,
+        },
         best: {
           domain: sorted[sorted.length - 1].domain,
           wrongPercent: Number((sorted[sorted.length - 1].wrongShare * 100).toFixed(0)),

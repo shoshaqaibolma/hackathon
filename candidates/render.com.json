@@ -1,6 +1,6 @@
 {
   "domain": "render.com",
-  "scannedAt": "2026-09-12T11:56:10.665Z",
+  "scannedAt": "2026-09-12T20:59:14.264Z",
   "pages": [
     {
       "url": "https://render.com/pricing",
@@ -209,14 +209,16 @@
   "score": 50,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.3333333333333333,
+  "claimsWrong": 3,
+  "claimsCheckable": 5,
+  "wrongShare": 0.6,
   "integrityViolations": 1,
   "warnings": [
     "1 question(s) rewritten to name the company",
     "1 question(s) dropped: question does not name the company and cannot be repaired: \"I am looking for a hosting platform that supports Elixir and Go; does \"",
     "1 claim(s) dropped: hedge, not an assertion: \"You should still monitor their API changelog for new features and sche\""
   ],
-  "elapsedMs": 19018,
+  "elapsedMs": 7262,
   "calls": 9,
   "throttledMs": 0
 }

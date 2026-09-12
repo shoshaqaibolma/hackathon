@@ -1,6 +1,6 @@
 {
   "domain": "planetscale.com",
-  "scannedAt": "2026-09-12T11:55:23.316Z",
+  "scannedAt": "2026-09-12T20:58:38.426Z",
   "pages": [
     {
       "url": "https://planetscale.com/pricing",
@@ -272,12 +272,14 @@
   "score": 47.916666666666664,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.3333333333333333,
+  "claimsWrong": 4,
+  "claimsCheckable": 6,
+  "wrongShare": 0.6666666666666666,
   "integrityViolations": 0,
   "warnings": [
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 8627,
+  "elapsedMs": 9002,
   "calls": 12,
   "throttledMs": 0
 }

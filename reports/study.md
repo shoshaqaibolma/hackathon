@@ -6,8 +6,13 @@ We asked a language model questions a prospective customer would ask about each
 company, then checked every factual claim in its answers against the company's
 own website — quoting the exact span the check was made against.
 
-**Across 11 companies, 43 of 102 checkable claims were wrong: 42%.**
-The median company had **45%** of claims about it stated incorrectly.
+**Across 11 companies we examined 102 claims. 42 of them
+concerned things the company's own site never addresses, so they cannot be right or
+wrong. Of the 60 that could be checked, 43 were wrong —
+72%.**
+
+Per-company samples are small — as few as 3 checkable claims — so
+individual figures are indicative and the aggregate is the number to quote.
 
 > **Scope qualifier, stated up front because it materially bounds the result:
 > every scan here was run in the MEMORY CONDITION ONLY** — the model answered
@@ -15,7 +20,7 @@ The median company had **45%** of claims about it stated incorrectly.
 > what a model believes about these companies unaided. They do **not** measure
 > what an assistant answers when it can search, which is how many assistants
 > now work, and search corrects some share of these errors. Reporting
-> `42% wrong` without that qualifier would overclaim, and
+> `72% wrong` without that qualifier would overclaim, and
 > overclaiming is the thing this product exists to catch.
 
 Scanned 2026-09-12. Every number here is reproducible from this repository.
@@ -27,19 +32,19 @@ Scanned 2026-09-12. Every number here is reproducible from this repository.
 Ranked by the share of checkable claims that were wrong — the headline number,
 because it is the one that does not move when ledger coverage changes.
 
-| Company | Claims wrong | | Parity Score | Facts checked | Pages |
+| Company | Checkable claims wrong | | Parity Score | Facts checked | Pages |
 |---|---|---|---|---|---|
-| dropbox.com | **71%** | 5/7 | 21.4 | 18 | 3 |
-| heroku.com | **67%** | 4/6 | 29.2 | 16 | 3 |
-| railway.app | **67%** | 6/9 | 36.1 | 21 | 3 |
-| github.com | **60%** | 6/10 | 32.5 | 9 | 3 |
-| supabase.com | **50%** | 6/12 | 43.8 | 15 | 3 |
-| vercel.com | **45%** | 5/11 | 52.3 | 22 | 3 |
-| planetscale.com | **33%** | 4/12 | 47.9 | 19 | 3 |
-| render.com | **33%** | 3/9 | 50.0 | 14 | 3 |
-| replit.com | **29%** | 2/7 | 57.1 | 15 | 3 |
-| fly.io | **25%** | 2/8 | 50.0 | 15 | 3 |
-| notion.so | **0%** | 0/11 | 68.2 | 17 | 3 |
+| dropbox.com | **5 of 5** | 100% | 21.4 | 18 | 3 |
+| heroku.com | **4 of 4** | 100% | 29.2 | 16 | 3 |
+| github.com | **6 of 6** | 100% | 32.5 | 9 | 3 |
+| railway.app | **6 of 7** | 86% | 36.1 | 21 | 3 |
+| supabase.com | **6 of 8** | 75% | 43.8 | 15 | 3 |
+| planetscale.com | **4 of 6** | 67% | 47.9 | 19 | 3 |
+| fly.io | **2 of 3** | 67% | 50.0 | 15 | 3 |
+| vercel.com | **5 of 8** | 63% | 52.3 | 22 | 3 |
+| render.com | **3 of 5** | 60% | 50.0 | 14 | 3 |
+| replit.com | **2 of 4** | 50% | 57.1 | 15 | 3 |
+| notion.so | **0 of 4** | 0% | 68.2 | 17 | 3 |
 
 **Parity Score** is the weighted aggregate: pricing and eligibility errors count
 triple, limits and API errors double. It is bounded above by how much of a
@@ -58,7 +63,7 @@ which scores as UNSUPPORTED rather than as an error. This is the clearest
 demonstration that the score measures rather than manufactures: given a company
 the model genuinely knows, it finds nothing wrong.
 
-**Dropbox — 71% wrong.** The most-wrong company in the study, on plan names,
+**Dropbox — 100% wrong.** The most-wrong company in the study, on plan names,
 storage allowances and per-user prices that are published plainly on their own
 pricing page.
 

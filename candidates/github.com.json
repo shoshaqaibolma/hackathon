@@ -1,6 +1,6 @@
 {
   "domain": "github.com",
-  "scannedAt": "2026-09-12T11:56:54.157Z",
+  "scannedAt": "2026-09-12T20:59:55.940Z",
   "pages": [
     {
       "url": "https://github.com/pricing",
@@ -184,14 +184,16 @@
   "score": 32.5,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.6,
+  "claimsWrong": 6,
+  "claimsCheckable": 6,
+  "wrongShare": 1,
   "integrityViolations": 0,
   "warnings": [
     "No usable sitemap — discovering pages from homepage links.",
     "1 URL(s) skipped because robots.txt disallows them.",
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 6675,
+  "elapsedMs": 6440,
   "calls": 12,
   "throttledMs": 0
 }

@@ -1,6 +1,6 @@
 {
   "domain": "railway.app",
-  "scannedAt": "2026-09-12T11:55:38.824Z",
+  "scannedAt": "2026-09-12T20:58:54.039Z",
   "pages": [
     {
       "url": "https://railway.app/pricing",
@@ -259,13 +259,15 @@
   "score": 36.111111111111114,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.6666666666666666,
+  "claimsWrong": 6,
+  "claimsCheckable": 7,
+  "wrongShare": 0.8571428571428571,
   "integrityViolations": 0,
   "warnings": [
     "2 URL(s) skipped because robots.txt disallows them.",
     "4 question(s) rewritten to name the company"
   ],
-  "elapsedMs": 8147,
+  "elapsedMs": 7913,
   "calls": 12,
   "throttledMs": 0
 }

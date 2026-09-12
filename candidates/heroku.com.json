@@ -1,6 +1,6 @@
 {
   "domain": "heroku.com",
-  "scannedAt": "2026-09-12T11:55:30.676Z",
+  "scannedAt": "2026-09-12T20:58:46.125Z",
   "pages": [
     {
       "url": "https://www.heroku.com/pricing",
@@ -197,13 +197,15 @@
   "score": 29.166666666666664,
   "unreliable": false,
   "failedAnswers": 0,
-  "wrongShare": 0.6666666666666666,
+  "claimsWrong": 4,
+  "claimsCheckable": 4,
+  "wrongShare": 1,
   "integrityViolations": 0,
   "warnings": [
     "2 question(s) rewritten to name the company",
     "1 claim(s) dropped: claim not found in the answer — possibly rewritten: \"MCP servers are powered by one-off dynos that use a pay-as-you-go mode\""
   ],
-  "elapsedMs": 7359,
+  "elapsedMs": 7698,
   "calls": 12,
   "throttledMs": 0
 }

@@ -36,7 +36,7 @@ import {
   Screening,
   ScreeningSchema,
 } from "@/lib/schemas";
-import { parityScore } from "@/lib/score";
+import { parityScore, wrongShare } from "@/lib/score";
 
 for (const file of [".env.local", ".env"]) {
   try {
@@ -69,6 +69,8 @@ type DomainReport = {
   /** True when the score rests on too little data to mean anything. */
   unreliable: boolean;
   failedAnswers: number;
+  claimsWrong: number;
+  claimsCheckable: number;
   wrongShare: number;
   integrityViolations: number;
   warnings: string[];
@@ -297,9 +299,12 @@ Cite factIndex for CONFIRMED and DRIFTED. Use null for the others. Never invent 
     questionCategory: null,
   }));
 
-  const wrong = findings.filter(
-    (f) => f.ruling === "DRIFTED" || f.ruling === "FABRICATED",
-  ).length;
+  // ONE definition of "wrong", shared with the product UI. Computing it
+  // here as wrong/allFindings while lib/score.ts used wrong/checkable made
+  // /study and /report publish different percentages for the same six
+  // findings — 67% and 100%. A figure that changes between two of our own
+  // pages is the precise failure this product sells against.
+  const share = wrongShare(scorables);
 
   // Same principle as the scan integrity gate: a score computed from a
   // handful of surviving findings looks exactly like a real one. Refuse it.
@@ -315,7 +320,11 @@ Cite factIndex for CONFIRMED and DRIFTED. Use null for the others. Never invent 
     score: unreliable ? null : parityScore(scorables),
     unreliable,
     failedAnswers,
-    wrongShare: findings.length > 0 ? wrong / findings.length : 0,
+    // Counts are stored so every consumer derives the percentage the same
+    // way rather than re-deciding the denominator.
+    claimsWrong: share.wrong,
+    claimsCheckable: share.checkable,
+    wrongShare: share.share ?? 0,
     integrityViolations: integrity.violations.length,
     warnings,
     elapsedMs: Date.now() - started,
@@ -340,6 +349,8 @@ function emptyReport(
     score: null,
     unreliable: true,
     failedAnswers: 0,
+    claimsWrong: 0,
+    claimsCheckable: 0,
     wrongShare: 0,
     integrityViolations: 0,
     warnings,
