@@ -117,6 +117,31 @@ up as a failed check rather than as empty answers inside a scan.
 
 ---
 
+## Deploy
+
+Vercel, importing this repository. The build command is already correct
+(`prisma generate && next build`) and needs no configuration.
+
+Set these in the Vercel project's environment variables:
+
+| Variable | Needed for |
+|---|---|
+| `DATABASE_URL` | pooled Neon URL — live scans |
+| `DIRECT_URL` | unpooled Neon URL — migrations |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | free-tier panel and adjudicator |
+| `GROQ_API_KEY` | free-tier panel |
+| `TAVILY_API_KEY` | the browsing condition |
+
+The build succeeds with none of them set — `/`, `/demo`, `/study` and
+`/pricing` are static or SSG and touch neither the database nor a provider.
+Only live scans and `/health` need credentials, which is deliberate: the
+demo path must not be able to fail because a key is missing.
+
+`/demo` and `/demo/[slug]` are prerendered from `fixtures/*.json` at build
+time, so **adding a fixture requires a redeploy** for it to appear.
+
+---
+
 ## Limitations
 
 Stated plainly, because a tool that audits other systems for accuracy should be honest
