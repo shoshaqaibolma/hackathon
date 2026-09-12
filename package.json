@@ -18,7 +18,8 @@
     "demo:record": "tsx --tsconfig tsconfig.json scripts/record-fixture.ts",
     "candidate:scan": "tsx --tsconfig tsconfig.json scripts/candidate-scan.ts",
     "review": "tsx --tsconfig tsconfig.json scripts/review.ts",
-    "study:build": "tsx --tsconfig tsconfig.json scripts/build-study.ts"
+    "study:build": "tsx --tsconfig tsconfig.json scripts/build-study.ts",
+    "record": "tsx --tsconfig tsconfig.json scripts/record.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.52",

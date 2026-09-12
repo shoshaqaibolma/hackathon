@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 
 import { DriftCard } from "@/components/drift-card";
 import { ScoreComposition } from "@/components/score-composition";
+import { TwoConditionCard } from "@/components/two-condition-card";
 import { getFixture, listFixtures } from "@/lib/demo/fixtures";
+import { heroCards, pairByCondition } from "@/lib/view/pairing";
+import { PUBLICATION_NOTICE } from "@/lib/view/types";
 
 export function generateStaticParams() {
   return listFixtures().map((fixture) => ({ slug: fixture.slug }));
@@ -34,6 +37,15 @@ export default async function DemoScanPage({
 
   const latestRun = fixture.runs.at(-1);
   const baselineRun = fixture.runs.at(0);
+
+  // The two-condition pairs lead; everything they already cover is not
+  // repeated below as a standard card.
+  const pairs = pairByCondition(latestRun?.driftCards ?? []);
+  const heroes = heroCards(pairs);
+  const heroIds = new Set(
+    heroes.flatMap((h) => [h.memory?.id, h.browsing?.id].filter(Boolean)),
+  );
+  const rest = (latestRun?.driftCards ?? []).filter((c) => !heroIds.has(c.id));
   const improved =
     fixture.runs.length > 1 &&
     baselineRun?.parityScore != null &&
@@ -134,15 +146,31 @@ export default async function DemoScanPage({
         </section>
       )}
 
+      {heroes.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-lg font-medium">Memory versus search</h2>
+          <p className="text-muted-foreground mt-1 mb-5 text-sm text-pretty">
+            The same question asked twice — once from the model&rsquo;s own
+            knowledge, once with live sources. The gap between the two answers is
+            what tells you whose problem it is.
+          </p>
+          <div className="space-y-5">
+            {heroes.map((pair) => (
+              <TwoConditionCard key={pair.id} pair={pair} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="mb-10">
         <h2 className="mb-4 text-lg font-medium">
           Findings
           <span className="text-muted-foreground ml-2 text-sm font-normal">
-            {latestRun?.driftCards.length ?? 0} verdicts, most severe first
+            {rest.length} verdicts, most severe first
           </span>
         </h2>
         <div className="space-y-4">
-          {(latestRun?.driftCards ?? []).map((card) => (
+          {rest.map((card) => (
             <DriftCard key={card.id} card={card} />
           ))}
         </div>
@@ -224,7 +252,10 @@ export default async function DemoScanPage({
         )}
       </section>
 
-      <p className="text-muted-foreground mt-10 font-mono text-xs">
+      <p className="text-muted-foreground mt-10 text-xs text-pretty">
+        {PUBLICATION_NOTICE}
+      </p>
+      <p className="text-muted-foreground mt-3 font-mono text-xs">
         Recorded {fixture.recordedAt} · fixture v{fixture.fixtureVersion} · served from
         disk, no database or network
       </p>

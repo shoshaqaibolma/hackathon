@@ -107,3 +107,19 @@ export const ScreeningSchema = z.object({
 });
 export const Screening = "Screening";
 export type Screening = z.infer<typeof ScreeningSchema>;
+
+export const RemediationPatchSchema = z.object({
+  kind: z
+    .enum(["LLMS_TXT", "JSON_LD", "PAGE_COPY"])
+    .describe("The format that best fixes this particular error."),
+  content: z
+    .string()
+    .describe(
+      "The patch itself, ready to paste. Contains ONLY information already present in the supplied fact and its evidence text.",
+    ),
+  rationale: z
+    .string()
+    .describe("One sentence: why this format, and what it fixes."),
+});
+export const RemediationPatch = "RemediationPatch";
+export type RemediationPatch = z.infer<typeof RemediationPatchSchema>;

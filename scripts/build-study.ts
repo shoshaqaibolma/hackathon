@@ -101,6 +101,15 @@ own website — quoting the exact span the check was made against.
 **Across ${usable.length} companies, ${totalWrong} of ${totalFindings} checkable claims were wrong: ${overallWrong.toFixed(0)}%.**
 The median company had **${medianWrong.toFixed(0)}%** of claims about it stated incorrectly.
 
+> **Scope qualifier, stated up front because it materially bounds the result:
+> every scan here was run in the MEMORY CONDITION ONLY** — the model answered
+> from its own training, with no web search and no retrieval. These figures say
+> what a model believes about these companies unaided. They do **not** measure
+> what an assistant answers when it can search, which is how many assistants
+> now work, and search corrects some share of these errors. Reporting
+> \`${overallWrong.toFixed(0)}% wrong\` without that qualifier would overclaim, and
+> overclaiming is the thing this product exists to catch.
+
 Scanned ${scanned}. Every number here is reproducible from this repository.
 
 ---
@@ -147,7 +156,12 @@ pricing page.
    page text.** A span that cannot be found is dropped, never repaired — so no
    claim in this study is checked against a paraphrase.
 3. **Ask.** Synthesise four questions a prospective customer would ask, each
-   naming the company, and put them to the model from parametric memory only.
+   naming the company, and put them to the model **from parametric memory only —
+   no web search, no retrieval, no tools**. This is the single most important
+   limit on what these numbers mean. Parity's full product also runs a browsing
+   condition and reports the gap between the two, which is what separates "your
+   page is wrong" from "the model's memory is stale". This study does not
+   include that second condition.
 4. **Adjudicate.** Compare each assertion in the answer against the ledger and
    rule it CONFIRMED, DRIFTED, FABRICATED or UNSUPPORTED, citing the fact relied
    on. A citation the adjudicator was not shown is rejected and downgraded.
@@ -201,6 +215,11 @@ rewriting a claim into the correct answer before judging it.
 
 ## What we are not claiming
 
+- **Not that assistants with search perform this way.** Every figure here is
+  memory-only. An assistant that retrieves before answering will get some of
+  these right, and measuring that gap is the point of the full product. Treat
+  these as an upper bound on unaided error, not as what a searching assistant
+  tells your customers.
 - **Not that frontier models perform this way.** A different model class would
   produce different numbers, in both directions. See the panel note above.
 - **Not an audit of any company.** Three pages and four questions is a screen.
