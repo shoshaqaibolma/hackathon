@@ -131,6 +131,18 @@ A user's API key is radioactive. Every one of these has a test in
   because $0.00 implies it was metered.
 - **Do not route token-heavy work to Groq.** ~6,000 TPM will throttle a scan.
   Adjudication goes to Gemini; Groq takes short panel answers only.
+- **Do not set `maxOutputTokens` below `CAPS.MIN_OUTPUT_TOKENS` (2048).**
+  Gemini 3.8 Flash always thinks and ignores `thinkingBudget: 0` on
+  `generateText`. Measured: 81 reasoning tokens against 1 text token for a
+  one-word reply. Under a small budget it returns **truncated garbage with
+  `finishReason: "length"`, not an error** — the exact shape of bug that
+  silently poisons a scan. `generateObject` is clean (zero reasoning tokens).
+- **Do not accept a response with `finishReason === "length"`.** Treat it as a
+  failed call and surface it. A truncated answer looks like a real one.
+- **Do not hardcode a panel model id.** Free-tier catalogues move — both
+  original picks broke on day one (`gemini-2.5-flash` closed to new users,
+  Groq withdrew every Llama chat model). Ids come from `lib/llm/models.ts`
+  and are env-overridable via `PANEL_GOOGLE_MODEL` / `PANEL_GROQ_MODEL`.
 
 ---
 

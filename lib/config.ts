@@ -70,6 +70,23 @@ export const CAPS = {
   FETCH_TIMEOUT_MS: 15_000,
   /** Search results retrieved per browsing question. */
   SEARCH_RESULTS: 4,
+
+  /**
+   * Minimum output-token budget for any call.
+   *
+   * Gemini 3.8 Flash always thinks, and `thinkingBudget: 0` is NOT honoured
+   * on generateText — a one-word reply measured 81 reasoning tokens against
+   * 1 text token. At a small budget it returns TRUNCATED GARBAGE with
+   * finishReason "length" rather than an error, which would silently poison
+   * a scan. Never go below this, and always treat finishReason "length" as
+   * a real failure.
+   *
+   * generateObject is unaffected: structured calls came back with zero
+   * reasoning tokens.
+   */
+  MIN_OUTPUT_TOKENS: 2_048,
+  /** Panel answers: prose, plus headroom for a thinking model. */
+  ANSWER_OUTPUT_TOKENS: 3_072,
 } as const;
 
 /**

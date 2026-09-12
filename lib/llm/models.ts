@@ -36,23 +36,37 @@ export class MissingCredentialError extends Error {
 
 // ---------------------------------------------------------------- models
 
+/**
+ * Model ids are env-overridable because free-tier catalogues move without
+ * warning. Both original picks broke on the same day: `gemini-2.5-flash` is
+ * still listed but closed to new API users, and Groq withdrew every Llama
+ * chat model. When that happens again, /health catches it and this is a
+ * config change rather than a deploy.
+ */
 export const GEMINI_FLASH: ModelRef = {
   provider: "GOOGLE",
-  modelId: "gemini-2.5-flash",
-  label: "Gemini 2.5 Flash",
+  modelId: process.env.PANEL_GOOGLE_MODEL ?? "gemini-3.8-flash",
+  label: process.env.PANEL_GOOGLE_LABEL ?? "Gemini 3.8 Flash",
 };
 
-export const LLAMA_70B: ModelRef = {
+/**
+ * Qwen rather than Groq's `openai/gpt-oss-120b`, which also works but is a
+ * reasoning model — a trivial reply cost 26 reasoning tokens against a
+ * 6,000 TPM free-tier ceiling. Qwen answers directly, and its lineage is
+ * distinct from both Gemini and the OpenAI BYOK option, so panel agreement
+ * stays meaningful.
+ */
+export const QWEN_27B: ModelRef = {
   provider: "GROQ",
-  modelId: "llama-3.3-70b-versatile",
-  label: "Llama 3.3 70B",
+  modelId: process.env.PANEL_GROQ_MODEL ?? "qwen/qwen3.8-27b",
+  label: process.env.PANEL_GROQ_LABEL ?? "Qwen 3.8 27B",
 };
 
 /**
  * The full free-tier panel: two providers, two model families. Their
  * agreement is real evidence rather than one lineage agreeing with itself.
  */
-export const FREE_PANEL: ModelRef[] = [GEMINI_FLASH, LLAMA_70B];
+export const FREE_PANEL: ModelRef[] = [GEMINI_FLASH, QWEN_27B];
 
 /**
  * Default model per provider for BYOK. The user brings a key; we pick a
@@ -60,7 +74,7 @@ export const FREE_PANEL: ModelRef[] = [GEMINI_FLASH, LLAMA_70B];
  */
 export const BYOK_DEFAULT: Record<ProviderId, ModelRef> = {
   GOOGLE: GEMINI_FLASH,
-  GROQ: LLAMA_70B,
+  GROQ: QWEN_27B,
   ANTHROPIC: {
     provider: "ANTHROPIC",
     modelId: process.env.BYOK_ANTHROPIC_MODEL ?? "claude-sonnet-5",

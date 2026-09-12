@@ -51,12 +51,12 @@ date. The formula is one pure function in [`lib/score.ts`](lib/score.ts) with un
 | Step | What happens | Model |
 |---|---|---|
 | 1 | `robots.txt` + sitemap discovery, deterministic URL prioritisation, fetch, Readability extraction | — |
-| 2 | Fact extraction with mandatory evidence spans | Claude Haiku 4.5 |
-| 3 | Question synthesis from the ledger | Claude Haiku 4.5 |
+| 2 | Fact extraction with mandatory evidence spans | Gemini 3.8 Flash |
+| 3 | Question synthesis from the ledger | Gemini 3.8 Flash |
 | 4–5 | Panel answers the questions in both conditions. BROWSING injects snippets we retrieved ourselves, so every source the model saw is stored and shown | Panel |
-| 6 | Claim decomposition | Claude Haiku 4.5 |
-| 7 | Evidence-forced adjudication against a retrieved ledger slice | Claude Opus 5 |
-| 8 | Remediation: `llms.txt` patch, JSON-LD block, or rewritten page copy | Claude Sonnet 5 |
+| 6 | Claim decomposition | Gemini 3.8 Flash |
+| 7 | Evidence-forced adjudication against a retrieved ledger slice | Gemini 3.8 Flash, or your own model under BYOK |
+| 8 | Remediation: `llms.txt` patch, JSON-LD block, or rewritten page copy | Gemini 3.8 Flash |
 
 Two invariants are enforced in code rather than asked for in a prompt:
 
@@ -97,12 +97,14 @@ toolset)`, so re-running a scan during development costs nothing.
 
 ```bash
 pnpm install
-cp .env.example .env.local   # fill in DATABASE_URL, DIRECT_URL, ANTHROPIC_API_KEY
+cp .env.example .env.local   # DATABASE_URL, DIRECT_URL, and the free-tier keys
 pnpm db:migrate
 pnpm dev
 ```
 
-Visit `/health` to confirm the database, the models, and web-search access are all live.
+Visit `/health` to confirm the database, both panel models, and search access are live.
+It calls each provider for real on every request, so a withdrawn free-tier model shows
+up as a failed check rather than as empty answers inside a scan.
 
 | Command | |
 |---|---|
@@ -111,7 +113,7 @@ Visit `/health` to confirm the database, the models, and web-search access are a
 | `pnpm lint` | ESLint |
 | `pnpm test` | Unit tests |
 | `pnpm db:migrate` | Apply migrations |
-| `pnpm db:seed` | Load the `/demo` fixture |
+| `pnpm demo:record` | Freeze a completed scan as a `/demo` fixture |
 
 ---
 
@@ -121,7 +123,7 @@ Stated plainly, because a tool that audits other systems for accuracy should be 
 about its own.
 
 - **The public panel runs free-tier models; BYOK users get frontier models.** The
-  hosted FREE mode answers with Gemini Flash and Llama 3.3 70B on free tiers — two
+  hosted FREE mode answers with Gemini 3.8 Flash and Qwen 3.8 27B on free tiers — two
   providers and two model families, so their agreement is real evidence rather than a
   shared lineage talking to itself. They are not, however, the models most of your
   customers actually use. A frontier model has different knowledge and different
