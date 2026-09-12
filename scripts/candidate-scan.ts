@@ -35,7 +35,7 @@ import {
   Screening,
   ScreeningSchema,
 } from "@/lib/schemas";
-import { composition, parityScore } from "@/lib/score";
+import { parityScore } from "@/lib/score";
 
 for (const file of [".env.local", ".env"]) {
   try {
