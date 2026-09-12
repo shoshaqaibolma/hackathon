@@ -103,8 +103,11 @@ export const DriftCardSchema = z.object({
   condition: z.enum(ConditionValues),
   latencyMs: z.number().nullable().default(null),
 
-  /** The model's literal words. Rendered verbatim in the right pane. */
-  claimText: z.string(),
+  /**
+   * The model's literal words. Rendered verbatim in the right pane.
+   * Non-empty is enforced: a finding with no model quote is not publishable.
+   */
+  claimText: z.string().min(1),
   /** Surrounding answer text, for context under the claim. */
   answerExcerpt: z.string().nullable().default(null),
 
@@ -126,8 +129,49 @@ export const DriftCardSchema = z.object({
 
   /** Severity weight this verdict carried into the score. */
   weight: z.number(),
+
+  /**
+   * PUBLICATION RULE — when the model was asked. Required on every finding.
+   *
+   * A finding is a claim about what a specific model said at a specific
+   * time, evidenced by what a page said on a specific date. It is never a
+   * characterisation of the company. Models change, pages change, and a
+   * finding without both timestamps is an assertion rather than evidence.
+   */
+  askedAt: z.string().min(1),
+  /** When the cited source page was fetched. Required whenever a source is cited. */
+  sourceCapturedAt: z.string().nullable().default(null),
+}).superRefine((card, ctx) => {
+  // A cited source must carry both its exact span and its capture date.
+  if (card.groundTruth) {
+    if (!card.groundTruth.evidenceSpan.trim()) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["groundTruth", "evidenceSpan"],
+        message:
+          "A cited source must include the exact quoted span. Publication rule.",
+      });
+    }
+    if (!card.sourceCapturedAt) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["sourceCapturedAt"],
+        message:
+          "A cited source must record when the page was captured. Publication rule.",
+      });
+    }
+  }
 });
 export type DriftCard = z.infer<typeof DriftCardSchema>;
+
+/**
+ * Shown alongside every published finding. Kept next to the schema that
+ * enforces the rule so the two cannot drift apart.
+ */
+export const PUBLICATION_NOTICE =
+  "Each finding records what a named model answered at a stated time, and quotes " +
+  "the page text it was checked against as captured on that date. Findings " +
+  "describe model output, not the company.";
 
 export const CompositionSchema = z.object({
   counts: z.record(z.enum(RulingValues), z.number()),

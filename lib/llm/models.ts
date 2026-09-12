@@ -38,15 +38,20 @@ export class MissingCredentialError extends Error {
 
 /**
  * Model ids are env-overridable because free-tier catalogues move without
- * warning. Both original picks broke on the same day: `gemini-2.5-flash` is
- * still listed but closed to new API users, and Groq withdrew every Llama
- * chat model. When that happens again, /health catches it and this is a
- * config change rather than a deploy.
+ * warning. Three picks broke on day one, each for a different reason:
+ *   - gemini-2.5-flash      listed, but closed to new API users
+ *   - llama-3.3-70b         withdrawn from Groq entirely
+ *   - gemini-3.8-flash      works, but the free tier allows 20 requests/DAY
+ *
+ * gemini-3.1-flash-lite was chosen by measurement, not by tier name: it is
+ * the only current Gemini that returns ZERO reasoning tokens (the -flash
+ * models spend ~68 reasoning tokens to answer "say ok"), which makes it
+ * both cheaper per call and immune to the silent-truncation trap.
  */
 export const GEMINI_FLASH: ModelRef = {
   provider: "GOOGLE",
-  modelId: process.env.PANEL_GOOGLE_MODEL ?? "gemini-3.8-flash",
-  label: process.env.PANEL_GOOGLE_LABEL ?? "Gemini 3.8 Flash",
+  modelId: process.env.PANEL_GOOGLE_MODEL ?? "gemini-3.1-flash-lite",
+  label: process.env.PANEL_GOOGLE_LABEL ?? "Gemini 3.1 Flash Lite",
 };
 
 /**

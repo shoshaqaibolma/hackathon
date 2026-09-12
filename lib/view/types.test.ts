@@ -76,6 +76,7 @@ function minimalFixture(): unknown {
             confidence: 0.91,
             reasoning: "The page states a 10,000/month cap.",
             weight: 3,
+            askedAt: "2026-09-12T00:00:00.000Z",
           },
         ],
       },
@@ -151,5 +152,77 @@ describe("buildCost", () => {
   it("sums cost when any call is priced", () => {
     const cost = buildCost([call({ costUsd: 0.01 }), call({ costUsd: 0.02 })]);
     expect(cost.totalCostUsd).toBeCloseTo(0.03);
+  });
+});
+
+describe("publication rule", () => {
+  function cardFrom(over: Record<string, unknown>) {
+    const fixture = minimalFixture() as {
+      runs: { driftCards: Record<string, unknown>[] }[];
+    };
+    Object.assign(fixture.runs[0].driftCards[0], over);
+    return FixtureSchema.safeParse(fixture);
+  }
+
+  it("requires a timestamp on every finding", () => {
+    expect(cardFrom({ askedAt: "" }).success).toBe(false);
+  });
+
+  it("requires the model's exact words", () => {
+    // A finding is a claim about what a model said. Without the quote there
+    // is nothing to publish.
+    expect(cardFrom({ claimText: "" }).success).toBe(false);
+  });
+
+  it("requires a capture date whenever a source is cited", () => {
+    const result = cardFrom({
+      groundTruth: {
+        id: "f1",
+        statement: "Pro includes 10,000 API calls per month.",
+        category: "PRICING",
+        evidenceSpan: "10,000 API calls per month",
+        sourceUrl: "https://example.com/pricing",
+      },
+      sourceCapturedAt: null,
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(JSON.stringify(result.error.issues)).toContain("Publication rule");
+    }
+  });
+
+  it("requires a non-empty quoted span whenever a source is cited", () => {
+    const result = cardFrom({
+      groundTruth: {
+        id: "f1",
+        statement: "Pro includes 10,000 API calls per month.",
+        category: "PRICING",
+        evidenceSpan: "   ",
+        sourceUrl: "https://example.com/pricing",
+      },
+      sourceCapturedAt: "2026-09-12T00:00:00.000Z",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("accepts a fully evidenced finding", () => {
+    expect(
+      cardFrom({
+        groundTruth: {
+          id: "f1",
+          statement: "Pro includes 10,000 API calls per month.",
+          category: "PRICING",
+          evidenceSpan: "10,000 API calls per month",
+          sourceUrl: "https://example.com/pricing",
+        },
+        sourceCapturedAt: "2026-09-12T00:00:00.000Z",
+      }).success,
+    ).toBe(true);
+  });
+
+  it("allows no source on findings that cite nothing", () => {
+    // FABRICATED and UNSUPPORTED have no page span by definition; the rule
+    // must not make them unpublishable.
+    expect(cardFrom({ ruling: "FABRICATED", groundTruth: null }).success).toBe(true);
   });
 });

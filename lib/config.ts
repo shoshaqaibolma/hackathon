@@ -85,8 +85,19 @@ export const CAPS = {
    * reasoning tokens.
    */
   MIN_OUTPUT_TOKENS: 2_048,
-  /** Panel answers: prose, plus headroom for a thinking model. */
-  ANSWER_OUTPUT_TOKENS: 3_072,
+  /**
+   * Panel answers: prose only.
+   *
+   * MEASURED: reserving 3,072 here made Groq's 6,000 TPM the binding
+   * constraint on the whole pipeline — roughly 1.5 answers per minute, and
+   * 55% of a screening run was spent waiting. Real answers run a few hundred
+   * tokens. The limiter reserves against this number, so an inflated budget
+   * costs throughput directly.
+   *
+   * Safe to lower now that the Gemini model is flash-lite, which emits zero
+   * reasoning tokens; the -flash models needed the headroom.
+   */
+  ANSWER_OUTPUT_TOKENS: 1_024,
 } as const;
 
 /**

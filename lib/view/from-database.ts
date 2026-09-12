@@ -41,7 +41,7 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
     where: { id: scanId },
     include: {
       pages: { orderBy: { priority: "desc" } },
-      facts: { include: { page: { select: { title: true } } } },
+      facts: { include: { page: { select: { title: true, fetchedAt: true } } } },
       questions: true,
       remediations: true,
       llmCalls: true,
@@ -69,6 +69,13 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
   const remediationByVerdict = new Map(
     scan.remediations.map((r) => [r.verdictId, r]),
   );
+
+  // When each fact's source page was fetched — the "as captured on" date.
+  const factCapturedAt = new Map<string, string>();
+  for (const fact of scan.facts) {
+    const captured = fact.page.fetchedAt ?? fact.createdAt;
+    factCapturedAt.set(fact.id, captured.toISOString());
+  }
 
   const runs: RunView[] = scan.runs.map((run) => {
     const cards: DriftCard[] = [];
@@ -129,6 +136,12 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
               }
             : null,
           weight: weightFor(scorable),
+          // Publication rule: every finding carries when it was produced and
+          // when the source it cites was captured.
+          askedAt: answer.createdAt.toISOString(),
+          sourceCapturedAt: verdict.citedFact
+            ? (factCapturedAt.get(verdict.citedFact.id) ?? scan.createdAt.toISOString())
+            : null,
         });
       }
     }
