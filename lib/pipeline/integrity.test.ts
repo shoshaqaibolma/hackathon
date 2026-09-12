@@ -4,7 +4,6 @@ import {
   MIN_PAGE_TEXT_CHARS,
   checkScanIntegrity,
   looksLikeConsentWall,
-  looksLikeJsShell,
   summariseIntegrity,
   type IntegrityAnswer,
   type IntegrityInput,
@@ -131,16 +130,16 @@ describe("consent and JavaScript walls", () => {
     );
   });
 
-  it("detects an unrendered app shell", () => {
+  it("no longer treats a JavaScript shell as an integrity failure", () => {
+    // Client rendering is the site's visibility problem, reported as an
+    // insight rather than as our inability to read the page.
     const shell = `${"You need to enable JavaScript to run this app. "}${"padding ".repeat(60)}`;
-    expect(looksLikeJsShell(shell)).toBe(true);
-
     const input = healthyInput();
     const report = checkScanIntegrity({
       ...input,
       pages: [{ url: "https://example.com/", status: "OK", extractedText: shell }],
     });
-    expect(report.violations[0].code).toBe("PAGE_LOOKS_LIKE_JS_SHELL");
+    expect(report.violations.some((v) => v.code.includes("JS_SHELL"))).toBe(false);
   });
 
   it("does NOT flag a long article that merely mentions cookies once", () => {

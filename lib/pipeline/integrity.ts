@@ -14,13 +14,16 @@ import { z } from "zod";
  * confidently is worse than no number, and it is precisely the failure this
  * product exists to catch in other systems.
  *
+ * Client-side rendering deliberately is NOT here. It used to be, which
+ * framed it as our failure to read a page. It is the site's visibility
+ * problem and belongs in lib/pipeline/insights.ts as a reported finding.
+ *
  * Pure and total — no database, no network. Everything here is unit-tested.
  */
 
 export const IntegrityCodeValues = [
   "PAGE_TEXT_TOO_SHORT",
   "PAGE_LOOKS_LIKE_CONSENT_WALL",
-  "PAGE_LOOKS_LIKE_JS_SHELL",
   "QUESTION_NO_SEARCH_RESULTS",
   "QUESTION_MISSING_ANSWER",
   "ANSWER_NO_CLAIMS",
@@ -62,16 +65,6 @@ const CONSENT_MARKERS = [
   "reject all",
 ];
 
-/** Phrases that indicate an unrendered client-side app shell. */
-const JS_SHELL_MARKERS = [
-  "enable javascript",
-  "javascript is required",
-  "javascript is disabled",
-  "please turn on javascript",
-  "you need to enable javascript to run this app",
-  "this application requires javascript",
-];
-
 function countMarkers(haystack: string, markers: readonly string[]): number {
   let count = 0;
   for (const marker of markers) {
@@ -90,10 +83,6 @@ export function looksLikeConsentWall(text: string): boolean {
   const hits = countMarkers(haystack, CONSENT_MARKERS);
   if (hits === 0) return false;
   return hits >= 2 || text.length < 1_200;
-}
-
-export function looksLikeJsShell(text: string): boolean {
-  return countMarkers(text.toLowerCase(), JS_SHELL_MARKERS) > 0;
 }
 
 // ---------------------------------------------------------------- input
@@ -162,16 +151,6 @@ export function checkScanIntegrity(input: IntegrityInput): IntegrityReport {
       });
       // A near-empty page will also trip the heuristics below; one clear
       // violation per page is more actionable than three.
-      continue;
-    }
-
-    if (looksLikeJsShell(text)) {
-      violations.push({
-        code: "PAGE_LOOKS_LIKE_JS_SHELL",
-        subject: page.url,
-        message:
-          "Extracted text looks like an unrendered JavaScript app shell, not page content. Parity does not run a headless browser.",
-      });
       continue;
     }
 

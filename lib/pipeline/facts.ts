@@ -125,3 +125,31 @@ ${source}
     records: [record],
   };
 }
+
+/**
+ * Removes facts that repeat across pages.
+ *
+ * extractFacts deduplicates within one page, but a site that serves the same
+ * content at several URLs produces the same statement several times — four of
+ * dropbox.com's twenty-four facts were literal duplicates. A ledger that
+ * counts one fact three times overstates coverage and lets one page dominate
+ * the adjudicator's evidence slice.
+ *
+ * The first occurrence wins, so the highest-priority page keeps the citation.
+ */
+export function dedupeFacts<T extends { statement: string }>(facts: readonly T[]): {
+  facts: T[];
+  removed: number;
+} {
+  const seen = new Set<string>();
+  const kept: T[] = [];
+
+  for (const fact of facts) {
+    const key = fact.statement.toLowerCase().replace(/\s+/g, " ").trim();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    kept.push(fact);
+  }
+
+  return { facts: kept, removed: facts.length - kept.length };
+}

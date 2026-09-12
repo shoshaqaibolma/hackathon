@@ -60,10 +60,19 @@ export default async function DemoScanPage({
             </p>
           </div>
           <div className="text-right">
+            {/* Headline is wrong%, not the Parity Score: the score's ceiling
+                is set by ledger coverage, so a perfect record can still read
+                as a mediocre number. See lib/score.ts. */}
             <p className="text-5xl font-semibold tabular-nums">
+              {fixture.claimsCheckable === 0
+                ? "—"
+                : `${Math.round((fixture.claimsWrong / fixture.claimsCheckable) * 100)}%`}
+            </p>
+            <p className="text-muted-foreground text-xs">of checkable claims wrong</p>
+            <p className="text-muted-foreground mt-2 font-mono text-xs">
+              Parity Score{" "}
               {fixture.parityScore === null ? "—" : Math.round(fixture.parityScore)}
             </p>
-            <p className="text-muted-foreground text-xs">Parity Score</p>
           </div>
         </div>
       </header>
@@ -94,7 +103,10 @@ export default async function DemoScanPage({
       )}
 
       <section className="border-border mb-10 rounded-xl border p-5">
-        <p className="mb-4 text-sm font-medium">{fixture.interpretation}</p>
+        <p className="text-base font-medium">{fixture.wrongHeadline}</p>
+        <p className="text-muted-foreground mt-1 mb-4 text-sm">
+          {fixture.interpretation}
+        </p>
         <ScoreComposition composition={fixture.composition} />
         {improved !== null && (
           <p className="text-muted-foreground mt-4 border-t border-border pt-4 text-sm">

@@ -316,8 +316,11 @@ scan with warnings still scores, and the score panel states its denominator.
 - **3 — Interrogation + adjudication.** Questions, panel fan-out ×2 conditions, claim
   decomposition, evidence-forced adjudication with citation validation, `score.ts` +
   tests. Full scan end to end. **The technical heart — the care goes here.**
-- **4 — Remediation + re-test.** `llms.txt` / JSON-LD / page-copy patches, one-click
-  re-run on the same question set, before/after diff.
+- **4 — Remediation.** `llms.txt` / JSON-LD / page-copy patches and the
+  before/after diff view. **The live re-test loop is CUT (12 Sep):** the patch is
+  applied by hand and the scan re-run, shipping before/after as two fixtures.
+  Indistinguishable on video and roughly a day cheaper. A live re-run button is
+  Phase 5 overflow only.
 - **5 — Product.** Landing, onboarding, streaming progress, dashboard, pricing, and
   the drift card polished until a single screenshot sells it.
 

@@ -5,8 +5,10 @@ import {
   clamp,
   composition,
   interpret,
+  interpretWrongShare,
   parityScore,
   weightFor,
+  wrongShare,
   type ScorableVerdict,
 } from "@/lib/score";
 
@@ -170,5 +172,67 @@ describe("interpret", () => {
     expect(interpret(50)).toMatch(/don't really know you/i);
     expect(interpret(25)).toMatch(/confidently wrong/i);
     expect(interpret(90)).toMatch(/get you right/i);
+  });
+});
+
+describe("wrongShare — the headline number", () => {
+  it("excludes UNSUPPORTED from the denominator", () => {
+    // This is the whole point: the Parity Score's ceiling is set by ledger
+    // coverage, so a perfect record can still score in the sixties. The
+    // headline number must not inherit that problem.
+    const result = wrongShare([
+      verdict("CONFIRMED"),
+      verdict("CONFIRMED"),
+      verdict("UNSUPPORTED"),
+      verdict("UNSUPPORTED"),
+    ]);
+    expect(result.checkable).toBe(2);
+    expect(result.share).toBe(0);
+  });
+
+  it("counts drift and fabrication as wrong", () => {
+    const result = wrongShare([
+      verdict("CONFIRMED"),
+      verdict("DRIFTED"),
+      verdict("FABRICATED"),
+      verdict("UNSUPPORTED"),
+    ]);
+    expect(result.wrong).toBe(2);
+    expect(result.checkable).toBe(3);
+    expect(result.share).toBeCloseTo(2 / 3);
+  });
+
+  it("reports the Notion case as a perfect record", () => {
+    // Notion scored 68.2 on the Parity Score with zero errors.
+    const verdicts = [
+      ...repeat(verdict("CONFIRMED"), 4),
+      ...repeat(verdict("UNSUPPORTED"), 7),
+    ];
+    expect(wrongShare(verdicts).share).toBe(0);
+    expect(parityScore(verdicts)!).toBeLessThan(70);
+  });
+
+  it("returns null rather than 0% when nothing was checkable", () => {
+    // 0% wrong would read as a perfect score; it is an absence of data.
+    expect(wrongShare(repeat(verdict("UNSUPPORTED"), 5)).share).toBeNull();
+    expect(wrongShare([]).share).toBeNull();
+  });
+});
+
+describe("interpretWrongShare", () => {
+  it("distinguishes a perfect record from no data", () => {
+    expect(
+      interpretWrongShare(wrongShare(repeat(verdict("CONFIRMED"), 3))),
+    ).toMatch(/every one of the 3/i);
+    expect(
+      interpretWrongShare(wrongShare(repeat(verdict("UNSUPPORTED"), 3))),
+    ).toMatch(/could be checked/i);
+  });
+
+  it("states the count, not just a percentage", () => {
+    const text = interpretWrongShare(
+      wrongShare([verdict("DRIFTED"), verdict("CONFIRMED")]),
+    );
+    expect(text).toContain("1 of 2");
   });
 });

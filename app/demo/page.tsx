@@ -64,17 +64,18 @@ export default function DemoIndexPage() {
                 <div className="flex items-baseline justify-between gap-3">
                   <span className="font-mono text-sm">{fixture.domain}</span>
                   <span className="text-2xl font-semibold tabular-nums">
-                    {fixture.parityScore === null
+                    {fixture.claimsCheckable === 0
                       ? "—"
-                      : Math.round(fixture.parityScore)}
+                      : `${Math.round((fixture.claimsWrong / fixture.claimsCheckable) * 100)}%`}
                   </span>
                 </div>
                 <p className="text-muted-foreground mt-2 text-sm text-pretty">
                   {fixture.headline}
                 </p>
                 <p className="text-muted-foreground mt-3 font-mono text-xs">
-                  {fixture.facts.length} facts · {fixture.questions.length} questions ·{" "}
-                  {fixture.runs.reduce((n, r) => n + r.driftCards.length, 0)} verdicts
+                  {fixture.claimsWrong}/{fixture.claimsCheckable} claims wrong ·{" "}
+                  {fixture.facts.length} facts · Parity{" "}
+                  {fixture.parityScore === null ? "—" : Math.round(fixture.parityScore)}
                 </p>
               </Link>
             </li>

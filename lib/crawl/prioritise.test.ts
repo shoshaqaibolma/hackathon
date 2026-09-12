@@ -331,3 +331,34 @@ describe("localised duplicates (regression from a real dropbox.com crawl)", () =
     ]);
   });
 });
+
+describe("attribution parameters (regression from a real dropbox.com crawl)", () => {
+  it("collapses a marketing-attribution variant onto the canonical URL", () => {
+    // /plans and /plans?trigger=nr are one page. Both were crawled, wasting a
+    // third of the budget and putting four duplicate facts in the ledger.
+    expect(canonicalise("https://dropbox.com/plans?trigger=nr")).toBe(
+      "https://dropbox.com/plans",
+    );
+    expect(canonicalise("https://example.com/pricing?mkt_tok=abc&cid=123")).toBe(
+      "https://example.com/pricing",
+    );
+  });
+
+  it("still keeps parameters that select different content", () => {
+    expect(canonicalise("https://example.com/docs?page=2")).toContain("page=2");
+    expect(canonicalise("https://example.com/pricing?plan=team")).toContain("plan=team");
+  });
+
+  it("leaves one page after prioritisation", () => {
+    const result = prioritise(
+      [
+        candidate("https://dropbox.com/plans"),
+        candidate("https://dropbox.com/plans?trigger=nr"),
+        candidate("https://dropbox.com/plans?utm_source=x"),
+      ],
+      "dropbox.com",
+      10,
+    );
+    expect(result).toHaveLength(1);
+  });
+});

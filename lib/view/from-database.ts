@@ -7,7 +7,14 @@ import {
   summariseIntegrity,
   type IntegrityViolation,
 } from "@/lib/pipeline/integrity";
-import { composition, interpret, parityScore, weightFor } from "@/lib/score";
+import {
+  composition,
+  interpret,
+  interpretWrongShare,
+  parityScore,
+  weightFor,
+  wrongShare,
+} from "@/lib/score";
 import { RetrievedSnippetSchema } from "@/lib/search/types";
 import type {
   CostLine,
@@ -178,6 +185,13 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
   // one — the guarantee lives in the builder, not in each consumer.
   const score = intact ? (scan.parityScore ?? latest?.parityScore ?? null) : null;
 
+  const latestScorables = (latest?.driftCards ?? []).map((card) => ({
+    ruling: card.ruling,
+    citedFactCategory: card.groundTruth?.category ?? null,
+    questionCategory: card.questionCategory,
+  }));
+  const wrong = wrongShare(latestScorables);
+
   return {
     id: scan.id,
     domain: scan.domain,
@@ -185,6 +199,11 @@ export async function buildScanView(scanId: string): Promise<ScanView | null> {
     status: scan.status,
     parityScore: score,
     interpretation: intact ? interpret(score) : summariseIntegrity(integrity),
+    claimsWrong: wrong.wrong,
+    claimsCheckable: wrong.checkable,
+    wrongHeadline: intact
+      ? interpretWrongShare(wrong)
+      : summariseIntegrity(integrity),
     integrity,
     composition: latest?.composition ?? composition([]),
     warnings: scan.warnings,

@@ -29,7 +29,7 @@ import { GEMINI_FLASH, QWEN_27B } from "@/lib/llm/models";
 import { checkScanIntegrity } from "@/lib/pipeline/integrity";
 import { filterClaims, isRefusal } from "@/lib/pipeline/claims";
 import { displayName, filterQuestions } from "@/lib/pipeline/questions";
-import { extractFacts, type ExtractedFact } from "@/lib/pipeline/facts";
+import { dedupeFacts, extractFacts, type ExtractedFact } from "@/lib/pipeline/facts";
 import {
   QuestionBatch,
   QuestionBatchSchema,
@@ -125,6 +125,15 @@ async function screenDomain(domain: string): Promise<DomainReport> {
     for (const fact of result.facts) {
       facts.push({ ...fact, sourceUrl: candidate.url });
     }
+  }
+
+  const deduped = dedupeFacts(facts);
+  if (deduped.removed > 0) {
+    warnings.push(
+      `${deduped.removed} duplicate fact(s) removed — the same content is served at more than one URL`,
+    );
+    facts.length = 0;
+    facts.push(...deduped.facts);
   }
 
   const integrity = checkScanIntegrity({

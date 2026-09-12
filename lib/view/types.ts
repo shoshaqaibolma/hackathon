@@ -239,6 +239,17 @@ export const ScanViewSchema = z.object({
   interpretation: z.string(),
   composition: CompositionSchema,
 
+  /**
+   * THE HEADLINE NUMBER. Share of checkable claims that were wrong.
+   *
+   * The Parity Score stays as the weighted aggregate, but it leads with this
+   * because its own ceiling is set by ledger coverage rather than model
+   * accuracy — Notion scored 68.2 with a perfect record. See lib/score.ts.
+   */
+  claimsWrong: z.number().default(0),
+  claimsCheckable: z.number().default(0),
+  wrongHeadline: z.string().default(""),
+
   warnings: z.array(z.string()).default([]),
   error: z.string().nullable().default(null),
 

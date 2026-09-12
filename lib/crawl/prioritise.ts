@@ -178,7 +178,15 @@ export function canonicalise(rawUrl: string, base?: string): string | null {
   url.hostname = url.hostname.toLowerCase();
 
   for (const key of [...url.searchParams.keys()]) {
-    if (/^(utm_|fbclid|gclid|mc_|ref|source)/i.test(key)) {
+    // Attribution and campaign parameters never change the page content.
+    // Found on dropbox.com: /plans and /plans?trigger=nr are one page, and
+    // both were crawled, wasting a third of the budget and putting four
+    // duplicate facts into the ledger.
+    if (
+      /^(utm_|fbclid|gclid|mc_|ref|source|trigger|campaign|cid|mkt_tok|_ga|_gl|igshid|ttclid|msclkid|yclid|at_|si)$|^utm/i.test(
+        key,
+      )
+    ) {
       url.searchParams.delete(key);
     }
   }

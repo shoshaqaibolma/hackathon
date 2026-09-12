@@ -16,7 +16,9 @@
     "db:seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate",
     "demo:record": "tsx --tsconfig tsconfig.json scripts/record-fixture.ts",
-    "candidate:scan": "tsx --tsconfig tsconfig.json scripts/candidate-scan.ts"
+    "candidate:scan": "tsx --tsconfig tsconfig.json scripts/candidate-scan.ts",
+    "review": "tsx --tsconfig tsconfig.json scripts/review.ts",
+    "study:build": "tsx --tsconfig tsconfig.json scripts/build-study.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.52",

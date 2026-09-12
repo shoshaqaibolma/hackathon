@@ -113,6 +113,16 @@ A user's API key is radioactive. Every one of these has a test in
   adjudication only. Everything else is `claude-haiku-4-5`, except remediation copy
   (`claude-sonnet-5`).
 - **Do not exceed the caps**: 25 pages crawled, 40 questions, concurrency 6.
+- **Do not build the live re-test loop.** CUT on 12 Sep. Phase 4 generates the
+  patch; the user applies it by hand and re-runs, and before/after ship as two
+  fixtures. Identical on video, saves a day. A live "re-run" button is Phase 5
+  overflow only.
+- **Do not lead any surface with the Parity Score.** The headline is
+  `% of checkable claims wrong`. The score's ceiling is set by ledger coverage,
+  not model accuracy — Notion scored 68.2 with a perfect record — so it
+  understates good results. Score stays as the secondary aggregate.
+- **Do not treat client-side rendering as our failure.** It is a reported
+  finding about the site (`lib/pipeline/insights.ts`), not an integrity error.
 - **Do not reintroduce `DRIFTED = 0`.** It is `-0.5`, deliberately amending the original
   spec so that drift scores below the neutral line and absence sits on it. See PLAN §6.
 - **Do not show the Parity Score without its composition bar.** A bare mid-range

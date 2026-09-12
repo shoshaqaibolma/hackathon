@@ -127,3 +127,49 @@ export function interpret(score: number | null): string {
   if (score >= 40) return "Models don't really know you.";
   return "Models are confidently wrong about you.";
 }
+
+export type WrongShare = {
+  /** Claims ruled DRIFTED or FABRICATED. */
+  wrong: number;
+  /** Claims that were checkable at all — excludes UNSUPPORTED. */
+  checkable: number;
+  /** wrong / checkable, or null when nothing was checkable. */
+  share: number | null;
+};
+
+/**
+ * The headline number: what share of checkable claims were wrong.
+ *
+ * The Parity Score remains the weighted aggregate, but its ceiling is set by
+ * ledger coverage rather than by model accuracy. Notion scored 68.2 with a
+ * perfect record, because UNSUPPORTED findings drag toward the midpoint —
+ * which understates a good result and invites "so why can nobody score 90?".
+ *
+ * This has no such problem. UNSUPPORTED means the site never addressed the
+ * claim, so it is excluded from the denominator entirely: this measures only
+ * claims the ledger could actually adjudicate.
+ */
+export function wrongShare(verdicts: readonly ScorableVerdict[]): WrongShare {
+  let wrong = 0;
+  let checkable = 0;
+
+  for (const verdict of verdicts) {
+    if (verdict.ruling === "UNSUPPORTED") continue;
+    checkable += 1;
+    if (verdict.ruling === "DRIFTED" || verdict.ruling === "FABRICATED") wrong += 1;
+  }
+
+  return { wrong, checkable, share: checkable > 0 ? wrong / checkable : null };
+}
+
+/** How the headline number should be read aloud. */
+export function interpretWrongShare(result: WrongShare): string {
+  if (result.share === null) {
+    return "Nothing the models said could be checked against your site.";
+  }
+  const pct = Math.round(result.share * 100);
+  if (pct === 0) {
+    return `Every one of the ${result.checkable} checkable claims was correct.`;
+  }
+  return `${result.wrong} of ${result.checkable} checkable claims about you were wrong.`;
+}
