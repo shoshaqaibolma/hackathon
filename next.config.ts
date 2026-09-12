@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/demo": ["./fixtures/**/*.json"],
     "/demo/[slug]": ["./fixtures/**/*.json"],
+    // The study page renders the same markdown file the repository publishes.
+    "/study": ["./reports/study.md"],
   },
 };
 

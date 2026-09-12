@@ -218,6 +218,34 @@ what a page said on a stated date. They are never characterisations of a company
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "study.md"), md, "utf8");
 
+  // Emitted so the landing page imports the numbers rather than hard-coding
+  // them. A marketing page quoting a stale figure is the exact failure this
+  // product exists to catch.
+  writeFileSync(
+    join(outDir, "study-stats.json"),
+    `${JSON.stringify(
+      {
+        companies: usable.length,
+        findings: totalFindings,
+        wrong: totalWrong,
+        wrongPercent: Number(overallWrong.toFixed(0)),
+        medianWrongPercent: Number(medianWrong.toFixed(0)),
+        confirmed: totalConfirmed,
+        unsupported: totalUnsupported,
+        scannedAt: scanned,
+        worst: { domain: sorted[0].domain, wrongPercent: Number((sorted[0].wrongShare * 100).toFixed(0)) },
+        best: {
+          domain: sorted[sorted.length - 1].domain,
+          wrongPercent: Number((sorted[sorted.length - 1].wrongShare * 100).toFixed(0)),
+        },
+      },
+      null,
+      2,
+    )}
+`,
+    "utf8",
+  );
+
   console.log(`Wrote reports/study.md`);
   console.log(`  companies       ${usable.length}`);
   console.log(`  findings        ${totalFindings}`);

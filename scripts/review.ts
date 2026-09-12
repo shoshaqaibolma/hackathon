@@ -96,6 +96,7 @@ function init(domains: string[]): void {
             ? prior.label
             : null,
         comment: prior?.comment ?? "",
+        seconds: prior?.seconds ?? null,
       });
     });
   }
@@ -165,10 +166,12 @@ async function label(): Promise<void> {
         : "    (no span cited — the adjudicator claims the ledger does not address this)",
     );
     if (item.sourceUrl) console.log(`\n    ${item.sourceUrl}`);
-    console.log(`\n  ADJUDICATOR SAID: ${item.predicted}`);
-    console.log(wrap(item.adjudicatorNote));
-
+    // The adjudicator's ruling is deliberately NOT shown here. Seeing it
+    // before committing anchors the reviewer and inflates agreement, which
+    // would make the accuracy figure meaningless.
+    const started = Date.now();
     const answer = (await rl.question("\n  your ruling > ")).trim();
+    const seconds = Math.round((Date.now() - started) / 1000);
     const key = answer.charAt(0).toLowerCase();
 
     if (key === "q") break;
@@ -186,7 +189,26 @@ async function label(): Promise<void> {
 
     item.label = ruling;
     item.comment = answer.slice(1).trim();
+    item.seconds = seconds;
     done += 1;
+
+    // Revealed only now, so the reviewer can see where the two differed
+    // without that knowledge having influenced the ruling.
+    const agreed = ruling === item.predicted;
+    const outcome =
+      ruling === "UNCLEAR"
+        ? "unclear — excluded from accuracy"
+        : agreed
+          ? "agreed"
+          : `DIFFERED — adjudicator said ${item.predicted}`;
+
+    console.log(`\n  you said ${ruling}  ·  ${outcome}`);
+    if (!agreed && ruling !== "UNCLEAR" && item.adjudicatorNote) {
+      console.log(wrap(`its reasoning: ${item.adjudicatorNote}`, 72, "    "));
+    }
+    if (seconds > 90) {
+      console.log(`  ${seconds}s — over the 90s cap; prefer UNCLEAR next time.`);
+    }
 
     // Save after every item; a long labelling session must survive a crash.
     save(file);
@@ -209,6 +231,16 @@ function score(): void {
   console.log(`findings          ${result.total}`);
   console.log(`labelled          ${result.labelled}`);
   console.log(`unclear           ${result.unclear}  (excluded from accuracy)`);
+
+  const timed = file.items
+    .map((i) => i.seconds)
+    .filter((v): v is number => v !== null);
+  if (timed.length > 0) {
+    const sorted = [...timed].sort((a, b) => a - b);
+    const med = sorted[Math.floor(sorted.length / 2)];
+    const over = timed.filter((t) => t > 90).length;
+    console.log(`median time       ${med}s  (${over} over the 90s cap)`);
+  }
 
   if (result.accuracy === null) {
     console.log("\nNothing scorable yet — label some findings first.");

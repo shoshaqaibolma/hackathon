@@ -1,0 +1,18 @@
+{
+  "companies": 11,
+  "findings": 102,
+  "wrong": 43,
+  "wrongPercent": 42,
+  "medianWrongPercent": 45,
+  "confirmed": 17,
+  "unsupported": 42,
+  "scannedAt": "2026-09-12",
+  "worst": {
+    "domain": "dropbox.com",
+    "wrongPercent": 71
+  },
+  "best": {
+    "domain": "notion.so",
+    "wrongPercent": 0
+  }
+}
