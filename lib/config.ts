@@ -96,8 +96,15 @@ export const CAPS = {
    *
    * Safe to lower now that the Gemini model is flash-lite, which emits zero
    * reasoning tokens; the -flash models needed the headroom.
+   *
+   * HARD CEILING: Groq enforces output-tokens-per-minute separately from
+   * total TPM, and the free tier allows 1,000. A request whose max_tokens
+   * exceeds 1,000 is REJECTED OUTRIGHT — not throttled — with "Request too
+   * large ... on output tokens per minute (OTPM)". So this must stay under
+   * 1,000, and panel prompts must ask for brevity so answers finish inside
+   * it rather than tripping the truncation guard.
    */
-  ANSWER_OUTPUT_TOKENS: 1_024,
+  ANSWER_OUTPUT_TOKENS: 900,
 } as const;
 
 /**

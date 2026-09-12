@@ -28,6 +28,7 @@ import { callObject, callText, ModelCallError, type CallRecord } from "@/lib/llm
 import { GEMINI_FLASH, QWEN_27B } from "@/lib/llm/models";
 import { checkScanIntegrity } from "@/lib/pipeline/integrity";
 import { filterClaims, isRefusal } from "@/lib/pipeline/claims";
+import { displayName, filterQuestions } from "@/lib/pipeline/questions";
 import { extractFacts, type ExtractedFact } from "@/lib/pipeline/facts";
 import {
   QuestionBatch,
@@ -65,6 +66,9 @@ type DomainReport = {
     note: string;
   }[];
   score: number | null;
+  /** True when the score rests on too little data to mean anything. */
+  unreliable: boolean;
+  failedAnswers: number;
   wrongShare: number;
   integrityViolations: number;
   warnings: string[];
@@ -159,10 +163,26 @@ async function screenDomain(domain: string): Promise<DomainReport> {
   );
   records.push(questions.record);
 
-  const asked = questions.value.questions.slice(0, QUESTIONS_PER_DOMAIN);
+  // A question that does not name the company is unanswerable; the panel
+  // replies "which service do you mean?" and the judge scores it as a
+  // fabrication. Enforce mechanically rather than trusting the prompt.
+  const vetted = filterQuestions(
+    questions.value.questions.map((q) => q.text),
+    domain,
+  );
+  if (vetted.repaired > 0) {
+    warnings.push(`${vetted.repaired} question(s) rewritten to name the company`);
+  }
+  if (vetted.dropped > 0) {
+    warnings.push(`${vetted.dropped} question(s) dropped: ${vetted.droppedReasons[0]}`);
+  }
+  const asked = vetted.questions
+    .slice(0, QUESTIONS_PER_DOMAIN)
+    .map((text) => ({ text }));
 
   // --- ask + screen -----------------------------------------------------
   const findings: DomainReport["findings"] = [];
+  let failedAnswers = 0;
 
   for (const question of asked) {
     let answerText: string;
@@ -172,13 +192,14 @@ async function screenDomain(domain: string): Promise<DomainReport> {
       // Gemini is reserved for extraction and judging.
       const answer = await callText(
         QWEN_27B,
-        "Answer from your own knowledge. Do not browse. Be specific about numbers, prices and limits. If you are unsure, say so plainly.",
+        `You are answering a customer's question about ${displayName(domain)} (${domain}). Answer from your own knowledge. Do not browse. Be specific about numbers, prices and limits. If you are unsure, say so plainly. Answer in at most four sentences.`,
         question.text,
         context,
       );
       records.push(answer.record);
       answerText = answer.value;
     } catch (error) {
+      failedAnswers += 1;
       warnings.push(
         `answer failed: ${error instanceof ModelCallError ? error.message : String(error)}`,
       );
@@ -271,6 +292,10 @@ Cite factIndex for CONFIRMED and DRIFTED. Use null for the others. Never invent 
     (f) => f.ruling === "DRIFTED" || f.ruling === "FABRICATED",
   ).length;
 
+  // Same principle as the scan integrity gate: a score computed from a
+  // handful of surviving findings looks exactly like a real one. Refuse it.
+  const unreliable = failedAnswers > 0 || findings.length < 3;
+
   return {
     domain,
     scannedAt: new Date().toISOString(),
@@ -278,7 +303,9 @@ Cite factIndex for CONFIRMED and DRIFTED. Use null for the others. Never invent 
     facts,
     questions: asked.map((q) => q.text),
     findings,
-    score: parityScore(scorables),
+    score: unreliable ? null : parityScore(scorables),
+    unreliable,
+    failedAnswers,
     wrongShare: findings.length > 0 ? wrong / findings.length : 0,
     integrityViolations: integrity.violations.length,
     warnings,
@@ -302,6 +329,8 @@ function emptyReport(
     questions: [],
     findings: [],
     score: null,
+    unreliable: true,
+    failedAnswers: 0,
     wrongShare: 0,
     integrityViolations: 0,
     warnings,
@@ -380,7 +409,9 @@ async function main() {
   for (const r of ranked) {
     const regime =
       r.score === null
-        ? "unscored"
+        ? r.failedAnswers > 0
+          ? `UNRELIABLE (${r.failedAnswers} answers failed)`
+          : "unscored"
         : r.score >= 70
           ? "CONTROL"
           : r.score >= 40

@@ -63,7 +63,45 @@ const EXCLUDE_PATTERNS: ReadonlyArray<{ pattern: RegExp; label: string }> = [
   { pattern: /\/(cdn-cgi|wp-admin|wp-content|_next|static|assets)\//i, label: "infrastructure" },
 ];
 
+/**
+ * Locale-prefixed duplicates.
+ *
+ * Found crawling dropbox.com: /business/pricing, /de/business/pricing and
+ * /es_ES/business/pricing are the same page, and all three were fetched —
+ * identical 3,833 characters each. The whole crawl budget went to one page
+ * translated three ways, and the resulting ledger looked normal.
+ *
+ * A region-suffixed segment (es_ES, pt-BR) is unambiguous. A bare two-letter
+ * segment is matched only against known language codes, so a product path
+ * like /go or /ai is never mistaken for a locale.
+ */
+const LOCALE_CODES = new Set([
+  "af", "ar", "bg", "bn", "cs", "da", "de", "el", "es", "et", "fa", "fi",
+  "fr", "he", "hi", "hr", "hu", "id", "is", "it", "ja", "ko", "lt", "lv",
+  "ms", "nb", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv",
+  "th", "tl", "tr", "uk", "vi", "zh",
+]);
+
+export function isLocalePrefixed(url: string): boolean {
+  let segment: string;
+  try {
+    segment = new URL(url).pathname.split("/").filter(Boolean)[0] ?? "";
+  } catch {
+    return false;
+  }
+  if (!segment) return false;
+
+  const regioned = segment.match(/^([a-z]{2})[_-]([A-Za-z]{2})$/);
+  if (regioned) return regioned[1].toLowerCase() !== "en";
+
+  return LOCALE_CODES.has(segment.toLowerCase());
+}
+
 export function isExcluded(url: string): { excluded: boolean; label?: string } {
+  if (isLocalePrefixed(url)) {
+    return { excluded: true, label: "localised duplicate" };
+  }
+
   for (const { pattern, label } of EXCLUDE_PATTERNS) {
     if (pattern.test(url)) return { excluded: true, label };
   }

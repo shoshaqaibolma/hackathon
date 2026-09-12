@@ -1,0 +1,14 @@
+# DRIFT candidates — expect below 50
+planetscale.com
+heroku.com
+railway.app
+replit.com
+vercel.com
+render.com
+supabase.com
+fly.io
+
+# CONTROL candidates — expect 70+
+notion.so
+dropbox.com
+github.com

@@ -51,12 +51,12 @@ date. The formula is one pure function in [`lib/score.ts`](lib/score.ts) with un
 | Step | What happens | Model |
 |---|---|---|
 | 1 | `robots.txt` + sitemap discovery, deterministic URL prioritisation, fetch, Readability extraction | — |
-| 2 | Fact extraction with mandatory evidence spans | Gemini 3.8 Flash |
-| 3 | Question synthesis from the ledger | Gemini 3.8 Flash |
+| 2 | Fact extraction with mandatory evidence spans | Gemini 3.1 Flash Lite |
+| 3 | Question synthesis from the ledger | Gemini 3.1 Flash Lite |
 | 4–5 | Panel answers the questions in both conditions. BROWSING injects snippets we retrieved ourselves, so every source the model saw is stored and shown | Panel |
-| 6 | Claim decomposition | Gemini 3.8 Flash |
-| 7 | Evidence-forced adjudication against a retrieved ledger slice | Gemini 3.8 Flash, or your own model under BYOK |
-| 8 | Remediation: `llms.txt` patch, JSON-LD block, or rewritten page copy | Gemini 3.8 Flash |
+| 6 | Claim decomposition | Gemini 3.1 Flash Lite |
+| 7 | Evidence-forced adjudication against a retrieved ledger slice | Gemini 3.1 Flash Lite, or your own model under BYOK |
+| 8 | Remediation: `llms.txt` patch, JSON-LD block, or rewritten page copy | Gemini 3.1 Flash Lite |
 
 Two invariants are enforced in code rather than asked for in a prompt:
 
@@ -122,24 +122,45 @@ up as a failed check rather than as empty answers inside a scan.
 Stated plainly, because a tool that audits other systems for accuracy should be honest
 about its own.
 
-- **The public panel runs free-tier models; BYOK users get frontier models.** The
-  hosted FREE mode answers with Gemini 3.8 Flash and Qwen 3.8 27B on free tiers — two
-  providers and two model families, so their agreement is real evidence rather than a
-  shared lineage talking to itself. They are not, however, the models most of your
-  customers actually use. A frontier model has different knowledge and different
-  failure modes, so a FREE-mode score is a strong indicator, not a substitute for
-  auditing the assistant your buyers really ask. Bring your own key to run the same
-  question set against Claude or GPT.
-- **Free-tier rate limits shape the results.** Groq's ~6,000 TPM ceiling means
-  token-heavy work is routed to Gemini and Groq answers are kept short. Throttling is
-  surfaced in the scan UI as a real state rather than hidden behind a spinner.
+> **A note on which models we test, because it is a design choice rather than a
+> constraint we regret.**
+>
+> Parity's public panel is Gemini 3.1 Flash Lite and Qwen 3.8 27B. Neither is a
+> frontier model, and we do not claim "the best models get this wrong."
+>
+> We claim something we think matters more. Small, fast, cheap models are what
+> actually answer at scale: they are what sits behind in-product assistants,
+> support bots, RAG pipelines, autocomplete, routing layers and agent subtasks,
+> because those workloads are latency- and cost-bound. When a customer's question
+> about your pricing gets answered by software rather than by a person, a model in
+> this class is more likely to be the one answering than a frontier model is.
+>
+> So this panel is not a cheaper approximation of the real test. For deployed
+> assistants and agents it *is* closer to the real test. A frontier model is the
+> better proxy for a human deliberately researching you in a chat window; these are
+> the better proxy for the automated surface that answers everyone else.
+>
+> Both are worth auditing, and they fail differently. Bring your own key to run the
+> identical question set against Claude or GPT and compare the two directly.
+
+- **Free-tier rate limits shape the results.** Groq enforces 6,000 tokens/minute and a
+  separate 1,000 output-tokens/minute ceiling; Gemini's free tier is request-limited
+  rather than token-limited. Token-heavy work is routed to Gemini, Groq answers are
+  kept short, and throttling is surfaced in the scan UI as a real state rather than
+  hidden behind a spinner.
 - **The adjudicator is a language model judging language models.** Verdicts are forced
   to cite a ledger entry and validated against it, which bounds the failure mode but
-  does not eliminate it. Confidence scores are the model's own and are not calibrated.
+  does not eliminate it. On a fast adjudicator, expect roughly one misruling in six —
+  we have seen a correctly-supported claim ruled DRIFTED. Every verdict shows the exact
+  span it was decided against, so a reader can check the ruling rather than trust it.
+  Confidence scores are the model's own and are not calibrated.
 - **The ledger is only as good as the crawl.** Capped at 25 pages, text-only — no
-  headless browser, so content rendered entirely client-side is invisible to it. A page
-  that returns 403 or is disallowed by `robots.txt` is reported as such, never silently
-  skipped.
+  headless browser, so content rendered entirely client-side is largely invisible. This
+  is measurable: crawling `github.com/pricing` yields ~2,100 characters and 9 facts,
+  because most of that page is rendered in the browser. A site whose pricing is
+  client-side will look sparser than it is. A page that returns 403 or is disallowed by
+  `robots.txt` is reported as such, never silently skipped, and a page that extracts to
+  nothing usable fails the integrity check rather than quietly scoring.
 - **Browsing answers are not reproducible.** The live web moves. A re-run days later
   legitimately differs, and the cache namespace exists to make that explicit rather
   than to hide it.

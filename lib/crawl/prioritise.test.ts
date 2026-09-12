@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   canonicalise,
   isExcluded,
+  isLocalePrefixed,
   isSameSite,
   prioritise,
   scoreCandidate,
@@ -285,6 +286,48 @@ describe("subdomain handling (regression from a real tavily.com crawl)", () => {
       "https://example.com/pricing",
       "https://example.com/",
       "https://example.com/faq",
+    ]);
+  });
+});
+
+describe("localised duplicates (regression from a real dropbox.com crawl)", () => {
+  it("excludes region-suffixed locale prefixes", () => {
+    // /business/pricing, /de/business/pricing and /es_ES/business/pricing are
+    // one page. All three were crawled; the ledger looked perfectly normal.
+    expect(isLocalePrefixed("https://www.dropbox.com/es_ES/business/pricing")).toBe(true);
+    expect(isLocalePrefixed("https://www.dropbox.com/pt-BR/business/pricing")).toBe(true);
+  });
+
+  it("excludes bare language-code prefixes", () => {
+    expect(isLocalePrefixed("https://www.dropbox.com/de/business/pricing")).toBe(true);
+    expect(isLocalePrefixed("https://example.com/ja/pricing")).toBe(true);
+  });
+
+  it("keeps English and region-suffixed English", () => {
+    expect(isLocalePrefixed("https://example.com/en_GB/pricing")).toBe(false);
+    expect(isLocalePrefixed("https://example.com/pricing")).toBe(false);
+  });
+
+  it("does not mistake a product path for a locale", () => {
+    // Two-letter product segments are common and must survive.
+    expect(isLocalePrefixed("https://example.com/go/pricing")).toBe(false);
+    expect(isLocalePrefixed("https://example.com/ai/pricing")).toBe(false);
+    expect(isLocalePrefixed("https://example.com/ui")).toBe(false);
+  });
+
+  it("leaves only the canonical page after prioritisation", () => {
+    const result = prioritise(
+      [
+        candidate("https://dropbox.com/business/pricing"),
+        candidate("https://dropbox.com/de/business/pricing"),
+        candidate("https://dropbox.com/es_ES/business/pricing"),
+        candidate("https://dropbox.com/fr/business/pricing"),
+      ],
+      "dropbox.com",
+      10,
+    );
+    expect(result.map((r) => r.url)).toEqual([
+      "https://dropbox.com/business/pricing",
     ]);
   });
 });
