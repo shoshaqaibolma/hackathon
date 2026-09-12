@@ -1,0 +1,255 @@
+{
+  "domain": "supabase.com",
+  "scannedAt": "2026-09-12T11:56:15.818Z",
+  "pages": [
+    {
+      "url": "https://supabase.com/docs/guides/functions/pricing",
+      "chars": 933,
+      "status": "OK"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/realtime/pricing",
+      "chars": 772,
+      "status": "OK"
+    },
+    {
+      "url": "https://supabase.com/docs/guides/storage/pricing",
+      "chars": 523,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "Realtime messages are charged at $2.50 per 1 million messages for usage exceeding the subscription plan's quota.",
+      "category": "PRICING",
+      "evidenceSpan": "$2.50 per 1 million messages",
+      "evidenceOffset": 98,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Free plan has a quota of 2 million Realtime messages.",
+      "category": "LIMITS",
+      "evidenceSpan": "Free2 million",
+      "evidenceOffset": 220,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Pro plan has a quota of 5 million Realtime messages.",
+      "category": "LIMITS",
+      "evidenceSpan": "Pro5 million",
+      "evidenceOffset": 234,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Team plan has a quota of 5 million Realtime messages.",
+      "category": "LIMITS",
+      "evidenceSpan": "Team5 million",
+      "evidenceOffset": 274,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "Realtime peak connections are charged at $10 per 1,000 peak connections for usage exceeding the subscription plan's quota.",
+      "category": "PRICING",
+      "evidenceSpan": "$10 per 1,000 peak connections",
+      "evidenceOffset": 438,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Free plan has a quota of 200 peak connections.",
+      "category": "LIMITS",
+      "evidenceSpan": "Free200",
+      "evidenceOffset": 562,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Pro plan has a quota of 500 peak connections.",
+      "category": "LIMITS",
+      "evidenceSpan": "Pro500",
+      "evidenceOffset": 570,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "The Team plan has a quota of 500 peak connections.",
+      "category": "LIMITS",
+      "evidenceSpan": "Team500",
+      "evidenceOffset": 606,
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing"
+    },
+    {
+      "statement": "Storage usage is charged at $0.00002919 per GB-Hr.",
+      "category": "PRICING",
+      "evidenceSpan": "$0.00002919 per GB-Hr",
+      "evidenceOffset": 66,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "Storage usage is charged at $0.0213 per GB per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$0.0213 per GB per month",
+      "evidenceOffset": 89,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "Supabase charges for storage only apply to usage that exceeds the subscription plan's quota.",
+      "category": "PRICING",
+      "evidenceSpan": "You are only\ncharged for usage exceeding your subscription plan's quota.",
+      "evidenceOffset": 116,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "The Free plan has a storage quota of 1 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Free1",
+      "evidenceOffset": 256,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "The Pro plan has a storage quota of 100 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Pro100",
+      "evidenceOffset": 266,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "The Team plan has a storage quota of 100 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Team100",
+      "evidenceOffset": 296,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    },
+    {
+      "statement": "Storage Image Transformations incur additional charges.",
+      "category": "PRICING",
+      "evidenceSpan": "If you use Storage Image Transformations, additional charges apply.",
+      "evidenceOffset": 456,
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing"
+    }
+  ],
+  "questions": [
+    "In Supabase, if I am on the Pro plan, how many Realtime messages can I send before I start incurring extra costs?",
+    "In Supabase, what is the penalty rate for exceeding the peak connection limit on my current plan?",
+    "In Supabase, does the Free plan provide any storage capacity, or am I charged from the first gigabyte used?",
+    "In Supabase, how many concurrent peak connections are allowed on the Team plan before additional fees apply?"
+  ],
+  "findings": [
+    {
+      "question": "In Supabase, if I am on the Pro plan, how many Realtime messages can I send before I start incurring extra costs?",
+      "claim": "On the Supabase Pro plan, which costs $25 per month",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding the monthly cost of the Pro plan."
+    },
+    {
+      "question": "In Supabase, if I am on the Pro plan, how many Realtime messages can I send before I start incurring extra costs?",
+      "claim": "you are included with 2 million Realtime messages per month",
+      "ruling": "DRIFTED",
+      "fact": "The Pro plan has a quota of 5 million Realtime messages.",
+      "evidenceSpan": "Pro5 million",
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing",
+      "note": "The Pro plan quota for Realtime messages is 5 million, not 2 million."
+    },
+    {
+      "question": "In Supabase, if I am on the Pro plan, how many Realtime messages can I send before I start incurring extra costs?",
+      "claim": "Supabase's official documentation does not universally specify a single fixed per-message overage rate",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger explicitly defines the overage rate for Realtime messages as $2.50 per 1 million messages."
+    },
+    {
+      "question": "In Supabase, what is the penalty rate for exceeding the peak connection limit on my current plan?",
+      "claim": "Supabase does not charge a specific \"penalty rate\" for exceeding the peak concurrent connection limit",
+      "ruling": "DRIFTED",
+      "fact": "Realtime peak connections are charged at $10 per 1,000 peak connections for usage exceeding the subscription plan's quota.",
+      "evidenceSpan": "$10 per 1,000 peak connections",
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing",
+      "note": "The ledger states that Realtime peak connections are charged at $10 per 1,000 peak connections for usage exceeding the subscription plan's quota."
+    },
+    {
+      "question": "In Supabase, what is the penalty rate for exceeding the peak connection limit on my current plan?",
+      "claim": "there is no per-unit cost for exceeding them",
+      "ruling": "DRIFTED",
+      "fact": "Realtime peak connections are charged at $10 per 1,000 peak connections for usage exceeding the subscription plan's quota.",
+      "evidenceSpan": "$10 per 1,000 peak connections",
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing",
+      "note": "The ledger explicitly defines a per-unit cost of $10 per 1,000 peak connections for overages."
+    },
+    {
+      "question": "In Supabase, what is the penalty rate for exceeding the peak connection limit on my current plan?",
+      "claim": "Pro allows up to 250 concurrent connections",
+      "ruling": "DRIFTED",
+      "fact": "The Pro plan has a quota of 500 peak connections.",
+      "evidenceSpan": "Pro500",
+      "sourceUrl": "https://supabase.com/docs/guides/realtime/pricing",
+      "note": "The ledger states the Pro plan has a quota of 500 peak connections."
+    },
+    {
+      "question": "In Supabase, what is the penalty rate for exceeding the peak connection limit on my current plan?",
+      "claim": "you must upgrade your plan tier such as Pro, Team, or Enterprise to access higher limits",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention upgrading as a requirement to address overages or the availability of an Enterprise plan."
+    },
+    {
+      "question": "In Supabase, does the Free plan provide any storage capacity, or am I charged from the first gigabyte used?",
+      "claim": "Supabase's Free plan includes 1 GB of storage",
+      "ruling": "CONFIRMED",
+      "fact": "The Free plan has a storage quota of 1 GB.",
+      "evidenceSpan": "Free1",
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing",
+      "note": "The ledger confirms a 1 GB storage quota for the Free plan."
+    },
+    {
+      "question": "In Supabase, does the Free plan provide any storage capacity, or am I charged from the first gigabyte used?",
+      "claim": "you are not charged from the first gigabyte used",
+      "ruling": "CONFIRMED",
+      "fact": "Supabase charges for storage only apply to usage that exceeds the subscription plan's quota.",
+      "evidenceSpan": "You are only\ncharged for usage exceeding your subscription plan's quota.",
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing",
+      "note": "Charges only apply to usage that exceeds the plan's quota."
+    },
+    {
+      "question": "In Supabase, does the Free plan provide any storage capacity, or am I charged from the first gigabyte used?",
+      "claim": "additional storage is $0.02 per GB per month",
+      "ruling": "DRIFTED",
+      "fact": "Storage usage is charged at $0.0213 per GB per month.",
+      "evidenceSpan": "$0.0213 per GB per month",
+      "sourceUrl": "https://supabase.com/docs/guides/storage/pricing",
+      "note": "The ledger specifies the price as $0.0213 per GB per month."
+    },
+    {
+      "question": "In Supabase, does the Free plan provide any storage capacity, or am I charged from the first gigabyte used?",
+      "claim": "This distinction applies to both database and file (Storage) capacity within the free tier.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger provides details on Storage but does not specify quota rules for database capacity."
+    },
+    {
+      "question": "In Supabase, how many concurrent peak connections are allowed on the Team plan before additional fees apply?",
+      "claim": "I don't have specific knowledge of the exact concurrent connection limits or overage fee thresholds for the Supabase Team plan, as these technical specifications and pricing tiers can change.\n\nI recommend checking the official Supabase pric",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The model declined to answer — it does not know this company."
+    }
+  ],
+  "score": 43.75,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.5,
+  "integrityViolations": 0,
+  "warnings": [
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 5152,
+  "calls": 12,
+  "throttledMs": 0
+}

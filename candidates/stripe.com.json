@@ -1,0 +1,241 @@
+{
+  "domain": "stripe.com",
+  "scannedAt": "2026-09-12T01:23:13.150Z",
+  "pages": [
+    {
+      "url": "https://stripe.com/revenue-recognition/pricing",
+      "chars": 2797,
+      "status": "OK"
+    },
+    {
+      "url": "https://stripe.com/sigma/pricing",
+      "chars": 1449,
+      "status": "OK"
+    },
+    {
+      "url": "https://stripe.com/tax/pricing",
+      "chars": 3537,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "Stripe Revenue Recognition offers a 30-day free trial for new users.",
+      "category": "PRICING",
+      "evidenceSpan": "Free 30-day trial available for new users.",
+      "evidenceOffset": 136,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "Users can export revenue recognition reports and financial statements using API.",
+      "category": "API",
+      "evidenceSpan": "Export revenue recognition reports and financial statements using CSV or API.",
+      "evidenceOffset": 2465,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "Accounting periods can be set by month or 4-4-5 calendar.",
+      "category": "LIMITS",
+      "evidenceSpan": "Set accounting periods by month or 4-4-5 calendar.",
+      "evidenceOffset": 1072,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "The platform supports automatic import of in-app purchases from the App Store and Google Play.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Automatically import in-app purchases from the App Store and Google Play.",
+      "evidenceOffset": 2244,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "Users can manually import third-party transactions into Stripe.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Import third-party transactions into Stripe.",
+      "evidenceOffset": 2164,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "Revenue recognition can be treated pro-rata or point in time.",
+      "category": "GENERAL",
+      "evidenceSpan": "Treat revenue pro-rata or point in time.",
+      "evidenceOffset": 395,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "The service allows users to reopen accounting periods to make historical adjustments.",
+      "category": "GENERAL",
+      "evidenceSpan": "Reopen accounting periods to make historical adjustments.",
+      "evidenceOffset": 482,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "Revenue recognition allows for the automatic adjustment of revenue for credit notes.",
+      "category": "GENERAL",
+      "evidenceSpan": "Auto-adjust revenue for credit notes.",
+      "evidenceOffset": 564,
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing"
+    },
+    {
+      "statement": "New users are eligible for a 30-day free trial of Stripe Sigma.",
+      "category": "ELIGIBILITY",
+      "evidenceSpan": "New users get a free 30-day trial.",
+      "evidenceOffset": 310,
+      "sourceUrl": "https://stripe.com/sigma/pricing"
+    },
+    {
+      "statement": "Stripe Data Pipeline includes access to Stripe Sigma.",
+      "category": "GENERAL",
+      "evidenceSpan": "Upgrade to Stripe Data Pipeline, which includes Stripe Sigma.",
+      "evidenceOffset": 398,
+      "sourceUrl": "https://stripe.com/sigma/pricing"
+    },
+    {
+      "statement": "Users can download query results from Stripe Sigma as a CSV file.",
+      "category": "GENERAL",
+      "evidenceSpan": "Download query results as a CSV.",
+      "evidenceOffset": 847,
+      "sourceUrl": "https://stripe.com/sigma/pricing"
+    },
+    {
+      "statement": "Stripe Sigma allows users to schedule custom reports for recurring email delivery.",
+      "category": "GENERAL",
+      "evidenceSpan": "Schedule custom reports for recurring email delivery.",
+      "evidenceOffset": 919,
+      "sourceUrl": "https://stripe.com/sigma/pricing"
+    },
+    {
+      "statement": "Custom reports created in Stripe Sigma can be published to the Stripe Dashboard.",
+      "category": "GENERAL",
+      "evidenceSpan": "Publish custom reports to the Stripe Dashboard.",
+      "evidenceOffset": 1012,
+      "sourceUrl": "https://stripe.com/sigma/pricing"
+    },
+    {
+      "statement": "Tax Complete includes tax registrations in 90+ countries.",
+      "category": "LIMITS",
+      "evidenceSpan": "Tax registrations in 90+ countries",
+      "evidenceOffset": 527,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Tax Complete supports tax calculation on 600+ product and service types.",
+      "category": "LIMITS",
+      "evidenceSpan": "Tax calculation on 600+ product and service types",
+      "evidenceOffset": 571,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Tax Complete starts at $90 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Starting at $90 per month",
+      "evidenceOffset": 717,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Tax Basic charges 0.5% per transaction where you are registered to collect taxes.",
+      "category": "PRICING",
+      "evidenceSpan": "0.5%\n\nper transaction, where you’re registered to collect\n\ntaxes",
+      "evidenceOffset": 1276,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Tax Basic charges 50 cents per transaction where you are registered to collect taxes.",
+      "category": "PRICING",
+      "evidenceSpan": "50¢\n\nper transaction, where you’re registered to collect\n\ntaxes",
+      "evidenceOffset": 1345,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Stripe Tax can automate sales tax, VAT, and GST filing in 93 countries via Taxually.",
+      "category": "LIMITS",
+      "evidenceSpan": "sales tax, VAT, and GST filing in 93 countries via Taxually",
+      "evidenceOffset": 2508,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Stripe Tax supports tax collection in 100+ countries.",
+      "category": "LIMITS",
+      "evidenceSpan": "Tax collection in 100+ countries",
+      "evidenceOffset": 630,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    },
+    {
+      "statement": "Tax Complete includes tax filings in 90+ countries.",
+      "category": "LIMITS",
+      "evidenceSpan": "Tax filings in 90+ countries",
+      "evidenceOffset": 672,
+      "sourceUrl": "https://stripe.com/tax/pricing"
+    }
+  ],
+  "questions": [
+    "How much does the Tax Complete plan cost per month?",
+    "Can I use an API to automate the export of my revenue recognition reports?",
+    "Are there any trial periods available for new users interested in Stripe Revenue Recognition or Stripe Sigma?",
+    "What is the fee structure for Tax Basic when collecting taxes in registered regions?"
+  ],
+  "findings": [
+    {
+      "question": "How much does the Tax Complete plan cost per month?",
+      "claim": "there is no major tax preparation software or service with a plan explicitly called 'Tax Complete.'",
+      "ruling": "DRIFTED",
+      "fact": "Tax Complete starts at $90 per month.",
+      "evidenceSpan": "Starting at $90 per month",
+      "sourceUrl": "https://stripe.com/tax/pricing",
+      "note": "Stripe explicitly offers a plan named Tax Complete."
+    },
+    {
+      "question": "How much does the Tax Complete plan cost per month?",
+      "claim": "Tax software is almost universally sold as annual subscriptions for the tax year, not monthly subscriptions. There is no standard 'Tax Complete' monthly plan among major providers.",
+      "ruling": "DRIFTED",
+      "fact": "Tax Complete starts at $90 per month.",
+      "evidenceSpan": "Starting at $90 per month",
+      "sourceUrl": "https://stripe.com/tax/pricing",
+      "note": "The Stripe Tax Complete plan is billed at $90 per month."
+    },
+    {
+      "question": "Can I use an API to automate the export of my revenue recognition reports?",
+      "claim": "Stripe Revenue Recognition offers a way to export revenue recognition reports and financial statements using API.",
+      "ruling": "CONFIRMED",
+      "fact": "Users can export revenue recognition reports and financial statements using API.",
+      "evidenceSpan": "Export revenue recognition reports and financial statements using CSV or API.",
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing",
+      "note": "The ledger explicitly states that users can export revenue recognition reports and financial statements using the API."
+    },
+    {
+      "question": "Can I use an API to automate the export of my revenue recognition reports?",
+      "claim": "Stripe Revenue Recognition does not have a native 'Export GAAP Revenue Report' API endpoint.",
+      "ruling": "DRIFTED",
+      "fact": "Users can export revenue recognition reports and financial statements using API.",
+      "evidenceSpan": "Export revenue recognition reports and financial statements using CSV or API.",
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing",
+      "note": "The ledger explicitly contradicts this by stating users can export revenue recognition reports using the API."
+    },
+    {
+      "question": "Are there any trial periods available for new users interested in Stripe Revenue Recognition or Stripe Sigma?",
+      "claim": "Stripe Revenue Recognition offers a 30-day free trial for new users.",
+      "ruling": "DRIFTED",
+      "fact": "Stripe Revenue Recognition offers a 30-day free trial for new users.",
+      "evidenceSpan": "Free 30-day trial available for new users.",
+      "sourceUrl": "https://stripe.com/revenue-recognition/pricing",
+      "note": "The assistant claims there is no trial for Revenue Recognition, while the ledger states a 30-day free trial is available."
+    },
+    {
+      "question": "Are there any trial periods available for new users interested in Stripe Revenue Recognition or Stripe Sigma?",
+      "claim": "New users are eligible for a 30-day free trial of Stripe Sigma.",
+      "ruling": "CONFIRMED",
+      "fact": "New users are eligible for a 30-day free trial of Stripe Sigma.",
+      "evidenceSpan": "New users get a free 30-day trial.",
+      "sourceUrl": "https://stripe.com/sigma/pricing",
+      "note": "The assistant claims there is no standard free trial for Stripe Sigma, contradicting the ledger."
+    }
+  ],
+  "score": 50,
+  "wrongShare": 0.6666666666666666,
+  "integrityViolations": 0,
+  "warnings": [
+    "2 claim(s) dropped: hedge, not an assertion: \"I am not sure what specific service or platform \"Tax Basic\" refers to\""
+  ],
+  "elapsedMs": 22597,
+  "calls": 12,
+  "throttledMs": 0
+}

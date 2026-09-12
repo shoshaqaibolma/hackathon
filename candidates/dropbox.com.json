@@ -1,0 +1,235 @@
+{
+  "domain": "dropbox.com",
+  "scannedAt": "2026-09-12T11:56:47.481Z",
+  "pages": [
+    {
+      "url": "https://www.dropbox.com/business/pricing",
+      "chars": 3833,
+      "status": "OK"
+    },
+    {
+      "url": "https://dropbox.com/plans",
+      "chars": 2971,
+      "status": "OK"
+    },
+    {
+      "url": "https://www.dropbox.com/",
+      "chars": 2711,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Standard plan costs $15 per user per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$15 / user / month",
+      "evidenceOffset": 85,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Advanced plan costs $24 per user per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$24 / user / month",
+      "evidenceOffset": 431,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Standard plan provides 3 TB of storage for the team.",
+      "category": "LIMITS",
+      "evidenceSpan": "Starts at 3 TB for the team",
+      "evidenceOffset": 148,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Advanced plan provides 15 TB of storage for the team.",
+      "category": "LIMITS",
+      "evidenceSpan": "Starts at 15 TB for the team",
+      "evidenceOffset": 494,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "Dropbox Enterprise plan allows users to transfer files up to 250 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Transfer up to 250 GB",
+      "evidenceOffset": 956,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Standard plan includes 180 days to restore deleted files.",
+      "category": "LIMITS",
+      "evidenceSpan": "180 days to restore deleted files",
+      "evidenceOffset": 208,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Advanced plan includes 1 year to restore deleted files.",
+      "category": "LIMITS",
+      "evidenceSpan": "1 year to restore deleted files",
+      "evidenceOffset": 555,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Enterprise plan includes 1 billion API calls per month for data transport partners.",
+      "category": "API",
+      "evidenceSpan": "1 billion API calls/month for data transport partners",
+      "evidenceOffset": 3398,
+      "sourceUrl": "https://www.dropbox.com/business/pricing"
+    },
+    {
+      "statement": "The Dropbox Basic plan is free and includes 2 GB of storage.",
+      "category": "PRICING",
+      "evidenceSpan": "BasicFree2 GB to store and share your files",
+      "evidenceOffset": 192,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Dropbox Plus plan costs $9.99 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$9.99 / month",
+      "evidenceOffset": 95,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Dropbox Standard plan costs $15 per user per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$15 / user / month",
+      "evidenceOffset": 108,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Dropbox Advanced plan costs $24 per user per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$24 / user / month",
+      "evidenceOffset": 156,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Plus plan offers 2,000 GB of storage.",
+      "category": "LIMITS",
+      "evidenceSpan": "2,000 GB of storage",
+      "evidenceOffset": 748,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Standard plan starts at 3,000 GB of storage for the team.",
+      "category": "LIMITS",
+      "evidenceSpan": "Starts at 3,000 GB for the team",
+      "evidenceOffset": 767,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "The Advanced plan starts at 15,000 GB of storage for the team.",
+      "category": "LIMITS",
+      "evidenceSpan": "Starts at 15,000 GB for the team",
+      "evidenceOffset": 798,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "Dropbox Plus, Standard, and Advanced plans all include 3 signature requests per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "3 per month",
+      "evidenceOffset": 2444,
+      "sourceUrl": "https://dropbox.com/plans"
+    },
+    {
+      "statement": "Dropbox supports previews for over 175 file types.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "previews for 175+ file types",
+      "evidenceOffset": 852,
+      "sourceUrl": "https://www.dropbox.com/"
+    },
+    {
+      "statement": "Dropbox allows for file transfers of up to 250GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "large file transfers (up to 250GB)",
+      "evidenceOffset": 1065,
+      "sourceUrl": "https://www.dropbox.com/"
+    }
+  ],
+  "questions": [
+    "In Dropbox, what is the monthly cost per user for the Advanced plan, and how much total storage does that provide my team?",
+    "In Dropbox, how many days do I have to recover a file if I accidentally delete it while using the Standard plan?",
+    "In Dropbox, does the Enterprise plan impose a monthly limit on the number of API calls available to data transport partners?",
+    "Is there a limit on the individual file size I can transfer using Dropbox?"
+  ],
+  "findings": [
+    {
+      "question": "In Dropbox, what is the monthly cost per user for the Advanced plan, and how much total storage does that provide my team?",
+      "claim": "Historically, this plan has offered 300 GB of individual storage",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger states the Advanced plan provides 15 TB (or 15,000 GB) of team storage, contradicting the 300 GB figure."
+    },
+    {
+      "question": "In Dropbox, what is the monthly cost per user for the Advanced plan, and how much total storage does that provide my team?",
+      "claim": "team-wide storage is not a single pooled limit per se in standard SaaS models; instead, the total capacity depends on the number of users multiplied by their individual allocation",
+      "ruling": "DRIFTED",
+      "fact": "The Advanced plan starts at 15,000 GB of storage for the team.",
+      "evidenceSpan": "Starts at 15,000 GB for the team",
+      "sourceUrl": "https://dropbox.com/plans",
+      "note": "The ledger clarifies that the Advanced plan starts at a total of 15,000 GB of storage for the team."
+    },
+    {
+      "question": "In Dropbox, does the Enterprise plan impose a monthly limit on the number of API calls available to data transport partners?",
+      "claim": "Dropbox does not impose a monthly limit on the number of API calls specifically for Enterprise data transport partners",
+      "ruling": "DRIFTED",
+      "fact": "The Enterprise plan includes 1 billion API calls per month for data transport partners.",
+      "evidenceSpan": "1 billion API calls/month for data transport partners",
+      "sourceUrl": "https://www.dropbox.com/business/pricing",
+      "note": "The ledger explicitly states that the Enterprise plan includes a limit of 1 billion API calls per month for data transport partners."
+    },
+    {
+      "question": "In Dropbox, does the Enterprise plan impose a monthly limit on the number of API calls available to data transport partners?",
+      "claim": "API rate limits are applied based on the user's plan tier and are generally measured in requests per minute or per hour rather than a strict monthly cap.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information about API rate limits being measured in requests per minute or hour."
+    },
+    {
+      "question": "Is there a limit on the individual file size I can transfer using Dropbox?",
+      "claim": "Dropbox has a maximum file size limit of 2 TB for individual files uploaded via the web interface.",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger states file transfers are limited to 250 GB, not 2 TB."
+    },
+    {
+      "question": "Is there a limit on the individual file size I can transfer using Dropbox?",
+      "claim": "you can upload files larger than 2 TB (up to 5 TB or more) if you use the Dropbox desktop or mobile applications",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger explicitly defines the file transfer limit as 250 GB."
+    },
+    {
+      "question": "Is there a limit on the individual file size I can transfer using Dropbox?",
+      "claim": "All available storage plans, including the free tier, support the same per-file upload limits.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not specify if the 250 GB file transfer limit applies universally across all plans."
+    }
+  ],
+  "score": 21.42857142857143,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.7142857142857143,
+  "integrityViolations": 0,
+  "warnings": [
+    "1 URL(s) skipped because robots.txt disallows them.",
+    "3 question(s) rewritten to name the company",
+    "1 claim(s) dropped: hedge, not an assertion: \"I cannot verify the current exact pricing for the Dropbox Advanced pla\"",
+    "1 claim(s) dropped: hedge, not an assertion: \"I can't verify the exact current retention period for file recovery on\"",
+    "1 claim(s) dropped: hedge, not an assertion: \"I am not aware of a specific 'Data Transport Partner' program with dis\""
+  ],
+  "elapsedMs": 13214,
+  "calls": 12,
+  "throttledMs": 0
+}

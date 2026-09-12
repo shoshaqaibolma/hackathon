@@ -1,0 +1,271 @@
+{
+  "domain": "railway.app",
+  "scannedAt": "2026-09-12T11:55:38.824Z",
+  "pages": [
+    {
+      "url": "https://railway.app/pricing",
+      "chars": 5328,
+      "status": "OK"
+    },
+    {
+      "url": "https://railway.app/",
+      "chars": 2227,
+      "status": "OK"
+    },
+    {
+      "url": "https://railway.app/changelog",
+      "chars": 1790,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Hobby plan includes a 99.9% availability target.",
+      "category": "GENERAL",
+      "evidenceSpan": "99.9% Availability Target",
+      "evidenceOffset": 542,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "The Pro plan includes a 99.99% availability target.",
+      "category": "GENERAL",
+      "evidenceSpan": "99.99% Availability Target",
+      "evidenceOffset": 971,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "The Enterprise plan includes a 99.999% availability target.",
+      "category": "GENERAL",
+      "evidenceSpan": "99.999% Availability Target",
+      "evidenceOffset": 1239,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "The Enterprise plan offers an 18-month audit log retention.",
+      "category": "LIMITS",
+      "evidenceSpan": "18-Month Audit Log Retention",
+      "evidenceOffset": 1164,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "CPU usage is billed at $0.00000772 per vCPU / sec.",
+      "category": "PRICING",
+      "evidenceSpan": "CPU$0.00000772 per vCPU / sec",
+      "evidenceOffset": 1458,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "Memory usage is billed at $0.00000386 per GB / sec.",
+      "category": "PRICING",
+      "evidenceSpan": "Memory$0.00000386 per GB / sec",
+      "evidenceOffset": 1428,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "The Hobby plan allows for up to 5 GB of volume storage.",
+      "category": "LIMITS",
+      "evidenceSpan": "Up to 5 GB storage",
+      "evidenceOffset": 481,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "The Pro plan includes 30-day log history.",
+      "category": "LIMITS",
+      "evidenceSpan": "30-Day Log History",
+      "evidenceOffset": 997,
+      "sourceUrl": "https://railway.app/pricing"
+    },
+    {
+      "statement": "Railway provides 100 Gbps internal networking without VPC configuration.",
+      "category": "GENERAL",
+      "evidenceSpan": "100 Gbps internal networking without VPC configuration.",
+      "evidenceOffset": 628,
+      "sourceUrl": "https://railway.app/"
+    },
+    {
+      "statement": "Railway handles HTTP, TCP, gRPC, and WebSockets automatically with built-in protocol detection.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Protocol detection built-inHTTP, TCP, gRPC, WebSockets handled automatically.",
+      "evidenceOffset": 683,
+      "sourceUrl": "https://railway.app/"
+    },
+    {
+      "statement": "Railway supports alerts via Slack, Discord, or email.",
+      "category": "GENERAL",
+      "evidenceSpan": "Slack, Discord, or emails the moment conditions you specify are met.",
+      "evidenceOffset": 1463,
+      "sourceUrl": "https://railway.app/"
+    },
+    {
+      "statement": "Railway allows for the creation of unlimited environments.",
+      "category": "LIMITS",
+      "evidenceSpan": "Spin-up unlimited environments.",
+      "evidenceOffset": 1698,
+      "sourceUrl": "https://railway.app/"
+    },
+    {
+      "statement": "Railway automatically creates a preview for every pull request.",
+      "category": "GENERAL",
+      "evidenceSpan": "Every pull request gets its own preview.",
+      "evidenceOffset": 1922,
+      "sourceUrl": "https://railway.app/"
+    },
+    {
+      "statement": "The Railway mobile app is available for Android.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Railway Mobile App for Android",
+      "evidenceOffset": 513,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "The Railway mobile app is available for iOS.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Railway for iOS",
+      "evidenceOffset": 1374,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Railway supports one-click Postgres major version upgrades.",
+      "category": "GENERAL",
+      "evidenceSpan": "One-click Postgres major version upgrades",
+      "evidenceOffset": 19,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Railway supports MySQL High Availability.",
+      "category": "GENERAL",
+      "evidenceSpan": "MySQL High Availability",
+      "evidenceOffset": 253,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Users can manage CDN caching in the CLI.",
+      "category": "API",
+      "evidenceSpan": "manage CDN caching in the CLI",
+      "evidenceOffset": 717,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Users can query the Railway API from the CLI.",
+      "category": "API",
+      "evidenceSpan": "query the Railway API from the CLI",
+      "evidenceOffset": 646,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Railway offers one-click PgBouncer support.",
+      "category": "GENERAL",
+      "evidenceSpan": "one-click PgBouncer",
+      "evidenceOffset": 1027,
+      "sourceUrl": "https://railway.app/changelog"
+    },
+    {
+      "statement": "Railway supports Postgres point-in-time recovery.",
+      "category": "GENERAL",
+      "evidenceSpan": "Postgres PITR",
+      "evidenceOffset": 1404,
+      "sourceUrl": "https://railway.app/changelog"
+    }
+  ],
+  "questions": [
+    "In Railway, how much will I be charged per second for running a service that uses a specific amount of vCPU and memory?",
+    "In Railway, are there any volume storage restrictions if I choose the entry-level Hobby plan?",
+    "In Railway, what is the difference in guaranteed uptime between the Hobby, Pro, and Enterprise service tiers?",
+    "In Railway, can I use the command line interface to interact with your platform's API or modify CDN caching settings?"
+  ],
+  "findings": [
+    {
+      "question": "In Railway, how much will I be charged per second for running a service that uses a specific amount of vCPU and memory?",
+      "claim": "Railway charges for compute time at a rate of $0.144 per vCPU hour and $0.0144 per GB hour",
+      "ruling": "DRIFTED",
+      "fact": "CPU usage is billed at $0.00000772 per vCPU / sec.",
+      "evidenceSpan": "CPU$0.00000772 per vCPU / sec",
+      "sourceUrl": "https://railway.app/pricing",
+      "note": "The ledger defines pricing at $0.00000772 per vCPU/sec and $0.00000386 per GB/sec, not the hourly rates cited."
+    },
+    {
+      "question": "In Railway, how much will I be charged per second for running a service that uses a specific amount of vCPU and memory?",
+      "claim": "your cost per second is calculated by multiplying (vCPU count × $0.00004 + Memory in GB × $0.000004)",
+      "ruling": "DRIFTED",
+      "fact": "CPU usage is billed at $0.00000772 per vCPU / sec.",
+      "evidenceSpan": "CPU$0.00000772 per vCPU / sec",
+      "sourceUrl": "https://railway.app/pricing",
+      "note": "The actual billing rates for vCPU and memory are $0.00000772 and $0.00000386 per second, respectively."
+    },
+    {
+      "question": "In Railway, how much will I be charged per second for running a service that uses a specific amount of vCPU and memory?",
+      "claim": "This pricing structure applies to shared service tiers, and usage is billed based on the active duration of the service.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger provides unit pricing but does not explicitly describe service tiers or billing methodology as active duration."
+    },
+    {
+      "question": "In Railway, are there any volume storage restrictions if I choose the entry-level Hobby plan?",
+      "claim": "No, there are no restrictions on volume storage usage while you are on the Hobby plan.",
+      "ruling": "DRIFTED",
+      "fact": "The Hobby plan allows for up to 5 GB of volume storage.",
+      "evidenceSpan": "Up to 5 GB storage",
+      "sourceUrl": "https://railway.app/pricing",
+      "note": "The Hobby plan is restricted to 5 GB of volume storage."
+    },
+    {
+      "question": "In Railway, are there any volume storage restrictions if I choose the entry-level Hobby plan?",
+      "claim": "Volumes are only available on Pro and Team plans",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger explicitly states a storage limit for the Hobby plan, implying volume availability."
+    },
+    {
+      "question": "In Railway, are there any volume storage restrictions if I choose the entry-level Hobby plan?",
+      "claim": "the system does not cap the capacity of the volumes themselves on any specific pricing tier.",
+      "ruling": "DRIFTED",
+      "fact": "The Hobby plan allows for up to 5 GB of volume storage.",
+      "evidenceSpan": "Up to 5 GB storage",
+      "sourceUrl": "https://railway.app/pricing",
+      "note": "The Hobby plan has a 5 GB storage limit, which contradicts the claim that there is no capacity cap."
+    },
+    {
+      "question": "In Railway, what is the difference in guaranteed uptime between the Hobby, Pro, and Enterprise service tiers?",
+      "claim": "I cannot provide specific, verified uptime percentages for Railway's Hobby, Pro, and Enterprise tiers from my training data, as these SLA details are often updated and differ from standard industry figures. Railway's pricing page and docume",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The model declined to answer — it does not know this company."
+    },
+    {
+      "question": "In Railway, can I use the command line interface to interact with your platform's API or modify CDN caching settings?",
+      "claim": "Railway's official CLI is used for deployment and configuration management, not for directly modifying CDN caching settings",
+      "ruling": "DRIFTED",
+      "fact": "Users can manage CDN caching in the CLI.",
+      "evidenceSpan": "manage CDN caching in the CLI",
+      "sourceUrl": "https://railway.app/changelog",
+      "note": "The ledger states that users can manage CDN caching in the CLI, contradicting the claim that it is not for modifying CDN caching."
+    },
+    {
+      "question": "In Railway, can I use the command line interface to interact with your platform's API or modify CDN caching settings?",
+      "claim": "The Railway CLI does provide commands to interact with the platform's API",
+      "ruling": "CONFIRMED",
+      "fact": "Users can query the Railway API from the CLI.",
+      "evidenceSpan": "query the Railway API from the CLI",
+      "sourceUrl": "https://railway.app/changelog",
+      "note": "The ledger explicitly confirms users can query the Railway API from the CLI."
+    }
+  ],
+  "score": 36.111111111111114,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.6666666666666666,
+  "integrityViolations": 0,
+  "warnings": [
+    "2 URL(s) skipped because robots.txt disallows them.",
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 8147,
+  "calls": 12,
+  "throttledMs": 0
+}

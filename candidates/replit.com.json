@@ -1,0 +1,211 @@
+{
+  "domain": "replit.com",
+  "scannedAt": "2026-09-12T11:55:44.719Z",
+  "pages": [
+    {
+      "url": "https://replit.com/pricing",
+      "chars": 1256,
+      "status": "OK"
+    },
+    {
+      "url": "https://replit.com/",
+      "chars": 4468,
+      "status": "OK"
+    },
+    {
+      "url": "https://replit.com/guides",
+      "chars": 646,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Free Mode plan allows for up to 30 hours of chat.",
+      "category": "LIMITS",
+      "evidenceSpan": "Up to 30 hours of chat on Free Mode",
+      "evidenceOffset": 29,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Free Mode plan allows for up to 60 projects.",
+      "category": "LIMITS",
+      "evidenceSpan": "Up to 60 projects on Free Mode",
+      "evidenceOffset": 64,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Free Mode plan includes $20 towards most powerful models.",
+      "category": "PRICING",
+      "evidenceSpan": "$20 towards most powerful models",
+      "evidenceOffset": 94,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Core plan includes $100 towards most powerful models.",
+      "category": "PRICING",
+      "evidenceSpan": "$100 towards most powerful models",
+      "evidenceOffset": 223,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Core plan allows for up to 15 collaborators.",
+      "category": "LIMITS",
+      "evidenceSpan": "Up to 15 collaborators",
+      "evidenceOffset": 256,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Core plan allows for inviting up to 50 viewers.",
+      "category": "LIMITS",
+      "evidenceSpan": "Invite up to 50 viewers",
+      "evidenceOffset": 278,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Core plan includes database rollback for up to 28 days.",
+      "category": "LIMITS",
+      "evidenceSpan": "Database rollback up to 28 days",
+      "evidenceOffset": 301,
+      "sourceUrl": "https://replit.com/pricing"
+    },
+    {
+      "statement": "The Replit Starter plan costs $0 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Starter$0",
+      "evidenceOffset": 3561,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "The Replit Core plan costs $18 per month when billed annually.",
+      "category": "PRICING",
+      "evidenceSpan": "$18per monthbilled annually",
+      "evidenceOffset": 3805,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "The Replit Pro plan costs $90 per month when billed annually.",
+      "category": "PRICING",
+      "evidenceSpan": "$90per monthbilled annually",
+      "evidenceOffset": 4049,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "The Replit Starter plan includes one live project publication.",
+      "category": "LIMITS",
+      "evidenceSpan": "Publish 1 live project",
+      "evidenceOffset": 3722,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "The Replit Pro plan allows up to 15 collaborators.",
+      "category": "LIMITS",
+      "evidenceSpan": "Up to 15 collaborators",
+      "evidenceOffset": 4198,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "The Replit Pro plan includes database rollback for up to 28 days.",
+      "category": "LIMITS",
+      "evidenceSpan": "Database rollback up to 28 days",
+      "evidenceOffset": 4243,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "Replit offers integrations with OpenAI, Stripe, and Google Workspace.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Connect to OpenAI, Stripe, Google Workspace, and more in minutes.",
+      "evidenceOffset": 493,
+      "sourceUrl": "https://replit.com/"
+    },
+    {
+      "statement": "Replit Enterprise security controls include SSO/SAML.",
+      "category": "GENERAL",
+      "evidenceSpan": "SSO/SAML",
+      "evidenceOffset": 577,
+      "sourceUrl": "https://replit.com/"
+    }
+  ],
+  "questions": [
+    "In Replit, what is the monthly cost of the Core plan if I choose to pay on an annual basis?",
+    "In Replit, how many collaborators are permitted on the Core plan compared to the Pro plan?",
+    "In Replit, does the entry-level free plan provide any credit to use toward the most advanced AI models?",
+    "Can I integrate my Replit account with OpenAI services?"
+  ],
+  "findings": [
+    {
+      "question": "In Replit, what is the monthly cost of the Core plan if I choose to pay on an annual basis?",
+      "claim": "The Replit Core plan costs $20 per month when paid annually.",
+      "ruling": "DRIFTED",
+      "fact": "The Replit Core plan costs $18 per month when billed annually.",
+      "evidenceSpan": "$18per monthbilled annually",
+      "sourceUrl": "https://replit.com/",
+      "note": "The ledger states the cost is $18 per month when billed annually, not $20."
+    },
+    {
+      "question": "In Replit, does the entry-level free plan provide any credit to use toward the most advanced AI models?",
+      "claim": "Replit does generally provide a small, limited pool of credits for its free tier",
+      "ruling": "CONFIRMED",
+      "fact": "The Free Mode plan includes $20 towards most powerful models.",
+      "evidenceSpan": "$20 towards most powerful models",
+      "sourceUrl": "https://replit.com/pricing",
+      "note": "The ledger confirms the Free Mode plan includes $20 towards most powerful models."
+    },
+    {
+      "question": "In Replit, does the entry-level free plan provide any credit to use toward the most advanced AI models?",
+      "claim": "I am not entirely certain about the current, specific dollar amount of AI credit",
+      "ruling": "DRIFTED",
+      "fact": "The Free Mode plan includes $20 towards most powerful models.",
+      "evidenceSpan": "$20 towards most powerful models",
+      "sourceUrl": "https://replit.com/pricing",
+      "note": "The ledger explicitly states the Free Mode plan includes $20 in credits."
+    },
+    {
+      "question": "Can I integrate my Replit account with OpenAI services?",
+      "claim": "Replit offers integrations with OpenAI",
+      "ruling": "CONFIRMED",
+      "fact": "Replit offers integrations with OpenAI, Stripe, and Google Workspace.",
+      "evidenceSpan": "Connect to OpenAI, Stripe, Google Workspace, and more in minutes.",
+      "sourceUrl": "https://replit.com/",
+      "note": "The ledger explicitly states that Replit offers integrations with OpenAI."
+    },
+    {
+      "question": "Can I integrate my Replit account with OpenAI services?",
+      "claim": "Replit Agent or the chat assistant can be used with OpenAI API keys",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger confirms OpenAI integration exists but does not specify the implementation details regarding API keys or specific tools."
+    },
+    {
+      "question": "Can I integrate my Replit account with OpenAI services?",
+      "claim": "Replit supports GPT-4o and GPT-4o-mini models",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not list the specific OpenAI model versions supported."
+    },
+    {
+      "question": "Can I integrate my Replit account with OpenAI services?",
+      "claim": "Using external API keys means you are billed directly by OpenAI separate from your Replit subscription",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger contains no information regarding billing policies for third-party API keys."
+    }
+  ],
+  "score": 57.14285714285714,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.2857142857142857,
+  "integrityViolations": 0,
+  "warnings": [
+    "3 question(s) rewritten to name the company",
+    "2 claim(s) dropped: hedge, not an assertion: \"I cannot verify the specific number of collaborators permitted on the \""
+  ],
+  "elapsedMs": 5895,
+  "calls": 12,
+  "throttledMs": 0
+}

@@ -1,0 +1,167 @@
+{
+  "domain": "tavily.com",
+  "scannedAt": "2026-09-12T01:22:50.552Z",
+  "pages": [
+    {
+      "url": "https://tavily.com/pricing",
+      "chars": 1443,
+      "status": "OK"
+    },
+    {
+      "url": "https://tavily.com/",
+      "chars": 635,
+      "status": "OK"
+    },
+    {
+      "url": "https://tavily.com/product",
+      "chars": 495,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Researcher plan includes 1,000 API credits per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "1,000 API credits / month",
+      "evidenceOffset": 38,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "The Pay As You Go plan costs $0.008 per credit.",
+      "category": "PRICING",
+      "evidenceSpan": "$0.008 / credit",
+      "evidenceOffset": 112,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "The Project plan includes 4,000 API credits per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "4,000 API credits / month",
+      "evidenceOffset": 274,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "API credits reset on the first day of each month.",
+      "category": "LIMITS",
+      "evidenceSpan": "Your API credits reset on the first day of each month",
+      "evidenceOffset": 878,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "Tavily offers a free service plan for students.",
+      "category": "ELIGIBILITY",
+      "evidenceSpan": "Free for students",
+      "evidenceOffset": 466,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "Requests stop when monthly API credits are exhausted until the reset date or a plan upgrade.",
+      "category": "LIMITS",
+      "evidenceSpan": "If you exhaust your monthly credits, requests will stop until your credits reset or you upgrade to a paid plan.",
+      "evidenceOffset": 1266,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "The API supports Python and JavaScript SDKs.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Install the SDK (e.g., Python or JavaScript)",
+      "evidenceOffset": 709,
+      "sourceUrl": "https://tavily.com/pricing"
+    },
+    {
+      "statement": "Tavily provides 99.99% uptime.",
+      "category": "GENERAL",
+      "evidenceSpan": "99.99% uptime",
+      "evidenceOffset": 585,
+      "sourceUrl": "https://tavily.com/"
+    },
+    {
+      "statement": "The API response latency is 180 ms.",
+      "category": "API",
+      "evidenceSpan": "180 ms",
+      "evidenceOffset": 599,
+      "sourceUrl": "https://tavily.com/"
+    },
+    {
+      "statement": "Tavily handles thousands of web queries in seconds.",
+      "category": "LIMITS",
+      "evidenceSpan": "Handle thousands of web queries in seconds",
+      "evidenceOffset": 225,
+      "sourceUrl": "https://tavily.com/"
+    },
+    {
+      "statement": "Tavily includes security layers to block PII leakage, prompt injection, and malicious sources.",
+      "category": "GENERAL",
+      "evidenceSpan": "Requests pass through security, privacy, and content validation layers that block PII leakage, prompt injection, and malicious sources.",
+      "evidenceOffset": 445,
+      "sourceUrl": "https://tavily.com/"
+    },
+    {
+      "statement": "Tavily provides one API for search, extraction, research, crawling, and mapping.",
+      "category": "GENERAL",
+      "evidenceSpan": "One API for search, extraction, research, crawling, and mapping",
+      "evidenceOffset": 54,
+      "sourceUrl": "https://tavily.com/product"
+    },
+    {
+      "statement": "Tavily's search endpoint provides reranked web context.",
+      "category": "API",
+      "evidenceSpan": "Retrieve fresh, reranked web context that agents can reason over.",
+      "evidenceOffset": 188,
+      "sourceUrl": "https://tavily.com/product"
+    }
+  ],
+  "questions": [
+    "How many monthly API credits are provided if I subscribe to the Project plan?",
+    "What is the cost per credit if I choose to pay for my usage as I go?",
+    "Does your API support development in languages like Python or JavaScript?",
+    "If I run out of my monthly API credit allocation, what happens to my active requests?"
+  ],
+  "findings": [
+    {
+      "question": "What is the cost per credit if I choose to pay for my usage as I go?",
+      "claim": "I do not have sufficient information to answer this question accurately.",
+      "ruling": "DRIFTED",
+      "fact": "The Pay As You Go plan costs $0.008 per credit.",
+      "evidenceSpan": "$0.008 / credit",
+      "sourceUrl": "https://tavily.com/pricing",
+      "note": "The ledger explicitly states that the Pay As You Go plan costs $0.008 per credit."
+    },
+    {
+      "question": "Does your API support development in languages like Python or JavaScript?",
+      "claim": "The API supports Python and JavaScript SDKs.",
+      "ruling": "CONFIRMED",
+      "fact": "The API supports Python and JavaScript SDKs.",
+      "evidenceSpan": "Install the SDK (e.g., Python or JavaScript)",
+      "sourceUrl": "https://tavily.com/pricing",
+      "note": "The ledger explicitly confirms support for Python and JavaScript SDKs."
+    },
+    {
+      "question": "If I run out of my monthly API credit allocation, what happens to my active requests?",
+      "claim": "Most major API providers do not preemptively terminate active in-flight requests the instant you hit the limit.",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "Tavily specifically mandates that requests stop when credits are exhausted."
+    },
+    {
+      "question": "If I run out of my monthly API credit allocation, what happens to my active requests?",
+      "claim": "Once your credit limit is reached, new requests will be rejected",
+      "ruling": "CONFIRMED",
+      "fact": "Requests stop when monthly API credits are exhausted until the reset date or a plan upgrade.",
+      "evidenceSpan": "If you exhaust your monthly credits, requests will stop until your credits reset or you upgrade to a paid plan.",
+      "sourceUrl": "https://tavily.com/pricing",
+      "note": "Tavily states that requests stop until the reset date or a plan upgrade."
+    }
+  ],
+  "score": 56.25,
+  "wrongShare": 0.5,
+  "integrityViolations": 0,
+  "warnings": [
+    "1 claim(s) dropped: hedge, not an assertion: \"I do not have specific knowledge about a plan called the 'Project plan\""
+  ],
+  "elapsedMs": 7175,
+  "calls": 12,
+  "throttledMs": 0
+}

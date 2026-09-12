@@ -1,0 +1,262 @@
+{
+  "domain": "notion.so",
+  "scannedAt": "2026-09-12T11:56:34.267Z",
+  "pages": [
+    {
+      "url": "https://notion.so/pricing",
+      "chars": 11306,
+      "status": "OK"
+    },
+    {
+      "url": "https://notion.so/",
+      "chars": 418,
+      "status": "OK"
+    },
+    {
+      "url": "https://notion.so/product/docs",
+      "chars": 1766,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Free Plan limits page history to 7 days.",
+      "category": "LIMITS",
+      "evidenceSpan": "7 days",
+      "evidenceOffset": 1448,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "The Plus Plan offers 30 days of page history.",
+      "category": "LIMITS",
+      "evidenceSpan": "30 days",
+      "evidenceOffset": 1454,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "The Business Plan offers 90 days of page history.",
+      "category": "LIMITS",
+      "evidenceSpan": "90 days",
+      "evidenceOffset": 1461,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "Notion accepts all major credit and debit card brands for payment.",
+      "category": "PRICING",
+      "evidenceSpan": "We currently accept all major credit and debit card brands.",
+      "evidenceOffset": 4368,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "The Plus Plan is free for students and educators when registered with a school email address.",
+      "category": "ELIGIBILITY",
+      "evidenceSpan": "The Plus Plan (with a 1-member limit) is free for students and educators.",
+      "evidenceOffset": 5176,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "Monthly subscriptions can be refunded in full if downgraded within three days of signing up.",
+      "category": "PRICING",
+      "evidenceSpan": "We'll be happy to refund you the full amount (not pro-rated) if you downgrade your subscription within three days of signing up for monthly billing",
+      "evidenceOffset": 9971,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "Annual subscriptions can be refunded in full if downgraded within 30 days of signing up.",
+      "category": "PRICING",
+      "evidenceSpan": "or within 30 days of signing up for annual billing.",
+      "evidenceOffset": 10120,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "EU customers can receive a full refund for a monthly subscription within 14 days of purchase.",
+      "category": "PRICING",
+      "evidenceSpan": "For example, customers in the European Union can receive a full refund for a monthly subscription within 14 days of purchase",
+      "evidenceOffset": 10969,
+      "sourceUrl": "https://notion.so/pricing"
+    },
+    {
+      "statement": "98% of the companies on the Forbes Cloud 100 list trust Notion.",
+      "category": "GENERAL",
+      "evidenceSpan": "Trusted by 98% of the Forbes Cloud 100",
+      "evidenceOffset": 116,
+      "sourceUrl": "https://notion.so/"
+    },
+    {
+      "statement": "Notion supports native syntax highlighting for dozens of languages.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Native syntax highlighting for dozens of languages.",
+      "evidenceOffset": 205,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Users can embed media directly from Loom and YouTube into Notion docs.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Embed directly from Loom & YouTube",
+      "evidenceOffset": 327,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Notion offers more than 50 content types.",
+      "category": "GENERAL",
+      "evidenceSpan": "And 50+ more content types",
+      "evidenceOffset": 482,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "The Notion interface allows users to add live charts to documents.",
+      "category": "GENERAL",
+      "evidenceSpan": "Add live charts to any doc.",
+      "evidenceOffset": 455,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Notion enables collaboration through comments and suggested edits.",
+      "category": "GENERAL",
+      "evidenceSpan": "Allow others to comment or suggest edits.",
+      "evidenceOffset": 861,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Notion integrates with Figma to share updated designs.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "FigmaAlways share the most updated designs with your team.",
+      "evidenceOffset": 1402,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Notion integrates with Github to display pull requests, issues, and repositories.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "GithubBring pull requests, issues, and even repos directly into Notion.",
+      "evidenceOffset": 1535,
+      "sourceUrl": "https://notion.so/product/docs"
+    },
+    {
+      "statement": "Notion integrates with Jira to view bug updates or convert projects into databases.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "JiraSee bug updates, or convert an entire project into a database.",
+      "evidenceOffset": 1693,
+      "sourceUrl": "https://notion.so/product/docs"
+    }
+  ],
+  "questions": [
+    "In Notion, how far back can I recover previous versions of my document if I am on the free plan versus the business plan?",
+    "In Notion, are there specific refund windows for annual subscribers if they decide to cancel their service?",
+    "In Notion, can students access the premium features of the Plus plan at no cost using their academic email credentials?",
+    "In Notion, what developer-focused tools can I connect to my workspace to monitor my technical project workflows?"
+  ],
+  "findings": [
+    {
+      "question": "In Notion, how far back can I recover previous versions of my document if I am on the free plan versus the business plan?",
+      "claim": "the free plan typically provides 7 days of version history",
+      "ruling": "CONFIRMED",
+      "fact": "The Free Plan limits page history to 7 days.",
+      "evidenceSpan": "7 days",
+      "sourceUrl": "https://notion.so/pricing",
+      "note": "The ledger explicitly states that the Free Plan limits page history to 7 days."
+    },
+    {
+      "question": "In Notion, how far back can I recover previous versions of my document if I am on the free plan versus the business plan?",
+      "claim": "the Business plan extends this to 90 days",
+      "ruling": "CONFIRMED",
+      "fact": "The Business Plan offers 90 days of page history.",
+      "evidenceSpan": "90 days",
+      "sourceUrl": "https://notion.so/pricing",
+      "note": "The ledger confirms that the Business Plan offers 90 days of page history."
+    },
+    {
+      "question": "In Notion, are there specific refund windows for annual subscribers if they decide to cancel their service?",
+      "claim": "Generally, Notion does not offer pro-rated refunds for the remaining time on an annual plan once activated",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention policies regarding pro-rated refunds."
+    },
+    {
+      "question": "In Notion, are there specific refund windows for annual subscribers if they decide to cancel their service?",
+      "claim": "they may issue a full refund if you cancel shortly after the initial purchase or within a specific trial period",
+      "ruling": "CONFIRMED",
+      "fact": "Annual subscriptions can be refunded in full if downgraded within 30 days of signing up.",
+      "evidenceSpan": "or within 30 days of signing up for annual billing.",
+      "sourceUrl": "https://notion.so/pricing",
+      "note": "The ledger confirms a full refund is available if downgraded within 30 days of signing up for an annual plan."
+    },
+    {
+      "question": "In Notion, can students access the premium features of the Plus plan at no cost using their academic email credentials?",
+      "claim": "Students can access Notion's Plus plan features for free by verifying their student status using an academic email address.",
+      "ruling": "CONFIRMED",
+      "fact": "The Plus Plan is free for students and educators when registered with a school email address.",
+      "evidenceSpan": "The Plus Plan (with a 1-member limit) is free for students and educators.",
+      "sourceUrl": "https://notion.so/pricing",
+      "note": "The ledger confirms that the Plus Plan is free for students and educators when registered with a school email address."
+    },
+    {
+      "question": "In Notion, can students access the premium features of the Plus plan at no cost using their academic email credentials?",
+      "claim": "This free education plan includes unlimited pages and large file uploads.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not mention specific content or file upload limits for the education plan."
+    },
+    {
+      "question": "In Notion, can students access the premium features of the Plus plan at no cost using their academic email credentials?",
+      "claim": "The free education plan does not include the extended file history or increased collaboration limits available in paid plans.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not detail the limitations or feature exclusions of the free education plan."
+    },
+    {
+      "question": "In Notion, can students access the premium features of the Plus plan at no cost using their academic email credentials?",
+      "claim": "Verifying a student email converts your personal free plan to the free education plan, which retains these premium features.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not describe the specific mechanism or internal classification of the education plan status."
+    },
+    {
+      "question": "In Notion, what developer-focused tools can I connect to my workspace to monitor my technical project workflows?",
+      "claim": "Notion connects with developer tools including Linear, GitLab, Slack, and Trello.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding integrations with Linear, GitLab, Slack, or Trello."
+    },
+    {
+      "question": "In Notion, what developer-focused tools can I connect to my workspace to monitor my technical project workflows?",
+      "claim": "You can embed GitHub PRs or Jira issues directly into Notion pages.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger mentions integration features but does not specifically confirm the embedding of PRs or issues as part of the interface functionality."
+    },
+    {
+      "question": "In Notion, what developer-focused tools can I connect to my workspace to monitor my technical project workflows?",
+      "claim": "You can build custom apps or automations using Notion's internal API and external webhooks.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention Notion's API or webhook capabilities."
+    }
+  ],
+  "score": 68.18181818181819,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0,
+  "integrityViolations": 0,
+  "warnings": [
+    "4 question(s) rewritten to name the company",
+    "1 claim(s) dropped: hedge, not an assertion: \"I do not have specific knowledge of a standardized \"refund window\" pol\"",
+    "2 claim(s) dropped: claim not found in the answer — possibly rewritten: \"Notion integrates with Jira to view bug updates or convert projects in\""
+  ],
+  "elapsedMs": 12859,
+  "calls": 12,
+  "throttledMs": 0
+}

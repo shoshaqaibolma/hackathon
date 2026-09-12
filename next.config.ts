@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
     "/demo/[slug]": ["./fixtures/**/*.json"],
     // The study page renders the same markdown file the repository publishes.
     "/study": ["./reports/study.md"],
+    // Screening reports back /report/[domain] and the /scan/new lookup.
+    "/study/page": ["./reports/study.md"],
+    "/report/[domain]": ["./candidates/**/*.json"],
+    "/scan/new": ["./candidates/**/*.json"],
   },
 };
 

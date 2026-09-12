@@ -1,0 +1,295 @@
+{
+  "domain": "vercel.com",
+  "scannedAt": "2026-09-12T11:55:51.646Z",
+  "pages": [
+    {
+      "url": "https://vercel.com/pricing",
+      "chars": 4466,
+      "status": "OK"
+    },
+    {
+      "url": "https://vercel.com/docs/plans",
+      "chars": 3227,
+      "status": "OK"
+    },
+    {
+      "url": "https://vercel.com/docs/pricing",
+      "chars": 6214,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Vercel hobby plan includes 1 million edge requests per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "Edge Requests1M / month included",
+      "evidenceOffset": 307,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "The monthly allowance for fast data transfer on Vercel is 100 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Fast Data Transfer100 GB / month included",
+      "evidenceOffset": 339,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "Vercel allows up to 3 custom firewall rules.",
+      "category": "LIMITS",
+      "evidenceSpan": "Custom Firewall RulesUp to 3",
+      "evidenceOffset": 455,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "The monthly quota for Blob storage size is 1 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Blob Storage Size1 GB / month included",
+      "evidenceOffset": 1023,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "Vercel includes 5,000 image optimization transformations per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "Image Optimization Transformation5K / month included",
+      "evidenceOffset": 1204,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "The monthly allowance for Fluid Active CPU is 4 hours.",
+      "category": "LIMITS",
+      "evidenceSpan": "Fluid Active CPU4 hours / month included",
+      "evidenceOffset": 1709,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "Vercel allows 10 concurrent sandboxes.",
+      "category": "LIMITS",
+      "evidenceSpan": "Concurrent Sandboxes10",
+      "evidenceOffset": 2075,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "The monthly limit for AI Gateway token requests is 500.",
+      "category": "LIMITS",
+      "evidenceSpan": "Token Requests500 requests / month included",
+      "evidenceOffset": 2706,
+      "sourceUrl": "https://vercel.com/pricing"
+    },
+    {
+      "statement": "The Hobby plan includes 100 GB of Fast Data Transfer.",
+      "category": "LIMITS",
+      "evidenceSpan": "100 GB of Fast Data Transfer",
+      "evidenceOffset": 637,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "The Hobby plan includes 1 hour of runtime logs.",
+      "category": "LIMITS",
+      "evidenceSpan": "1 hour of runtime logs",
+      "evidenceOffset": 670,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "Paid Pro teams include a free first-year domain on an eligible TLD.",
+      "category": "PRICING",
+      "evidenceSpan": "Paid Pro teams include a free first-year domain on an eligible TLD",
+      "evidenceOffset": 1380,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "Hobby plans will be paused when they exceed the included free tier usage.",
+      "category": "LIMITS",
+      "evidenceSpan": "Hobby plans will be paused when they exceed the included free tier usage",
+      "evidenceOffset": 2397,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "For Pro and Enterprise teams, reaching 100% usage does not automatically stop deployments.",
+      "category": "LIMITS",
+      "evidenceSpan": "For Pro and Enterprise teams, when you reach 100% usage your deployments are not automatically stopped.",
+      "evidenceOffset": 2626,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "Pro plans users can configure Spend Management to trigger SMS notifications when reaching 100% usage.",
+      "category": "LIMITS",
+      "evidenceSpan": "send SMS notifications when they reach 100% usage",
+      "evidenceOffset": 2575,
+      "sourceUrl": "https://vercel.com/docs/plans"
+    },
+    {
+      "statement": "The Hobby plan includes 4 hours of Active CPU usage.",
+      "category": "LIMITS",
+      "evidenceSpan": "4 hours included",
+      "evidenceOffset": 1435,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "The Hobby plan includes 360 GB-hrs of Provisioned Memory.",
+      "category": "LIMITS",
+      "evidenceSpan": "360 GB-hrs included",
+      "evidenceOffset": 1513,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "The Hobby plan includes 1 million Invocations.",
+      "category": "LIMITS",
+      "evidenceSpan": "1 million included",
+      "evidenceOffset": 1595,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "The Hobby plan includes 5,000 image transformations per month.",
+      "category": "LIMITS",
+      "evidenceSpan": "5K/month",
+      "evidenceOffset": 1704,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "Observability Plus is priced at $1.20 per 1 million events.",
+      "category": "PRICING",
+      "evidenceSpan": "$1.20 per 1 million events",
+      "evidenceOffset": 2837,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "The Pro plan includes 1 team seat, with additional seats priced at $20 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "1 paid seat$20 / month per additional paid seat",
+      "evidenceOffset": 5445,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "The Pro plan add-on for HIPAA BAA is priced at $350 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "$350 / month",
+      "evidenceOffset": 5608,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    },
+    {
+      "statement": "Basic build machines are included with the Hobby plan.",
+      "category": "PRICING",
+      "evidenceSpan": "Basic (included with Hobby)",
+      "evidenceOffset": 4482,
+      "sourceUrl": "https://vercel.com/docs/pricing"
+    }
+  ],
+  "questions": [
+    "In Vercel, what happens to my application if I reach the monthly usage limits on a Hobby plan versus a Pro plan?",
+    "In Vercel, how much does it cost to add extra team members to the Pro plan, and are there any specific add-ons like HIPAA compliance available?",
+    "In Vercel, what are the specific monthly usage allowances for compute-heavy tasks like Active CPU and Provisioned Memory under the free tier?",
+    "In Vercel, how are image optimization and AI Gateway requests metered on the platform?"
+  ],
+  "findings": [
+    {
+      "question": "In Vercel, what happens to my application if I reach the monthly usage limits on a Hobby plan versus a Pro plan?",
+      "claim": "On the Hobby plan, Vercel suspends your projects from serving live traffic when you exceed bandwidth, Serverless Function Invocations, or Edge Middleware limits until the next billing cycle.",
+      "ruling": "CONFIRMED",
+      "fact": "Hobby plans will be paused when they exceed the included free tier usage.",
+      "evidenceSpan": "Hobby plans will be paused when they exceed the included free tier usage",
+      "sourceUrl": "https://vercel.com/docs/plans",
+      "note": "The ledger confirms that Hobby plans will be paused when they exceed included usage."
+    },
+    {
+      "question": "In Vercel, what happens to my application if I reach the monthly usage limits on a Hobby plan versus a Pro plan?",
+      "claim": "On the Pro plan, your applications continue to serve traffic even if you exceed these limits",
+      "ruling": "CONFIRMED",
+      "fact": "For Pro and Enterprise teams, reaching 100% usage does not automatically stop deployments.",
+      "evidenceSpan": "For Pro and Enterprise teams, when you reach 100% usage your deployments are not automatically stopped.",
+      "sourceUrl": "https://vercel.com/docs/plans",
+      "note": "The ledger confirms that reaching 100% usage for Pro teams does not stop deployments."
+    },
+    {
+      "question": "In Vercel, what happens to my application if I reach the monthly usage limits on a Hobby plan versus a Pro plan?",
+      "claim": "you will be charged overage fees at per-unit rates for the additional usage.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not detail the specific billing mechanism or overage fee structure for Pro plans."
+    },
+    {
+      "question": "In Vercel, how much does it cost to add extra team members to the Pro plan, and are there any specific add-ons like HIPAA compliance available?",
+      "claim": "Adding team members to the Vercel Pro plan costs $20 per collaborator per month",
+      "ruling": "CONFIRMED",
+      "fact": "The Pro plan includes 1 team seat, with additional seats priced at $20 per month.",
+      "evidenceSpan": "1 paid seat$20 / month per additional paid seat",
+      "sourceUrl": "https://vercel.com/docs/pricing",
+      "note": "The ledger confirms the $20 per seat pricing for the Pro plan."
+    },
+    {
+      "question": "In Vercel, how much does it cost to add extra team members to the Pro plan, and are there any specific add-ons like HIPAA compliance available?",
+      "claim": "there is no standard \"HIPAA compliance\" add-on for the Pro plan",
+      "ruling": "DRIFTED",
+      "fact": "The Pro plan add-on for HIPAA BAA is priced at $350 per month.",
+      "evidenceSpan": "$350 / month",
+      "sourceUrl": "https://vercel.com/docs/pricing",
+      "note": "The ledger explicitly lists a HIPAA BAA add-on for the Pro plan at $350 per month."
+    },
+    {
+      "question": "In Vercel, how much does it cost to add extra team members to the Pro plan, and are there any specific add-ons like HIPAA compliance available?",
+      "claim": "HIPAA compliance typically requires a dedicated Enterprise agreement",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not specify the requirements for HIPAA compliance beyond the existence of a Pro add-on."
+    },
+    {
+      "question": "In Vercel, what are the specific monthly usage allowances for compute-heavy tasks like Active CPU and Provisioned Memory under the free tier?",
+      "claim": "I am unsure of the specific numerical caps for \"Active CPU\" and \"Provisioned Memory\" under the Vercel Free tier",
+      "ruling": "DRIFTED",
+      "fact": "The monthly allowance for Fluid Active CPU is 4 hours.",
+      "evidenceSpan": "Fluid Active CPU4 hours / month included",
+      "sourceUrl": "https://vercel.com/pricing",
+      "note": "The ledger explicitly defines these limits for the Hobby plan as 4 hours of Active CPU and 360 GB-hrs of Provisioned Memory."
+    },
+    {
+      "question": "In Vercel, what are the specific monthly usage allowances for compute-heavy tasks like Active CPU and Provisioned Memory under the free tier?",
+      "claim": "exact CPU-second or memory-hour quotas are not published as fixed static numbers",
+      "ruling": "DRIFTED",
+      "fact": "The Hobby plan includes 360 GB-hrs of Provisioned Memory.",
+      "evidenceSpan": "360 GB-hrs included",
+      "sourceUrl": "https://vercel.com/docs/pricing",
+      "note": "The ledger provides fixed static numbers for both Active CPU and Provisioned Memory."
+    },
+    {
+      "question": "In Vercel, how are image optimization and AI Gateway requests metered on the platform?",
+      "claim": "Vercel's Image Optimization is metered by Gigabytes (GB) of output data transfer",
+      "ruling": "DRIFTED",
+      "fact": "Vercel includes 5,000 image optimization transformations per month.",
+      "evidenceSpan": "Image Optimization Transformation5K / month included",
+      "sourceUrl": "https://vercel.com/pricing",
+      "note": "The ledger states image optimization is metered by the number of transformations (5,000) rather than by GB of output data transfer."
+    },
+    {
+      "question": "In Vercel, how are image optimization and AI Gateway requests metered on the platform?",
+      "claim": "AI Gateway requests are metered by the number of requests plus the volume of inference tokens",
+      "ruling": "DRIFTED",
+      "fact": "The monthly limit for AI Gateway token requests is 500.",
+      "evidenceSpan": "Token Requests500 requests / month included",
+      "sourceUrl": "https://vercel.com/pricing",
+      "note": "The ledger specifies a monthly limit for AI Gateway token requests of 500, not a metering system based on total volume of inference tokens."
+    },
+    {
+      "question": "In Vercel, how are image optimization and AI Gateway requests metered on the platform?",
+      "claim": "Both are billed based on actual consumption beyond any included free tier limits and appear as separate line items on your invoice.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding billing methods or invoice line items for these specific services."
+    }
+  ],
+  "score": 52.27272727272727,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.45454545454545453,
+  "integrityViolations": 0,
+  "warnings": [
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 6927,
+  "calls": 12,
+  "throttledMs": 0
+}

@@ -1,0 +1,219 @@
+{
+  "domain": "fly.io",
+  "scannedAt": "2026-09-12T11:56:21.407Z",
+  "pages": [
+    {
+      "url": "https://fly.io/pricing",
+      "chars": 2810,
+      "status": "OK"
+    },
+    {
+      "url": "https://fly.io/",
+      "chars": 4438,
+      "status": "OK"
+    },
+    {
+      "url": "https://fly.io/docs",
+      "chars": 726,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The monthly cost for a shared-cpu-1x machine with 256MB of RAM is $1.94.",
+      "category": "PRICING",
+      "evidenceSpan": "shared-cpu-1x · 256MB\n\n$0.0027\n\n$1.94",
+      "evidenceOffset": 342,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The cost for stored volumes is $0.15 per GB per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Volumes, per GB / month\n$0.15",
+      "evidenceOffset": 694,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The first 10GB of snapshots are free each month.",
+      "category": "PRICING",
+      "evidenceSpan": "First 10GB of snapshots free each month.",
+      "evidenceOffset": 930,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "A dedicated IPv4 address costs $2.00 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Dedicated IPv4\n$2.00 / mo",
+      "evidenceOffset": 900,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The Standard support plan costs $29 per month and includes a 36-hour first response time.",
+      "category": "PRICING",
+      "evidenceSpan": "Standard\n$29 / mo",
+      "evidenceOffset": 1367,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The Premium support plan includes a 1-hour first response time for urgent issues.",
+      "category": "PRICING",
+      "evidenceSpan": "1-hour first response for urgent issues",
+      "evidenceOffset": 1681,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The Enterprise support plan includes a 99.9% uptime SLA.",
+      "category": "PRICING",
+      "evidenceSpan": "99.9% uptime SLA",
+      "evidenceOffset": 2096,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "The HIPAA compliance package costs $99 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "HIPAA package at $99/mo",
+      "evidenceOffset": 2132,
+      "sourceUrl": "https://fly.io/pricing"
+    },
+    {
+      "statement": "Each Sprite has a disk limit of 100 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Your disk grows as you write it, up to 100 GB per Sprite",
+      "evidenceOffset": 1449,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "The Fly.io platform provides a 99.9% uptime SLA.",
+      "category": "GENERAL",
+      "evidenceSpan": "99.9%\nUptime SLA",
+      "evidenceOffset": 2717,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "Fly Machines boot in under one second.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "<1 second\nMachine boot time",
+      "evidenceOffset": 2656,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "The Sprites Block Device feature is currently in private beta.",
+      "category": "GENERAL",
+      "evidenceSpan": "Sprites Block Device is currently in private beta.",
+      "evidenceOffset": 1258,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "Fly.io operates in 18 or more regions worldwide.",
+      "category": "GENERAL",
+      "evidenceSpan": "18+\nRegions worldwide",
+      "evidenceOffset": 2631,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "The typical deployment time on Fly.io is 500ms.",
+      "category": "GENERAL",
+      "evidenceSpan": "500ms\nDeploy time, typical",
+      "evidenceOffset": 2687,
+      "sourceUrl": "https://fly.io/"
+    },
+    {
+      "statement": "Fly.io support plans start at $29 per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Plans start at $29/month",
+      "evidenceOffset": 580,
+      "sourceUrl": "https://fly.io/docs"
+    }
+  ],
+  "questions": [
+    "In Fly, what is the monthly base price for a single shared-cpu-1x machine with 256MB of RAM?",
+    "In Fly, how much do I need to pay each month if I require a dedicated IPv4 address for my application?",
+    "In Fly, what is the monthly subscription fee for the standard support tier, and what is the guaranteed response time?",
+    "In Fly, is there a monthly cost associated with enabling HIPAA compliance features on my account?"
+  ],
+  "findings": [
+    {
+      "question": "In Fly, what is the monthly base price for a single shared-cpu-1x machine with 256MB of RAM?",
+      "claim": "I am not certain about the exact current monthly base price for a 256MB shared CPU 1x machine on Fly.io, as pricing can change and depends heavily on whether you count only the base machine rate or include the separate charges for root file",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The model declined to answer — it does not know this company."
+    },
+    {
+      "question": "In Fly, how much do I need to pay each month if I require a dedicated IPv4 address for my application?",
+      "claim": "A dedicated IPv4 address on Fly.io costs $2 per month",
+      "ruling": "CONFIRMED",
+      "fact": "A dedicated IPv4 address costs $2.00 per month.",
+      "evidenceSpan": "Dedicated IPv4\n$2.00 / mo",
+      "sourceUrl": "https://fly.io/pricing",
+      "note": "The cost of $2.00 per month for a dedicated IPv4 address is explicitly confirmed."
+    },
+    {
+      "question": "In Fly, how much do I need to pay each month if I require a dedicated IPv4 address for my application?",
+      "claim": "which is billed separately from your machine's compute and bandwidth usage",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not specify how the billing for IP addresses is structured in relation to compute and bandwidth."
+    },
+    {
+      "question": "In Fly, how much do I need to pay each month if I require a dedicated IPv4 address for my application?",
+      "claim": "This fee applies to each unique IPv4 address you attach to your application.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not provide information regarding the per-instance application of this fee."
+    },
+    {
+      "question": "In Fly, how much do I need to pay each month if I require a dedicated IPv4 address for my application?",
+      "claim": "You can find this pricing listed under the \"Allocated IP\" or \"IPv4\" section of their billing page.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not describe the structure of the Fly.io billing page."
+    },
+    {
+      "question": "In Fly, what is the monthly subscription fee for the standard support tier, and what is the guaranteed response time?",
+      "claim": "I am not aware of a specific \"standard support tier\" with a fixed monthly subscription fee or guaranteed response time in Fly.io's pricing structure, as professional support offerings are typically custom-quoted based on usage and organizat",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The model declined to answer — it does not know this company."
+    },
+    {
+      "question": "In Fly, is there a monthly cost associated with enabling HIPAA compliance features on my account?",
+      "claim": "Fly.io does not offer specific 'HIPAA compliance features' as a distinct, separable paid add-on with a standalone monthly fee.",
+      "ruling": "DRIFTED",
+      "fact": "The HIPAA compliance package costs $99 per month.",
+      "evidenceSpan": "HIPAA package at $99/mo",
+      "sourceUrl": "https://fly.io/pricing",
+      "note": "The ledger explicitly lists a monthly cost of $99 for a HIPAA compliance package."
+    },
+    {
+      "question": "In Fly, is there a monthly cost associated with enabling HIPAA compliance features on my account?",
+      "claim": "There is no specific line item for a 'HIPAA compliance fee' on your invoice.",
+      "ruling": "DRIFTED",
+      "fact": "The HIPAA compliance package costs $99 per month.",
+      "evidenceSpan": "HIPAA package at $99/mo",
+      "sourceUrl": "https://fly.io/pricing",
+      "note": "The ledger indicates a $99 per month cost for the HIPAA compliance package."
+    }
+  ],
+  "score": 50,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.25,
+  "integrityViolations": 0,
+  "warnings": [
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 5588,
+  "calls": 12,
+  "throttledMs": 0
+}

@@ -1,0 +1,222 @@
+{
+  "domain": "render.com",
+  "scannedAt": "2026-09-12T11:56:10.665Z",
+  "pages": [
+    {
+      "url": "https://render.com/pricing",
+      "chars": 185,
+      "status": "OK"
+    },
+    {
+      "url": "https://render.com/docs/api",
+      "chars": 2059,
+      "status": "OK"
+    },
+    {
+      "url": "https://render.com/docs",
+      "chars": 1040,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "The Render API is described by an OpenAPI 3.0 specification.",
+      "category": "API",
+      "evidenceSpan": "The Render API is described by an OpenAPI 3.0 spec.",
+      "evidenceOffset": 1608,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "All Render API requests require authentication via API key.",
+      "category": "API",
+      "evidenceSpan": "All Render API requests require authentication via API key.",
+      "evidenceOffset": 656,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "API keys are created and managed from the Account Settings page in the Render Dashboard.",
+      "category": "API",
+      "evidenceSpan": "You create and manage API keys from your Account Settings page in the Render Dashboard:",
+      "evidenceOffset": 716,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "An API key is displayed in full only at the time of creation.",
+      "category": "API",
+      "evidenceSpan": "An API key is displayed in full only when it's created:",
+      "evidenceOffset": 805,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "A successful list services request returns a 200 response.",
+      "category": "API",
+      "evidenceSpan": "If your API key is valid, this request to the List services endpoint returns a 200 response with your service details in a JSON array.",
+      "evidenceOffset": 1304,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "Render guarantees backward compatibility for its API.",
+      "category": "API",
+      "evidenceSpan": "The API itself will maintain backward compatibility",
+      "evidenceOffset": 1838,
+      "sourceUrl": "https://render.com/docs/api"
+    },
+    {
+      "statement": "Render supports the Node.js language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Node.js",
+      "evidenceOffset": 191,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports the Python language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Python",
+      "evidenceOffset": 278,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports the Ruby language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Ruby",
+      "evidenceOffset": 480,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports the Go programming language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Go",
+      "evidenceOffset": 536,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports the Rust language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Rust",
+      "evidenceOffset": 565,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports the Elixir language.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Elixir",
+      "evidenceOffset": 587,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports PostgreSQL datastores.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "PostgreSQL",
+      "evidenceOffset": 405,
+      "sourceUrl": "https://render.com/docs"
+    },
+    {
+      "statement": "Render supports MySQL datastores.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "MySQL",
+      "evidenceOffset": 444,
+      "sourceUrl": "https://render.com/docs"
+    }
+  ],
+  "questions": [
+    "Does Render maintain consistent API behavior when updating their platform, or will I need to frequently update my integration code?",
+    "In Render, what is the procedure for authenticating requests if I want to programmatically manage my services using your API?",
+    "If I am building an application that requires a database, which specific types of managed datastores can I deploy on Render?"
+  ],
+  "findings": [
+    {
+      "question": "Does Render maintain consistent API behavior when updating their platform, or will I need to frequently update my integration code?",
+      "claim": "Render maintains a Stability Promise for its API, meaning they commit to backward compatibility and will not make breaking changes to existing endpoints without notice.",
+      "ruling": "CONFIRMED",
+      "fact": "Render guarantees backward compatibility for its API.",
+      "evidenceSpan": "The API itself will maintain backward compatibility",
+      "sourceUrl": "https://render.com/docs/api",
+      "note": "The ledger confirms that Render guarantees backward compatibility for its API."
+    },
+    {
+      "question": "Does Render maintain consistent API behavior when updating their platform, or will I need to frequently update my integration code?",
+      "claim": "They provide a deprecation period where both the old and new API versions work simultaneously, allowing you to update your integration code at your own pace.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger mentions backward compatibility but does not detail a specific deprecation period policy or dual-version support."
+    },
+    {
+      "question": "In Render, what is the procedure for authenticating requests if I want to programmatically manage my services using your API?",
+      "claim": "You must include your API Key in the Authorization header using the Bearer scheme",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger confirms authentication is required via API key but does not specify the header implementation details."
+    },
+    {
+      "question": "In Render, what is the procedure for authenticating requests if I want to programmatically manage my services using your API?",
+      "claim": "You can generate and retrieve this key from the \"API Keys\" section of your Render account dashboard.",
+      "ruling": "DRIFTED",
+      "fact": "API keys are created and managed from the Account Settings page in the Render Dashboard.",
+      "evidenceSpan": "You create and manage API keys from your Account Settings page in the Render Dashboard:",
+      "sourceUrl": "https://render.com/docs/api",
+      "note": "The ledger states API keys are managed from the Account Settings page, not an 'API Keys' section."
+    },
+    {
+      "question": "In Render, what is the procedure for authenticating requests if I want to programmatically manage my services using your API?",
+      "claim": "Ensure you treat this key with the same care as a password and store it securely in your environment variables",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not provide security best practices for key storage."
+    },
+    {
+      "question": "If I am building an application that requires a database, which specific types of managed datastores can I deploy on Render?",
+      "claim": "Render currently offers managed Google Cloud SQL PostgreSQL and Amazon RDS PostgreSQL as the specific types of datastores you can deploy.",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention Google Cloud SQL or Amazon RDS as underlying infrastructure for Render datastores."
+    },
+    {
+      "question": "If I am building an application that requires a database, which specific types of managed datastores can I deploy on Render?",
+      "claim": "Render provides an integrated Managed PostgreSQL product",
+      "ruling": "CONFIRMED",
+      "fact": "Render supports PostgreSQL datastores.",
+      "evidenceSpan": "PostgreSQL",
+      "sourceUrl": "https://render.com/docs",
+      "note": "The ledger confirms support for PostgreSQL datastores."
+    },
+    {
+      "question": "If I am building an application that requires a database, which specific types of managed datastores can I deploy on Render?",
+      "claim": "You cannot deploy standalone MySQL",
+      "ruling": "DRIFTED",
+      "fact": "Render supports MySQL datastores.",
+      "evidenceSpan": "MySQL",
+      "sourceUrl": "https://render.com/docs",
+      "note": "The ledger explicitly lists support for MySQL datastores, directly contradicting the claim that it is not supported."
+    },
+    {
+      "question": "If I am building an application that requires a database, which specific types of managed datastores can I deploy on Render?",
+      "claim": "or MongoDB through their primary managed PostgreSQL offering",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding MongoDB support."
+    }
+  ],
+  "score": 50,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.3333333333333333,
+  "integrityViolations": 1,
+  "warnings": [
+    "1 question(s) rewritten to name the company",
+    "1 question(s) dropped: question does not name the company and cannot be repaired: \"I am looking for a hosting platform that supports Elixir and Go; does \"",
+    "1 claim(s) dropped: hedge, not an assertion: \"You should still monitor their API changelog for new features and sche\""
+  ],
+  "elapsedMs": 19018,
+  "calls": 9,
+  "throttledMs": 0
+}

@@ -1,0 +1,283 @@
+{
+  "domain": "planetscale.com",
+  "scannedAt": "2026-09-12T11:55:23.316Z",
+  "pages": [
+    {
+      "url": "https://planetscale.com/pricing",
+      "chars": 4832,
+      "status": "OK"
+    },
+    {
+      "url": "https://planetscale.com/docs/neki/pricing",
+      "chars": 8739,
+      "status": "OK"
+    },
+    {
+      "url": "https://planetscale.com/docs/plans/cluster-sizing",
+      "chars": 2967,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "PlanetScale Postgres Single node plans start at $5/month.",
+      "category": "PRICING",
+      "evidenceSpan": "Single node — Starting at $5/month for development and low-traffic workloads",
+      "evidenceOffset": 1752,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "PlanetScale Postgres Metal plans start at $50/month.",
+      "category": "PRICING",
+      "evidenceSpan": "Metal — Starting at $50/month with local NVMe storage for high-performance needs",
+      "evidenceOffset": 1828,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "PlanetScale Postgres High Availability includes one primary and two replicas across three availability zones.",
+      "category": "LIMITS",
+      "evidenceSpan": "High Availability — 1 primary + 2 replicas across 3 availability zones",
+      "evidenceOffset": 1908,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "Enterprise support includes a 15-minute response time for P1 tickets.",
+      "category": "GENERAL",
+      "evidenceSpan": "Additionally, 15 minute response time for P1 tickets.",
+      "evidenceOffset": 3293,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "The Base plan requires no contract or sales interaction.",
+      "category": "GENERAL",
+      "evidenceSpan": "No contract or sales interaction required.",
+      "evidenceOffset": 1272,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "PlanetScale Postgres Metal databases include storage costs.",
+      "category": "PRICING",
+      "evidenceSpan": "Storage is included for Metal databases.",
+      "evidenceOffset": 2309,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "PlanetScale Managed deployment requires infrastructure to be deployed in an AWS or GCP account owned by the customer.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "This allows us to deploy PlanetScale into an AWS or GCP account that you own and we manage.",
+      "evidenceOffset": 2896,
+      "sourceUrl": "https://planetscale.com/pricing"
+    },
+    {
+      "statement": "Neki does not offer a single-node configuration for clusters.",
+      "category": "LIMITS",
+      "evidenceSpan": "Neki does not offer a single-node configuration.",
+      "evidenceOffset": 1495,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "The replica count for a cluster cannot be set to lower than 2.",
+      "category": "LIMITS",
+      "evidenceSpan": "You cannot set the replica count to anything lower than 2.",
+      "evidenceOffset": 2036,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "Compressed backup and WAL data above the included amount are billed at $0.023 per GB per month.",
+      "category": "PRICING",
+      "evidenceSpan": "Compressed backup data and WAL above the included amount are billed at $0.023 per GB per month.",
+      "evidenceOffset": 6023,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "Production branches receive an allowance of 100 GB of public egress traffic per month, while development branches receive 10 GB.",
+      "category": "LIMITS",
+      "evidenceSpan": "Production100 GB per monthDevelopment10 GB per month",
+      "evidenceOffset": 6522,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "AWS PrivateLink and GCP Private Service Connect traffic is billed at $0.01 per GB.",
+      "category": "PRICING",
+      "evidenceSpan": "AWS PrivateLink and GCP Private Service Connect traffic — ingress and egress — is billed at $0.01 per GB, regardless of region.",
+      "evidenceOffset": 6591,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "Each branch includes backup storage equal to twice the allocated disk on that branch.",
+      "category": "LIMITS",
+      "evidenceSpan": "Each branch includes backup storage equal to twice the allocated disk on that branch.",
+      "evidenceOffset": 5862,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "The highly available SKU rate covers one primary and two replicas.",
+      "category": "PRICING",
+      "evidenceSpan": "The highly available SKU rate covers one primary and two replicas.",
+      "evidenceOffset": 1544,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "Public ingress traffic is free.",
+      "category": "PRICING",
+      "evidenceSpan": "Public ingress is free.",
+      "evidenceOffset": 6466,
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing"
+    },
+    {
+      "statement": "Each PlanetScale production database branch includes two replicas.",
+      "category": "LIMITS",
+      "evidenceSpan": "each database comes with a production branch with two replicas",
+      "evidenceOffset": 1491,
+      "sourceUrl": "https://planetscale.com/docs/plans/cluster-sizing"
+    },
+    {
+      "statement": "Vitess databases on PlanetScale include 1,440 hours of development branches.",
+      "category": "LIMITS",
+      "evidenceSpan": "Vitess databases include 1,440 hours worth of development branches.",
+      "evidenceOffset": 1555,
+      "sourceUrl": "https://planetscale.com/docs/plans/cluster-sizing"
+    },
+    {
+      "statement": "Users can create sharded Vitess keyspaces on any PlanetScale plan.",
+      "category": "GENERAL",
+      "evidenceSpan": "You can create sharded Vitess keyspaces on any plan",
+      "evidenceOffset": 2522,
+      "sourceUrl": "https://planetscale.com/docs/plans/cluster-sizing"
+    },
+    {
+      "statement": "PlanetScale allows users to upsize or downsize their database clusters from within the dashboard.",
+      "category": "GENERAL",
+      "evidenceSpan": "You can easily upsize and downsize your database cluster from within the PlanetScale dashboard.",
+      "evidenceOffset": 0,
+      "sourceUrl": "https://planetscale.com/docs/plans/cluster-sizing"
+    }
+  ],
+  "questions": [
+    "In Planetscale, what is the minimum monthly cost to get started with a single node database configuration?",
+    "In Planetscale, is there a limit on how much public egress traffic is included for my production branch each month?",
+    "In Planetscale, do I need to speak with a sales representative or sign a contract to begin using the Base plan?",
+    "In Planetscale, can I modify the size of my database cluster directly through the user interface if my requirements change?"
+  ],
+  "findings": [
+    {
+      "question": "In Planetscale, what is the minimum monthly cost to get started with a single node database configuration?",
+      "claim": "Planetscale's pricing is not transparently listed as a simple \"minimum monthly cost\"",
+      "ruling": "DRIFTED",
+      "fact": "PlanetScale Postgres Single node plans start at $5/month.",
+      "evidenceSpan": "Single node — Starting at $5/month for development and low-traffic workloads",
+      "sourceUrl": "https://planetscale.com/pricing",
+      "note": "The ledger explicitly states that single node plans start at $5/month."
+    },
+    {
+      "question": "In Planetscale, what is the minimum monthly cost to get started with a single node database configuration?",
+      "claim": "There is no standard public \"starting price\" for a single-node production database",
+      "ruling": "DRIFTED",
+      "fact": "PlanetScale Postgres Single node plans start at $5/month.",
+      "evidenceSpan": "Single node — Starting at $5/month for development and low-traffic workloads",
+      "sourceUrl": "https://planetscale.com/pricing",
+      "note": "The ledger identifies a specific public starting price of $5/month for single node plans."
+    },
+    {
+      "question": "In Planetscale, what is the minimum monthly cost to get started with a single node database configuration?",
+      "claim": "it primarily operates on a business model that often involves custom quotes or trials",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information about the company's business model or requirements for custom quotes."
+    },
+    {
+      "question": "In Planetscale, what is the minimum monthly cost to get started with a single node database configuration?",
+      "claim": "The Free Tier is available for development purposes but is limited to a single 5GB database",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention a Free Tier or specific storage limits for a free plan."
+    },
+    {
+      "question": "In Planetscale, is there a limit on how much public egress traffic is included for my production branch each month?",
+      "claim": "I'm not certain about the exact monthly egress limit, but according to PlanetScale's documentation, the Free plan includes 1 GB of public egress traffic per month for production branches, while paid business plans (like Business) typically include 10 GB.",
+      "ruling": "DRIFTED",
+      "fact": "Production branches receive an allowance of 100 GB of public egress traffic per month, while development branches receive 10 GB.",
+      "evidenceSpan": "Production100 GB per monthDevelopment10 GB per month",
+      "sourceUrl": "https://planetscale.com/docs/neki/pricing",
+      "note": "The ledger states production branches receive 100 GB of egress traffic, not 1 GB or 10 GB."
+    },
+    {
+      "question": "In Planetscale, is there a limit on how much public egress traffic is included for my production branch each month?",
+      "claim": "If your usage exceeds these limits, additional traffic is billed at a rate of approximately $0.15 per gigabyte.",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not mention a $0.15 per GB egress overage fee."
+    },
+    {
+      "question": "In Planetscale, do I need to speak with a sales representative or sign a contract to begin using the Base plan?",
+      "claim": "You do not need to speak with a sales representative or sign a contract to begin using the Base plan.",
+      "ruling": "CONFIRMED",
+      "fact": "The Base plan requires no contract or sales interaction.",
+      "evidenceSpan": "No contract or sales interaction required.",
+      "sourceUrl": "https://planetscale.com/pricing",
+      "note": "The ledger confirms that the Base plan requires no contract or sales interaction."
+    },
+    {
+      "question": "In Planetscale, do I need to speak with a sales representative or sign a contract to begin using the Base plan?",
+      "claim": "The Base plan is a self-service tier that allows you to sign up online and provision your first cluster immediately for free.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not contain information regarding sign-up processes or free provisioning."
+    },
+    {
+      "question": "In Planetscale, do I need to speak with a sales representative or sign a contract to begin using the Base plan?",
+      "claim": "You are not required to provide billing information upfront, and the plan includes a free tier with a 30-day trial for paid features before any charges apply.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not mention billing requirements or trial periods."
+    },
+    {
+      "question": "In Planetscale, can I modify the size of my database cluster directly through the user interface if my requirements change?",
+      "claim": "you can modify your cluster size (tier) directly through the Planetscale web console.",
+      "ruling": "CONFIRMED",
+      "fact": "PlanetScale allows users to upsize or downsize their database clusters from within the dashboard.",
+      "evidenceSpan": "You can easily upsize and downsize your database cluster from within the PlanetScale dashboard.",
+      "sourceUrl": "https://planetscale.com/docs/plans/cluster-sizing",
+      "note": "The ledger confirms users can upsize or downsize their database clusters from within the dashboard."
+    },
+    {
+      "question": "In Planetscale, can I modify the size of my database cluster directly through the user interface if my requirements change?",
+      "claim": "Navigate to the \"Database\" tab of your cluster, select \"Change tier,\" and choose the desired size (e.g., Medium, Large) to apply the update.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not contain information regarding specific UI navigation paths or tier naming conventions like Medium or Large."
+    },
+    {
+      "question": "In Planetscale, can I modify the size of my database cluster directly through the user interface if my requirements change?",
+      "claim": "This change takes effect immediately, and billing is prorated based on the new tier's hourly rate.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger does not address the timing of the change or the specifics of the billing proration policy."
+    }
+  ],
+  "score": 47.916666666666664,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.3333333333333333,
+  "integrityViolations": 0,
+  "warnings": [
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 8627,
+  "calls": 12,
+  "throttledMs": 0
+}

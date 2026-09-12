@@ -1,0 +1,197 @@
+{
+  "domain": "github.com",
+  "scannedAt": "2026-09-12T11:56:54.157Z",
+  "pages": [
+    {
+      "url": "https://github.com/pricing",
+      "chars": 2116,
+      "status": "OK"
+    },
+    {
+      "url": "https://github.com/",
+      "chars": 1629,
+      "status": "OK"
+    },
+    {
+      "url": "https://github.com/features",
+      "chars": 9621,
+      "status": "OK"
+    }
+  ],
+  "facts": [
+    {
+      "statement": "GitHub scales with teams of any size in any industry, from startups to enterprises.",
+      "category": "GENERAL",
+      "evidenceSpan": "From startups to enterprises, GitHub scales with teams of any size in any industry.",
+      "evidenceOffset": 1546,
+      "sourceUrl": "https://github.com/"
+    },
+    {
+      "statement": "GitHub Copilot Autofix can generate automatic fixes for 90% of alert types in JavaScript, TypeScript, Java, and Python.",
+      "category": "API",
+      "evidenceSpan": "generate automatic fixes for 90% of alert types in JavaScript, TypeScript, Java, and Python.",
+      "evidenceOffset": 3195,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "Security campaigns can generate autofixes for up to 1,000 alerts at a time.",
+      "category": "LIMITS",
+      "evidenceSpan": "generate autofixes for up to 1,000 alerts at a time",
+      "evidenceOffset": 3477,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "GitHub-hosted runners provide environments for Linux, macOS, Windows, ARM, and GPU.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "on-demand Linux, macOS, Windows, ARM, and GPU environments",
+      "evidenceOffset": 2231,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "Team sync supports integration with Entra ID and Okta identity providers.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "including Entra ID and Okta.",
+      "evidenceOffset": 6866,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "GitHub Desktop is a GUI tool that allows users to visualize, commit, and push changes without using the command line.",
+      "category": "GENERAL",
+      "evidenceSpan": "Simplify your development workflow with a GUI to visualize, commit, and push changes—no command line needed.",
+      "evidenceOffset": 5100,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "GitHub offers access via desktop applications, mobile applications, and command line interface.",
+      "category": "COMPATIBILITY",
+      "evidenceSpan": "Access GitHub anywhere: On Desktop, Mobile, and Command Line.",
+      "evidenceOffset": 4727,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "Code scanning uses CodeQL to find vulnerabilities in code.",
+      "category": "GENERAL",
+      "evidenceSpan": "Find vulnerabilities in your code with CodeQL, GitHub’s industry-leading semantic code analysis.",
+      "evidenceOffset": 2957,
+      "sourceUrl": "https://github.com/features"
+    },
+    {
+      "statement": "GitHub allows private vulnerability reporting in public repositories to enable community-based collaboration on solutions.",
+      "category": "GENERAL",
+      "evidenceSpan": "Enable your public repository to privately receive vulnerability reports from the community and collaborate on solutions.",
+      "evidenceOffset": 4404,
+      "sourceUrl": "https://github.com/features"
+    }
+  ],
+  "questions": [
+    "In Github, what are the maximum number of security alerts that can be processed at once when using automated fix features?",
+    "In Github, which identity management providers are officially supported for synchronizing team access?",
+    "In Github, does the automated code fixing tool support all programming languages or are there specific ones it is compatible with?",
+    "In Github, what operating system environments are available for use with hosted runner configurations?"
+  ],
+  "findings": [
+    {
+      "question": "In Github, what are the maximum number of security alerts that can be processed at once when using automated fix features?",
+      "claim": "I am unsure of the exact current numerical limit for batch processing security alerts",
+      "ruling": "DRIFTED",
+      "fact": "Security campaigns can generate autofixes for up to 1,000 alerts at a time.",
+      "evidenceSpan": "generate autofixes for up to 1,000 alerts at a time",
+      "sourceUrl": "https://github.com/features",
+      "note": "The ledger explicitly states that security campaigns can generate autofixes for up to 1,000 alerts at a time."
+    },
+    {
+      "question": "In Github, what are the maximum number of security alerts that can be processed at once when using automated fix features?",
+      "claim": "the precise maximum number of alerts processed simultaneously is not a widely published static figure in my knowledge base",
+      "ruling": "DRIFTED",
+      "fact": "Security campaigns can generate autofixes for up to 1,000 alerts at a time.",
+      "evidenceSpan": "generate autofixes for up to 1,000 alerts at a time",
+      "sourceUrl": "https://github.com/features",
+      "note": "The ledger provides a specific, static limit of 1,000 alerts for security campaigns."
+    },
+    {
+      "question": "In Github, which identity management providers are officially supported for synchronizing team access?",
+      "claim": "GitHub does not natively synchronize team-level access, permissions, or member rosters directly from third-party Identity Providers (IdP)",
+      "ruling": "DRIFTED",
+      "fact": "Team sync supports integration with Entra ID and Okta identity providers.",
+      "evidenceSpan": "including Entra ID and Okta.",
+      "sourceUrl": "https://github.com/features",
+      "note": "The ledger explicitly states that team sync supports integration with Entra ID and Okta identity providers."
+    },
+    {
+      "question": "In Github, which identity management providers are officially supported for synchronizing team access?",
+      "claim": "As of 2026, GitHub does not natively synchronize team-level access",
+      "ruling": "FABRICATED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger provides no information regarding future dates like 2026."
+    },
+    {
+      "question": "In Github, which identity management providers are officially supported for synchronizing team access?",
+      "claim": "Organizations using GitHub Enterprise Server on their own infrastructure may leverage OpenID Connect (OIDC) for authenticating machine identities",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding OpenID Connect or machine identity authentication."
+    },
+    {
+      "question": "In Github, does the automated code fixing tool support all programming languages or are there specific ones it is compatible with?",
+      "claim": "Copilot Autofix currently supports Python, JavaScript, and TypeScript.",
+      "ruling": "DRIFTED",
+      "fact": "GitHub Copilot Autofix can generate automatic fixes for 90% of alert types in JavaScript, TypeScript, Java, and Python.",
+      "evidenceSpan": "generate automatic fixes for 90% of alert types in JavaScript, TypeScript, Java, and Python.",
+      "sourceUrl": "https://github.com/features",
+      "note": "The ledger explicitly lists four supported languages including Java, whereas the assistant omits Java."
+    },
+    {
+      "question": "In Github, does the automated code fixing tool support all programming languages or are there specific ones it is compatible with?",
+      "claim": "It works specifically with pull requests that have failing GitHub Advanced Security code scanning alerts.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not mention specific integration with pull requests or the requirement for GHAS alerts."
+    },
+    {
+      "question": "In Github, does the automated code fixing tool support all programming languages or are there specific ones it is compatible with?",
+      "claim": "The feature is not available for every programming language, as its compatibility is tied to the specific rule packs available in GitHub Advanced Security.",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The ledger mentions language support but does not explain the technical mechanism of rule packs."
+    },
+    {
+      "question": "In Github, what operating system environments are available for use with hosted runner configurations?",
+      "claim": "GitHub's default hosted runners are available on Ubuntu, macOS, and Windows operating systems.",
+      "ruling": "DRIFTED",
+      "fact": "GitHub-hosted runners provide environments for Linux, macOS, Windows, ARM, and GPU.",
+      "evidenceSpan": "on-demand Linux, macOS, Windows, ARM, and GPU environments",
+      "sourceUrl": "https://github.com/features",
+      "note": "The ledger specifies that GitHub-hosted runners include support for Linux, macOS, Windows, ARM, and GPU, omitting several options."
+    },
+    {
+      "question": "In Github, what operating system environments are available for use with hosted runner configurations?",
+      "claim": "Users can also bring their own runners running on self-hosted capabilities, though these are not considered \"hosted.\"",
+      "ruling": "UNSUPPORTED",
+      "fact": null,
+      "evidenceSpan": null,
+      "sourceUrl": null,
+      "note": "The provided ledger does not contain information regarding self-hosted runners."
+    }
+  ],
+  "score": 32.5,
+  "unreliable": false,
+  "failedAnswers": 0,
+  "wrongShare": 0.6,
+  "integrityViolations": 0,
+  "warnings": [
+    "No usable sitemap — discovering pages from homepage links.",
+    "1 URL(s) skipped because robots.txt disallows them.",
+    "4 question(s) rewritten to name the company"
+  ],
+  "elapsedMs": 6675,
+  "calls": 12,
+  "throttledMs": 0
+}
